@@ -32,10 +32,11 @@ fetch("https://api.omega.classquiz.tn/v2/students", requestOptions)
     <Box
       sx={{
         backgroundImage: `url(${background})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
+        backgroundRepeat: 'repeat',
+        backgroundPosition: 'cover',
         backgroundSize: 'cover',
-        height: '100vh',
+        height: '100%',
+        minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
       }}

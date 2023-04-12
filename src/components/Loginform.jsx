@@ -1,24 +1,20 @@
-import React from 'react';
-// import { makeStyles, ThemeProvider } from '@mui/styles';
-// import { createTheme } from "@mui/material/styles"
-
-import Button from '@mui/material/Button';
-import background from '../images/background.png';
-import { useTheme, Typography, DialogContentText } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import Header from './Header';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 import {
-  FormControl,
-  TextField,
   Box,
   Dialog,
-  DialogTitle,
-  DialogContent,
   DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  FormControl,
+  TextField,
+  Typography,
 } from '@mui/material';
+import Button from '@mui/material/Button';
 import '../App.css';
-import { Stack } from 'react-bootstrap';
+import background from '../images/background.png';
+import Header from './Header';
 
 function MyCustomLabel(props) {
   return (
@@ -36,9 +32,33 @@ function MyCustomLabel(props) {
 }
 
 function Login() {
-  //  const classes = useStyles();
-  //  const { palette } = useTheme();
+  const [PasswordError, setPasswordError] = useState('');
+  const [PasswordBorderColor, setPasswordBorderColor] = useState('#707070');
+  const { login} = useAuth();
+  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const status = await login(usertel, password);
+    if (status === 200) {
+      handleLogin();
+    } else {
+      setPasswordError('نسيت كلمة السّر');
+      setPasswordBorderColor('red');
+    }
+  };; 
 
+  const handleLogin = async () => {
+    try {
+      await login(usertel, password);
+      // Redirect to children page if login is successful
+    } catch (error) {
+      console.error('Error:', error);
+      setPasswordError('نسيت كلمة السّر');
+      setPasswordBorderColor('red');
+    }
+  };
+  
+  
   // popup
   const [open, setOpen] = useState(false);
 
@@ -53,75 +73,24 @@ function Login() {
   // dialogcode
   const [showDialogcode, setShowDialogcode] = useState(false);
 
-  const [passwordError, setPasswordError] = useState('');
-  const [passwordBorderColor, setPasswordBorderColor] = useState('#707070');
-
   const [showDialog, setShowDialog] = useState(false);
 
   const handleForgotPasswordClick = () => {
     setShowDialog(true); // Show the dialog
   };
+  const [usertel, setUserTel] = useState('');
+  const [password, setPassword] = useState('');
+  // const { setUserTel, setPassword } = useAuth();
 
-  const [usertel, setUsertel] = useState('');
-  const [password, SetPassword] = useState('');
-  const [message, setMessage] = useState('');
   const handleInputChange = event => {
     console.log(event.target.value);
-    setUsertel(event.target.value);
+    setUserTel(event.target.value);
   };
 
-  const handleSubmit = event => {
-    event.preventDefault();
 
-    // retrieve the both values
-    const formData = new FormData(event.target);
-    const usertel = formData.get('usertel');
-    const password = formData.get('password');
-    console.log(formData);
 
-    // handle form submission here
-    // Make API call
-
-    fetch('https://api.omega.classquiz.tn/v2/auth/login', {
-      method: 'POST',
-      // body: formData,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: usertel,
-        password: password,
-      }),
-    })
-      .then(response => response.json())
-
-      .then(data => {
-        if (
-          data.message === 'login_failed' ||
-          data.message === 'The given data was invalid.'
-        ) {
-          setPasswordError('نسيت كلمة السّر');
-          setPasswordBorderColor('red');
-        } else {
-          setMessage('Login successful!');
-          console.log('login success');
-          console.log(window.location.hostname);
-          localStorage.setItem('token',data.token.token)
-          localStorage.setItem('user',JSON.stringify(data.user))
-        }
-      })
-
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  };
   return (
     <div className="">
-      {/* <h1>Login Page</h1>
-        <Typography component="h4" sx={{ color: palette.secondary.main, fontWeight: 600 }}>
-          Login page
-       </Typography> */}
-
       <Box
         sx={{
           backgroundImage: `url(${background})`,
@@ -191,14 +160,15 @@ function Login() {
                 id="password"
                 name="password"
                 onChange={event => {
-                  SetPassword(event.target.value);
+                  setPassword(event.target.value);
+                  // console.log(event.target.value);
                   setPasswordError('');
                   setPasswordBorderColor('#707070');
                 }}
                 // value={password}
                 InputProps={{
                   sx: {
-                    border: `2px solid ${passwordBorderColor}`,
+                    border: `2px solid ${PasswordBorderColor}`,
                     borderRadius: '10px',
                     marginBottom: '20px',
                     borderColor: 'theme.palette.secondary.grey',
@@ -210,35 +180,40 @@ function Login() {
                 autoComplete="current-password"
               />
 
-              {passwordError && (
+              {PasswordError && (
                 <span onClick={() => setShowDialog(true)}>
                   <Typography
                     variant="body2"
                     color="error"
                     justifyContent="space-between"
                   >
-                    {passwordError}
+                    {PasswordError}
                   </Typography>
                 </span>
               )}
 
               {showDialog && (
                 <Dialog
-                  sx={{ display: 'flex',flexDirection:'column', justifyContent: 'center' ,'& .MuiDialogContent-root': {
-                    textAlign: 'center',
-                  },
-                  '@media (max-width: 600px)': {
-                    '& .MuiDialogTitle-root, & .MuiDialogActions-root': {
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    '& .MuiDialogContent-root': {
                       textAlign: 'center',
-                    }},
-                 }}
+                    },
+                    '@media (max-width: 600px)': {
+                      '& .MuiDialogTitle-root, & .MuiDialogActions-root': {
+                        textAlign: 'center',
+                      },
+                    },
+                  }}
                   onClose={() => setShowDialog(false)}
                   open={showDialog}
                 >
-                  <DialogTitle >
+                  <DialogTitle>
                     تمّ إرسال رمز تأكيد إلى رقم هاتفك تحتاج استعماله ككلمة مرور
                   </DialogTitle>
-                  <DialogContent >
+                  <DialogContent>
                     <DialogContentText>
                       سيتصل بك فريق الدعم في أقرب وقت ممكن لمتابعة عملية
                       الإشتراك
@@ -259,8 +234,7 @@ function Login() {
                         height: '35px',
                         borderRadius: '10px',
                         color: 'white',
-                        
-                        
+
                         // mr: {
                         //   xs: 'auto',
                         //   sm: '130px',

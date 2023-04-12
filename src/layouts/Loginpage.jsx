@@ -1,20 +1,13 @@
-import React from "react";
-import Header from "../components/Header";
+import React from 'react';
 import '../App.css';
-import Loginform from "../components/Loginform"
- 
-
+import Loginform from '../components/Loginform';
 
 function Login() {
- return (
+  return (
+    <div>
+      <Loginform />
+    </div>
+  );
+}
 
-  <div>  
-    
-    <Loginform/>
-  </div>
- )
-  
-  }
-  
-  export default Login;
-  
+export default Login;
