@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import axios from 'axios';
 import {
   Box,
   Dialog,
@@ -32,11 +33,74 @@ function MyCustomLabel(props) {
 }
 
 function Login() {
+ 
   const [PasswordError, setPasswordError] = useState('');
   const [PasswordBorderColor, setPasswordBorderColor] = useState('#707070');
-  const { login} = useAuth();
+
   
-  const handleSubmit = async (event) => {
+  const [showDialogcode, setShowDialogcode] = useState(false);
+
+  const [showDialog, setShowDialog] = useState(false);
+
+  const [usertel, setUserTel] = useState('');
+  const [password, setPassword] = useState('');
+  const [token, setToken] = useState('');
+  const { login } = useAuth();
+
+  const handleSendSms = async () => {
+    setShowDialog(false);
+    setShowDialogcode(true);
+    try {
+      const response = await axios.post(
+        'https://api.omega.classquiz.tn/v2/password/create',
+        { username: usertel }
+      );
+      // Perform necessary actions with the response, e.g. check for success, store data in state, etc.
+      console.log('SMS sent successfully:', response.data);
+    } catch (error) {
+      // Handle error from API call, e.g. show error message, etc.
+      console.error('Failed to send SMS:', error);
+    }
+  };
+
+  
+    // try {
+    //   const response = await axios.put(
+    //     'https://api.omega.classquiz.tn/v2/password/reset',
+    //     { username: usertel, password: password, token: token }
+    //   );
+
+    //   console.log('Password updated successfully :', response.data);
+    // } catch (error) {
+    //   console.error('Failed to update password:', error);
+    // }
+    const handleUpdatePassword = () => {
+      setShowDialogcode(false)
+      const data = JSON.stringify({
+        username: usertel,
+        token: token,
+        password: token,
+      });
+  
+      const config = {
+        method: 'put',
+        url: 'https://api.omega.classquiz.tn/v2/password/reset',
+        headers: { 'Content-Type': 'application/json' },
+        data: data,
+      };
+  
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+  
+
+  const handleSubmit = async event => {
     event.preventDefault();
     const status = await login(usertel, password);
     if (status === 200) {
@@ -45,7 +109,7 @@ function Login() {
       setPasswordError('نسيت كلمة السّر');
       setPasswordBorderColor('red');
     }
-  };; 
+  };
 
   const handleLogin = async () => {
     try {
@@ -57,8 +121,7 @@ function Login() {
       setPasswordBorderColor('red');
     }
   };
-  
-  
+
   // popup
   const [open, setOpen] = useState(false);
 
@@ -71,23 +134,17 @@ function Login() {
   };
 
   // dialogcode
-  const [showDialogcode, setShowDialogcode] = useState(false);
 
-  const [showDialog, setShowDialog] = useState(false);
 
-  const handleForgotPasswordClick = () => {
-    setShowDialog(true); // Show the dialog
+  const handleInputChangePsswd = event => {
+    console.log(event.target.value);
+    setToken(event.target.value);
   };
-  const [usertel, setUserTel] = useState('');
-  const [password, setPassword] = useState('');
-  // const { setUserTel, setPassword } = useAuth();
 
   const handleInputChange = event => {
     console.log(event.target.value);
     setUserTel(event.target.value);
   };
-
-
 
   return (
     <div className="">
@@ -181,7 +238,11 @@ function Login() {
               />
 
               {PasswordError && (
-                <span onClick={() => setShowDialog(true)}>
+                <span
+                  onClick={() => {
+                    setShowDialog(true);
+                  }}
+                >
                   <Typography
                     variant="body2"
                     color="error"
@@ -198,6 +259,7 @@ function Login() {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
+                    alignItems:'center',
                     '& .MuiDialogContent-root': {
                       textAlign: 'center',
                     },
@@ -211,7 +273,7 @@ function Login() {
                   open={showDialog}
                 >
                   <DialogTitle>
-                    تمّ إرسال رمز تأكيد إلى رقم هاتفك تحتاج استعماله ككلمة مرور
+                    سيتم إرسال رمز تأكيد إلى رقم هاتفك تحتاج استعماله ككلمة مرور
                   </DialogTitle>
                   <DialogContent>
                     <DialogContentText>
@@ -219,11 +281,24 @@ function Login() {
                       الإشتراك
                     </DialogContentText>
                   </DialogContent>
-                  <DialogActions>
+                  <DialogActions  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems:'center',
+                    '& .MuiDialogContent-root': {
+                      textAlign: 'center',
+                    },
+                    '@media (max-width: 600px)': {
+                      '& .MuiDialogTitle-root, & .MuiDialogActions-root': {
+                        textAlign: 'center',
+                      },
+                    },
+                  }}>
                     <Button
                       onClick={() => {
-                        setShowDialog(false);
-                        setShowDialogcode(true);
+                   
+                        handleSendSms();
                       }}
                       type="submit"
                       sx={{
@@ -234,15 +309,9 @@ function Login() {
                         height: '35px',
                         borderRadius: '10px',
                         color: 'white',
-
-                        // mr: {
-                        //   xs: 'auto',
-                        //   sm: '130px',
-                        // },
-                        // mb: '15px',
                       }}
                     >
-                      <span>أنا موافق</span>
+                      أنا موافق
                     </Button>
                   </DialogActions>
                 </Dialog>
@@ -263,13 +332,23 @@ function Login() {
                   </DialogTitle>
                   <DialogContent sx={{ alignSelf: 'center' }}>
                     <DialogContentText>
-                      <input type="number" placeholder="code PIN" />
+                      <input
+                        type="number"
+                        placeholder="code PIN"
+                        onChange={(e)=> setToken(e.target.value)}
+                        // defaultvalue={CodePin}
+                      />
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
                     <Button
-                      onClick={() => setShowDialogcode(false)}
+                      onClick={() => {
+                        
+                        handleUpdatePassword();
+                      }}
                       type="submit"
+                      id="token"
+                      name="token"
                       sx={{
                         background:
                           'linear-gradient(to bottom right, #1CC3CB, #67D5D7)',

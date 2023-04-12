@@ -5,7 +5,6 @@ import Childlist from '../components/Childlist';
 import background from '../images/background.png';
 
 export default function Children() {
-  const [user, setUser] = useState(null);
   const [children, setChildren] = useState([]);
   useEffect(function () {
   

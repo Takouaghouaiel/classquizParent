@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
-
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -29,14 +29,12 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    
   },
   toolbar: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    
   },
   avatar: {
     width: theme.spacing(7),
@@ -57,13 +55,16 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
               xs: 'none',
               sm: 'flex',
             },
-            width: 300,
+        width: 300,
       }}
     >
-      <Stack 
-        sx={{height: '100%',
-        width: drawerWidth,
-        background: 'linear-gradient(to bottom right, #1CC3CB, #67D5D7)', color:'white'}}
+      <Stack
+        sx={{
+          height: '100%',
+          width: drawerWidth,
+          background: 'linear-gradient(to bottom right, #1CC3CB, #67D5D7)',
+          color: 'white',
+        }}
       >
         <Box className={classes.toolbar}>
           <Avatar
@@ -112,14 +113,17 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                   },
                 }}
               >
+                  
                 <ListItemIcon>
                   <ChildProgressIcon />
                 </ListItemIcon>
+                <NavLink to="/dashboard/advancement" activeclassname="active" style={{ textDecoration: 'none' ,color:'inherit'}}>
                 <ListItemText
                   primaryTypographyProps={{ variant: 'h5' }}
                   primary="تقدم طفلك"
-                  sx={{ paddingLeft: '25%' }}
+                 
                 />
+               </NavLink>
               </ListItem>
 
               <ListItem
@@ -135,11 +139,12 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                 <ListItemIcon>
                   <UnderstandingIcon />
                 </ListItemIcon>
+                <NavLink to="/dashboard/behaviours" style={{ textDecoration: 'none' ,color:'inherit'}}>
                 <ListItemText
                   primaryTypographyProps={{ variant: 'h5' }}
                   primary="دراسة السلوك"
-                  sx={{ paddingLeft: '25%' }}
                 />
+                </NavLink>
               </ListItem>
 
               <ListItem
@@ -153,13 +158,16 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                 }}
               >
                 <ListItemIcon>
+                
                   <InjezIcon />
                 </ListItemIcon>
+                <NavLink to="/dashboard/achievement" style={{ textDecoration: 'none' ,color:'inherit'}}>
                 <ListItemText
                   sx={{ paddingLeft: '30%' }}
                   primaryTypographyProps={{ variant: 'h5' }}
                   primary="الإنجازات "
                 />
+                </NavLink>
               </ListItem>
               <ListItem
                 button
@@ -174,11 +182,13 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                 <ListItemIcon>
                   <Subscription />
                 </ListItemIcon>
+                <NavLink to="/dashboard/subscription" style={{ textDecoration: 'none' ,color:'inherit'}}>
                 <ListItemText
                   sx={{ paddingLeft: '30%' }}
                   primaryTypographyProps={{ variant: 'h5' }}
                   primary="العروض "
                 />
+                </NavLink>
               </ListItem>
 
               <ListItem
@@ -194,11 +204,13 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                 <ListItemIcon>
                   <ContactIcon />
                 </ListItemIcon>
+                <NavLink to="/dashboard/support" style={{ textDecoration: 'none' ,color:'inherit'}}>
                 <ListItemText
                   primaryTypographyProps={{ variant: 'h5' }}
                   primary="دعم العملاء"
-                  sx={{ paddingLeft: '25%' }}
+                 
                 />
+                </NavLink>
               </ListItem>
             </List>
             <List>

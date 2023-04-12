@@ -1,7 +1,6 @@
 import React from 'react';
 import GroupsIcon from '@mui/icons-material/Groups';
 import { Card, CardContent, CardMedia, Typography, Grid } from '@mui/material';
-import Child from '../images/child.png';
 import { Box } from '@mui/system';
 import  Add_child from '/src/images/add_child.svg';
 

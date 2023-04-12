@@ -2,8 +2,10 @@ import * as React from 'react';
 import { createContext, useState, useContext} from 'react';
 import { useNavigate } from 'react-router';
 const AuthContext = createContext(null);
+import axios from 'axios';
 
 export default function AuthProvider({ children }) {
+
   const [PasswordError, setPasswordError] = useState('');
   const [PasswordBorderColor, setPasswordBorderColor] = useState('#707070');
   const [message, setMessage] = useState(''); 

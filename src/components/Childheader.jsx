@@ -1,25 +1,47 @@
 import React, { useState } from 'react';
-import { Drawer, IconButton } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import {  IconButton } from '@mui/material';
 import { AppBar, Toolbar, Typography, Avatar, Box } from '@mui/material';
 import logo from '/src/images/logo.png';
 import styled from '@emotion/styled';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useAuth } from '../context/AuthContext';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
 const StyleAppBar = styled(AppBar)({
   backgroundColor: '#FFFFFF',
   boxShadow: '0px 0px 5px #00000059',
   opacity: 1,
 });
+const useStyles = makeStyles((theme) => ({
+  avatar: {
+    cursor: 'pointer',
+  },
+}));
+
+
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {zq
+    setAnchorEl(null);
+  };
+  const handleLogout = () => {
+    // Implement your logout logic here
+    console.log('Logout clicked');
+    handleMenuClose();
+  };
 
 const Header = ({onToggleDrawer}) => {
-  // const toggleDrawer = (isOpen) => (event) => {
-  //   if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-  //     return;
-  //   }
-  //   setOpen(isOpen);
-  // };
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
   const { loginData } = useAuth();
   const fullName = loginData?.user?.fullName;
+
+  
   return (
     <StyleAppBar position="static">
       <Toolbar
@@ -59,7 +81,18 @@ const Header = ({onToggleDrawer}) => {
             order: { xs: 3, sm: 'initial' },
           }}
         >
-          <Avatar alt="" src="/avatar.png" />
+          <Avatar className={classes.avatar}
+        alt="User Avatar"
+        src="avatar.jpg"
+        onClick={handleMenuOpen} />
+        <Menu
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      </Menu>
         </Box>
         {/* Add a media query for maximum width 768px */}
         <Box
