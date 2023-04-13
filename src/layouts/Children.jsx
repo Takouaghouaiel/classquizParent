@@ -4,7 +4,10 @@ import Childheader from '../components/Childheader';
 import Childlist from '../components/Childlist';
 import background from '../images/background.png';
 
+
 export default function Children() {
+
+ 
   const [children, setChildren] = useState([]);
   useEffect(function () {
   

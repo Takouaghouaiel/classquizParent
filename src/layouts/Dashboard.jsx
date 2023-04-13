@@ -3,7 +3,17 @@ import Childheader from '../components/Childheader';
 import Sidebar from '../components/Sidebar';
 import { Box, Stack } from '@mui/material';
 import { Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useAcheivement } from '../context/AcheivementContext';
+import { useParams } from 'react-router-dom';
 function Dashboard() {
+  const { getStudentDetails } = useAcheivement();
+
+  const {studentId} =  useParams()
+  useEffect(()=>{
+    getStudentDetails(studentId)
+     },[])
+
   const [isDrawerOpen, toggleDrawer] = useState(false);
 
   const handleDrawerToggle = () => {

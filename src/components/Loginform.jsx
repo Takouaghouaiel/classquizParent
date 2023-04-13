@@ -63,17 +63,7 @@ function Login() {
     }
   };
 
-  
-    // try {
-    //   const response = await axios.put(
-    //     'https://api.omega.classquiz.tn/v2/password/reset',
-    //     { username: usertel, password: password, token: token }
-    //   );
 
-    //   console.log('Password updated successfully :', response.data);
-    // } catch (error) {
-    //   console.error('Failed to update password:', error);
-    // }
     const handleUpdatePassword = () => {
       setShowDialogcode(false)
       const data = JSON.stringify({

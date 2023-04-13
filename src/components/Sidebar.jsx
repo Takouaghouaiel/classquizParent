@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAcheivement } from '../context/AcheivementContext';
 import { NavLink } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
 import List from '@mui/material/List';
@@ -7,6 +8,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import { Box, ListItemSecondaryAction, Stack } from '@mui/material';
+import { useParams } from 'react-router-dom';
 import {
   InjezIcon,
   StarSvg,
@@ -46,6 +48,11 @@ const useStyles = makeStyles(theme => ({
 function Sidebar({ handleLogout, isSideBarOpen }) {
   const classes = useStyles();
 
+  const {studentId} = useParams()
+
+
+  const {totalStars,stars, student}= useAcheivement();
+
   return (
     <Box
       sx={{
@@ -69,7 +76,7 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
         <Box className={classes.toolbar}>
           <Avatar
             alt="User Avatar"
-            src="/static/images/avatar/1.jpg"
+            src={student?.avatar?.urlPath}
             className={classes.avatar}
           />
         </Box>
@@ -87,9 +94,10 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                 <div sx={{ display: 'flex', alignItems: 'center' }}>
                   <ListItemText
                     primaryTypographyProps={{ variant: 'h6' }}
-                    primary="foulen fouleni"
+                    primary={student?.fullName}
                     secondaryTypographyProps={{ variant: 'subtitle1' }}
-                    secondary="80/100"
+                    secondary={`${stars}/${totalStars}`}
+
                   />
                   <ListItemSecondaryAction
                     sx={{ marginTop: '11%', marginRight: '30%' }}
@@ -117,7 +125,7 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                 <ListItemIcon>
                   <ChildProgressIcon />
                 </ListItemIcon>
-                <NavLink to="/dashboard/advancement" activeclassname="active" style={{ textDecoration: 'none' ,color:'inherit'}}>
+                <NavLink to={`/dashboard/${studentId}/advancement`} activeclassname="active" style={{ textDecoration: 'none' ,color:'inherit'}}>
                 <ListItemText
                   primaryTypographyProps={{ variant: 'h5' }}
                   primary="تقدم طفلك"
@@ -139,7 +147,7 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                 <ListItemIcon>
                   <UnderstandingIcon />
                 </ListItemIcon>
-                <NavLink to="/dashboard/behaviours" style={{ textDecoration: 'none' ,color:'inherit'}}>
+                <NavLink to={`/dashboard/${studentId}/behaviours`} style={{ textDecoration: 'none' ,color:'inherit'}}>
                 <ListItemText
                   primaryTypographyProps={{ variant: 'h5' }}
                   primary="دراسة السلوك"
@@ -155,13 +163,15 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                       'linear-gradient(to bottom right, #a0e9ea, #5ae0e4)',
                     cursor: 'pointer',
                   },
+                  
                 }}
+              
               >
                 <ListItemIcon>
                 
                   <InjezIcon />
                 </ListItemIcon>
-                <NavLink to="/dashboard/achievement" style={{ textDecoration: 'none' ,color:'inherit'}}>
+                <NavLink to={`/dashboard/${studentId}/achievement`} style={{ textDecoration: 'none' ,color:'inherit'}}>
                 <ListItemText
                   sx={{ paddingLeft: '30%' }}
                   primaryTypographyProps={{ variant: 'h5' }}
@@ -182,7 +192,7 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                 <ListItemIcon>
                   <Subscription />
                 </ListItemIcon>
-                <NavLink to="/dashboard/subscription" style={{ textDecoration: 'none' ,color:'inherit'}}>
+                <NavLink to={`/dashboard/${studentId}/subscription`} style={{ textDecoration: 'none' ,color:'inherit'}}>
                 <ListItemText
                   sx={{ paddingLeft: '30%' }}
                   primaryTypographyProps={{ variant: 'h5' }}
@@ -204,7 +214,7 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                 <ListItemIcon>
                   <ContactIcon />
                 </ListItemIcon>
-                <NavLink to="/dashboard/support" style={{ textDecoration: 'none' ,color:'inherit'}}>
+                <NavLink to={`/dashboard/${studentId}/support`} style={{ textDecoration: 'none' ,color:'inherit'}}>
                 <ListItemText
                   primaryTypographyProps={{ variant: 'h5' }}
                   primary="دعم العملاء"

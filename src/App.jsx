@@ -8,11 +8,12 @@ import Home from './layouts/Home';
 import Children from './layouts/Children';
 import Dashboard from './layouts/Dashboard';
 import AuthProvider from './context/AuthContext';
-import DashboardAchievement from './components/DashboardAchievement'
-import DashboardSupport from './components/DashboardSupport'
-import DashboardAdvancement  from './components/DashboardAdvancement'
+import AcheivementProvider from './context/AcheivementContext';
+import DashboardAchievement from './components/DashboardAchievement';
+import DashboardSupport from './components/DashboardSupport';
+import DashboardAdvancement from './components/DashboardAdvancement';
 import DashboardBehaviours from './components/DashboardBehaviours';
-import DashboardSubscription from './components/DashboardSubscription'
+import DashboardSubscription from './components/DashboardSubscription';
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -20,18 +21,26 @@ function App() {
 
       <Router>
         <AuthProvider>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/children" element={<Children />} />
-          <Route path="/dashboard" element={<Dashboard />}>
-              <Route path="advancement" element={<DashboardAdvancement />} />
-              <Route path="achievement" element={<DashboardAchievement />} />
-              <Route path="support" element={<DashboardSupport />} />
-              <Route path="behaviours" element={<DashboardBehaviours />} />
-              <Route path="subscription" element={<DashboardSubscription />} />
-            </Route>
-          </Routes>
+          <AcheivementProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/children" element={<Children />} />
+
+              <Route path="/dashboard/:studentId" element={<Dashboard />}>
+                <Route path="advancement" element={<DashboardAdvancement />} />
+
+                <Route path="achievement" element={<DashboardAchievement />} />
+
+                <Route path="support" element={<DashboardSupport />} />
+                <Route path="behaviours" element={<DashboardBehaviours />} />
+                <Route
+                  path="subscription"
+                  element={<DashboardSubscription />}
+                />
+              </Route>
+            </Routes>
+          </AcheivementProvider>
         </AuthProvider>
       </Router>
     </ThemeProvider>

@@ -1,11 +1,12 @@
 import React from 'react';
 import GroupsIcon from '@mui/icons-material/Groups';
-import { Card, CardContent, CardMedia, Typography, Grid } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Grid ,ButtonBase} from '@mui/material';
 import { Box } from '@mui/system';
 import  Add_child from '/src/images/add_child.svg';
-
+import { useNavigate } from 'react-router-dom';
 
 const List = ({childrenList}) => {
+  const navigate =useNavigate();
   return (
     <div
       style={{
@@ -25,8 +26,12 @@ const List = ({childrenList}) => {
       <Grid container spacing={3} justifyContent="center" border="10">
         {childrenList.map(child => (
           <Grid item key={child.id}>
-    <Card sx={{ maxWidth: 345 ,border: '3px solid #1CC3CB' ,cursor:'pointer' }}>
-
+    <Card sx={{ maxWidth: 345 ,border: '3px solid #1CC3CB' ,cursor:'pointer' }} >
+    <ButtonBase
+    onClick={
+   ()=>{navigate('/dashboard/'+child.id + '/advancement')}
+    }
+      >
 
               <CardMedia
               
@@ -40,6 +45,7 @@ const List = ({childrenList}) => {
                   {child.fullName}
                 </Typography>
               </CardContent>
+              </ButtonBase>
             </Card>
           </Grid>
         ))}
