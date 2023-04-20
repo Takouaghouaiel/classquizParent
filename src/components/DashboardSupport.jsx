@@ -1,7 +1,15 @@
-import * as React from 'react';
-import { TextField, Button, InputBase } from '@mui/material';
+import React, { useState } from 'react';
 import Stack from '@mui/material/Stack';
 import { makeStyles } from 'tss-react/mui';
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
+  InputBase,
+} from '@mui/material';
 
 const useStyles = makeStyles()(theme => {
   return {
@@ -17,6 +25,17 @@ const useStyles = makeStyles()(theme => {
 
 function DashboardSupport() {
   const { classes } = useStyles();
+
+  // popup
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const [email, setEmail] = React.useState('');
   const [message, setMessage] = React.useState('');
@@ -64,7 +83,6 @@ function DashboardSupport() {
             style={{ width: '80%' }}
             inputProps={{ dir: 'rtl' }}
             className={classes.inputbase}
-           
           />
           <Button
             variant="contained"
@@ -77,9 +95,67 @@ function DashboardSupport() {
               height: '100%',
               borderRadius: '10px',
             }}
+            onClick={handleOpen}
           >
             إرسال
           </Button>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              '& .MuiDialogContent-root': {
+                textAlign: 'center',
+              },
+              '@media (max-width: 600px)': {
+                '& .MuiDialogTitle-root, & .MuiDialogActions-root': {
+                  textAlign: 'center',
+                },
+              },
+            }}
+          >
+            <DialogTitle>لقد تم إرسال الرسالة بنجاح</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+              شكرا على الثقة
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                '& .MuiDialogContent-root': {
+                  textAlign: 'center',
+                },
+                '@media (max-width: 600px)': {
+                  '& .MuiDialogTitle-root, & .MuiDialogActions-root': {
+                    textAlign: 'center',
+                  },
+                },
+              }}
+            >
+              <Button
+                type="submit"
+                sx={{
+                  alignSelf: 'center',
+                  background:
+                    'linear-gradient(to bottom right, #1CC3CB, #67D5D7)',
+                  width: '200px',
+                  height: '35px',
+                  borderRadius: '10px',
+                  color: 'white',
+                }}
+                onClick={handleClose}
+              >
+                رجوع
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Stack>
       </div>
     </form>

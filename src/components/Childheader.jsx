@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@mui/styles';
-import {  IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { AppBar, Toolbar, Typography, Avatar, Box } from '@mui/material';
 import logo from '/src/images/logo.png';
 import styled from '@emotion/styled';
@@ -8,25 +8,32 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useAuth } from '../context/AuthContext';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { useNavigate } from 'react-router-dom';
 
 const StyleAppBar = styled(AppBar)({
   backgroundColor: '#FFFFFF',
   boxShadow: '0px 0px 5px #00000059',
   opacity: 1,
 });
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   avatar: {
     cursor: 'pointer',
   },
 }));
 
+const Header = ({ onToggleDrawer }) => {
+  const classes = useStyles();
 
+ const navigate=useNavigate();
 
-  const handleMenuOpen = (event) => {
+  const { loginData } = useAuth();
+  const fullName = loginData?.user?.fullName;
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleMenuOpen = event => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuClose = () => {zq
+  const handleMenuClose = () => {
     setAnchorEl(null);
   };
   const handleLogout = () => {
@@ -34,14 +41,17 @@ const useStyles = makeStyles((theme) => ({
     console.log('Logout clicked');
     handleMenuClose();
   };
+  const handleparentUpdate = () => {
+    // Implement your update logic here
+    console.log('update clicked');
+    
+      navigate('/UpdateParent/');
+    
 
-const Header = ({onToggleDrawer}) => {
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const { loginData } = useAuth();
-  const fullName = loginData?.user?.fullName;
+    handleMenuClose();
 
-  
+  };
+
   return (
     <StyleAppBar position="static">
       <Toolbar
@@ -81,18 +91,25 @@ const Header = ({onToggleDrawer}) => {
             order: { xs: 3, sm: 'initial' },
           }}
         >
-          <Avatar className={classes.avatar}
-        alt="User Avatar"
-        src="avatar.jpg"
-        onClick={handleMenuOpen} />
-        <Menu
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
-      >
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-      </Menu>
+          <Avatar
+            className={classes.avatar}
+            alt="User Avatar"
+            src="avatar.jpg"
+            onClick={handleMenuOpen}
+          />
+          <Menu
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+          >
+            <MenuItem onClick={handleparentUpdate}>إعدادات الحساب</MenuItem>
+           
+            <MenuItem onClick={handleLogout} sx={{ color: 'red' }}>
+              تسجيل الخروج
+            </MenuItem>
+          </Menu>
+         
         </Box>
         {/* Add a media query for maximum width 768px */}
         <Box
@@ -107,6 +124,10 @@ const Header = ({onToggleDrawer}) => {
         </Box>
       </Toolbar>
     </StyleAppBar>
+   
+
+   
+    
   );
 };
 

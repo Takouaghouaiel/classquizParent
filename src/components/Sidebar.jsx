@@ -7,7 +7,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
-import { Box, ListItemSecondaryAction, Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import {
   InjezIcon,
@@ -19,6 +19,7 @@ import {
   Subscription,
 } from '.././components/icons/sidebaricons';
 import '../fonts/fonts.css';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 300;
 
@@ -38,20 +39,14 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  avatar: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
-    margin: theme.spacing(8),
-  },
 }));
 
 function Sidebar({ handleLogout, isSideBarOpen }) {
   const classes = useStyles();
+  const navigate = useNavigate();
+  const { studentId } = useParams();
 
-  const {studentId} = useParams()
-
-
-  const {totalStars,stars, student}= useAcheivement();
+  const { totalStars, stars, student } = useAcheivement();
 
   return (
     <Box
@@ -77,7 +72,7 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
           <Avatar
             alt="User Avatar"
             src={student?.avatar?.urlPath}
-            className={classes.avatar}
+            style={{ width: '150px', height: '150px', margin: '20%' }}
           />
         </Box>
         <Box dir="rtl">
@@ -91,20 +86,21 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
           >
             <Box sx={{ alignSelf: 'center' }}>
               <ListItem>
-                <div sx={{ display: 'flex', alignItems: 'center' }}>
-                  <ListItemText
-                    primaryTypographyProps={{ variant: 'h6' }}
-                    primary={student?.fullName}
-                    secondaryTypographyProps={{ variant: 'subtitle1' }}
-                    secondary={`${stars}/${totalStars}`}
-
-                  />
-                  <ListItemSecondaryAction
-                    sx={{ marginTop: '11%', marginRight: '30%' }}
-                  >
-                    <StarSvg />
-                  </ListItemSecondaryAction>
-                </div>
+                <ListItemText
+                  primaryTypographyProps={{ variant: 'h5' }}
+                  primary={student?.fullName}
+                  secondaryTypographyProps={{ variant: 'h6' ,color:'white'}}
+                  secondary={
+                    <Box sx={{ display: 'flex', alignItems: 'center',justifyContent:'space-between',flexDirection:'row' }}>
+                    <React.Fragment>
+                      {`${stars}/${totalStars}`}
+                      <Box sx={{marginTop:'10%',marginRight:'10%'}}>
+                      <StarSvg  />
+                      </Box>
+                    </React.Fragment>
+                  </Box>
+                  }
+                />
               </ListItem>
             </Box>
             <List>
@@ -121,17 +117,19 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                   },
                 }}
               >
-                  
                 <ListItemIcon>
                   <ChildProgressIcon />
                 </ListItemIcon>
-                <NavLink to={`/dashboard/${studentId}/advancement`} activeclassname="active" style={{ textDecoration: 'none' ,color:'inherit'}}>
-                <ListItemText
-                  primaryTypographyProps={{ variant: 'h5' }}
-                  primary="تقدم طفلك"
-                 
-                />
-               </NavLink>
+                <NavLink
+                  to={`/dashboard/${studentId}/advancement`}
+                  activeclassname="active"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <ListItemText
+                    primaryTypographyProps={{ variant: 'h5' }}
+                    primary="تقدم طفلك"
+                  />
+                </NavLink>
               </ListItem>
 
               <ListItem
@@ -147,11 +145,14 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                 <ListItemIcon>
                   <UnderstandingIcon />
                 </ListItemIcon>
-                <NavLink to={`/dashboard/${studentId}/behaviours`} style={{ textDecoration: 'none' ,color:'inherit'}}>
-                <ListItemText
-                  primaryTypographyProps={{ variant: 'h5' }}
-                  primary="دراسة السلوك"
-                />
+                <NavLink
+                  to={`/dashboard/${studentId}/behaviours`}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <ListItemText
+                    primaryTypographyProps={{ variant: 'h5' }}
+                    primary="دراسة السلوك"
+                  />
                 </NavLink>
               </ListItem>
 
@@ -163,20 +164,20 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                       'linear-gradient(to bottom right, #a0e9ea, #5ae0e4)',
                     cursor: 'pointer',
                   },
-                  
                 }}
-              
               >
                 <ListItemIcon>
-                
                   <InjezIcon />
                 </ListItemIcon>
-                <NavLink to={`/dashboard/${studentId}/achievement`} style={{ textDecoration: 'none' ,color:'inherit'}}>
-                <ListItemText
-                  sx={{ paddingLeft: '30%' }}
-                  primaryTypographyProps={{ variant: 'h5' }}
-                  primary="الإنجازات "
-                />
+                <NavLink
+                  to={`/dashboard/${studentId}/achievement`}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <ListItemText
+                    sx={{ paddingLeft: '30%' }}
+                    primaryTypographyProps={{ variant: 'h5' }}
+                    primary="الإنجازات "
+                  />
                 </NavLink>
               </ListItem>
               <ListItem
@@ -192,12 +193,15 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                 <ListItemIcon>
                   <Subscription />
                 </ListItemIcon>
-                <NavLink to={`/dashboard/${studentId}/subscription`} style={{ textDecoration: 'none' ,color:'inherit'}}>
-                <ListItemText
-                  sx={{ paddingLeft: '30%' }}
-                  primaryTypographyProps={{ variant: 'h5' }}
-                  primary="العروض "
-                />
+                <NavLink
+                  to={`/dashboard/${studentId}/subscription`}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <ListItemText
+                    sx={{ paddingLeft: '30%' }}
+                    primaryTypographyProps={{ variant: 'h5' }}
+                    primary="العروض "
+                  />
                 </NavLink>
               </ListItem>
 
@@ -214,17 +218,21 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                 <ListItemIcon>
                   <ContactIcon />
                 </ListItemIcon>
-                <NavLink to={`/dashboard/${studentId}/support`} style={{ textDecoration: 'none' ,color:'inherit'}}>
-                <ListItemText
-                  primaryTypographyProps={{ variant: 'h5' }}
-                  primary="دعم العملاء"
-                 
-                />
+                <NavLink
+                  to={`/dashboard/${studentId}/support`}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <ListItemText
+                    primaryTypographyProps={{ variant: 'h5' }}
+                    primary="دعم العملاء"
+                  />
                 </NavLink>
               </ListItem>
             </List>
             <List>
-              <ListItem onClick={handleLogout}>
+              <ListItem   onClick={() => {
+                    navigate('/children/');
+                  }}>
                 <ListItemIcon>
                   <ExitIcon />
                 </ListItemIcon>

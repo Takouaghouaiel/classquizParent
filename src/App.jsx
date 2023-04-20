@@ -4,7 +4,7 @@ import Login from './layouts/Loginpage';
 import './App.css';
 import { theme } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import Home from './layouts/Home';
+import AuthGuard from './Guards/AuthGuard';
 import Children from './layouts/Children';
 import Dashboard from './layouts/Dashboard';
 import AuthProvider from './context/AuthContext';
@@ -14,6 +14,7 @@ import DashboardSupport from './components/DashboardSupport';
 import DashboardAdvancement from './components/DashboardAdvancement';
 import DashboardBehaviours from './components/DashboardBehaviours';
 import DashboardSubscription from './components/DashboardSubscription';
+import UpdateParent from './layouts/UpdateParent';
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -23,8 +24,9 @@ function App() {
         <AuthProvider>
           <AcheivementProvider>
             <Routes>
-              <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
+              <Route path="UpdateParent" element={<UpdateParent />} />
+                    {/* Use AuthGuard to protect routes that require authentication */}
               <Route path="/children" element={<Children />} />
 
               <Route path="/dashboard/:studentId" element={<Dashboard />}>
@@ -33,7 +35,9 @@ function App() {
                 <Route path="achievement" element={<DashboardAchievement />} />
 
                 <Route path="support" element={<DashboardSupport />} />
+               
                 <Route path="behaviours" element={<DashboardBehaviours />} />
+               
                 <Route
                   path="subscription"
                   element={<DashboardSubscription />}

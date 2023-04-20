@@ -5,7 +5,6 @@ import cookies from '../images/cookies.png'
 import Money from '../images/money.png'
 import Star from '../images/star.png'
 import Session from '../images/Session.png';
-import { useEffect } from 'react';
 import { useAcheivement } from '../context/AcheivementContext';
 
 
@@ -13,12 +12,8 @@ import { useAcheivement } from '../context/AcheivementContext';
 function DashboardAchievement() {
  
   const { AcheivementData } = useAcheivement();
-  const stars = AcheivementData?.stars;
-  const totalExercises =AcheivementData?.totalExercises;
-  const coins =AcheivementData?.coins;
-  const donuts =AcheivementData?.donuts;
-  const totalTime=AcheivementData?.totalTime;
-  const cakes=AcheivementData?.cakes;
+  const { stars, totalExercises, coins, donuts, totalTime, cakes } = AcheivementData || {};
+
 
 
  

@@ -3,9 +3,7 @@ import { createContext, useState, useContext } from 'react';
 import axios from 'axios';
 
 const AcheivementContext = createContext(null);
-
 export default function AcheivementProvider({ children }) {
-
   const [AcheivementData, setAcheivementData] = useState(null);
   const [totalExercises, settotalExercises] = useState(0);
   const [donuts, setdonuts] = useState(0);
@@ -13,57 +11,54 @@ export default function AcheivementProvider({ children }) {
   const [cakes, setcakes] = useState(0);
   const [stars, setStars] = useState(0);
   const [totalStars, settotalStars] = useState(0);
-  const[totalTime,settotalTime] =useState(0);
+  const [totalTime, settotalTime] = useState(0);
+  const [student, setStudent] = useState(null);
 
-  const [student , setStudent] = useState(null)
+  const getStudentDetails = async studentId => {
+    const token = localStorage.getItem('token');
 
-
-
-
-  const getStudentDetails = async (studentId) =>{
-    const token=localStorage.getItem('token')
-
-    axios.get(`https://api.omega.classquiz.tn/v2/students/${studentId}` , 
-    {
-      headers: {
-        Accept: 'application/json',
-        Authorization:
-          'Bearer '+token,
-      },
-    })
-.then(res=>{
-  setStudent({
-    ...res.data
-  })
-}).catch(err=>{
-  console.log(err);
-})
- achievements(studentId)
-  }
-  const achievements = async (studentId) => {
+    axios
+      .get(`https://api.omega.classquiz.tn/v2/students/${studentId}`, {
+        headers: {
+          Accept: 'application/json',
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then(res => {
+        setStudent({
+          ...res.data,
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    achievements(studentId);
+  };
+  const achievements = async studentId => {
     try {
-      const token=localStorage.getItem('token')
+      const token = localStorage.getItem('token');
       const response = await axios.get(
-        'https://api.omega.classquiz.tn/v2/students/'+studentId+'/achievements',
+        'https://api.omega.classquiz.tn/v2/students/' +
+          studentId +
+          '/achievements',
         {
           headers: {
             Accept: 'application/json',
-            Authorization:
-              'Bearer '+token,
+            Authorization: 'Bearer ' + token,
           },
         }
       );
       if (response.status === 200) {
         const data = response.data;
-   
 
         setAcheivementData(data);
         setStars(data.stars);
-        settotalStars(data.totalStars)
-        settotalExercises(data.totalExercises)
-        setdonuts(data.donuts)
-        setcoins(data.coins)
-        settotalTime(data.totalTime)
+        settotalStars(data.totalStars);
+        settotalExercises(data.totalExercises);
+        setdonuts(data.donuts);
+        setcakes(data.cakes);
+        setcoins(data.coins);
+        settotalTime(data.totalTime);
 
         console.log(response.data);
         return 'success Acheivement';
@@ -72,7 +67,6 @@ export default function AcheivementProvider({ children }) {
       } else {
         throw new Error(`Unexpected response status: ${response.status}`);
       }
-    
     } catch (error) {
       console.log(error);
     }
@@ -82,24 +76,17 @@ export default function AcheivementProvider({ children }) {
     <AcheivementContext.Provider
       value={{
         totalExercises,
-        settotalExercises,
         donuts,
-        setdonuts,
         coins,
-        setcoins,
         cakes,
-        setcakes,
         stars,
-        setStars,
         totalStars,
-        settotalStars,
         totalTime,
-        settotalTime,
         achievements,
         AcheivementData,
         setAcheivementData,
         student,
-        getStudentDetails
+        getStudentDetails,
       }}
     >
       {children}
