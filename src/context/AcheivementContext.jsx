@@ -60,7 +60,7 @@ export default function AcheivementProvider({ children }) {
         setcoins(data.coins);
         settotalTime(data.totalTime);
 
-        console.log(response.data);
+        // console.log(response.data);
         return 'success Acheivement';
       } else if (response.status === 401) {
         throw new Error('Failure Acheivement');

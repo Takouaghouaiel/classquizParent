@@ -15,6 +15,8 @@ import DashboardAdvancement from './components/DashboardAdvancement';
 import DashboardBehaviours from './components/DashboardBehaviours';
 import DashboardSubscription from './components/DashboardSubscription';
 import UpdateParent from './layouts/UpdateParent';
+import GuestGuard from './Guards/GuestGuard';
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -24,12 +26,13 @@ function App() {
         <AuthProvider>
           <AcheivementProvider>
             <Routes>
-              <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<GuestGuard><Login /></GuestGuard>} />
+
               <Route path="UpdateParent" element={<UpdateParent />} />
                     {/* Use AuthGuard to protect routes that require authentication */}
-              <Route path="/children" element={<Children />} />
+              <Route path="/children" element={<AuthGuard><Children /></AuthGuard>} />
 
-              <Route path="/dashboard/:studentId" element={<Dashboard />}>
+              <Route path="/dashboard/:studentId" element={<AuthGuard><Dashboard /></AuthGuard>}>
                 <Route path="advancement" element={<DashboardAdvancement />} />
 
                 <Route path="achievement" element={<DashboardAchievement />} />

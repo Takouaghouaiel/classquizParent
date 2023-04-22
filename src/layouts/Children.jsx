@@ -12,7 +12,7 @@ export default function Children() {
   useEffect(function () {
   
    let token= localStorage.getItem('token')
-   console.log('ici token',token)
+   
    var myHeaders = new Headers();
 myHeaders.append("Accept", "application/json");
 myHeaders.append("Authorization", "Bearer " +token)

@@ -49,18 +49,46 @@ export default function AuthProvider({ children }) {
       return 'error';
     }
   };
+
   const logout = async () => {
-    // make API call to logout the user
-    // ...
-    // once logged out, set the user to null
-    setUser(null);
-    navigateTo('/');
-    
+    try {
+      const token =localStorage.getItem('token')
+      const response = await fetch('https://api.omega.classquiz.tn/v2/auth/logout', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer`+token // add the access token to the header
+        }
+      });
+  
+      if (response.status === 200) {
+       // remove token from local storage
+        localStorage.removeItem('token'); 
+        localStorage.removeItem('user');
+        navigateTo('/login/');
+        window.location.reload(); 
+      } else {
+        throw new Error(`Unexpected response status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
-const isAuthenticated = () => !!user;
+  
+
+  const refreshState = (updatedUser)=>{
+    localStorage.setItem('user', JSON.stringify(updatedUser))
+    setUser(updatedUser)
+  }
+  React.useEffect(()=>{
+    const connectedUser = JSON.parse(localStorage.getItem('user'))
+    setUser(connectedUser) ; 
+  },[])
+
   return (
     <AuthContext.Provider
       value={{
+        logout,
         setLoginData,
         loginData,
         user,
@@ -73,6 +101,7 @@ const isAuthenticated = () => !!user;
         setPasswordBorderColor,
         setMessage,
         message,
+        refreshState
       }}
     >
       {children}

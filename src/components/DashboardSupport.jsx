@@ -9,6 +9,7 @@ import {
   DialogTitle,
   Button,
   InputBase,
+  TextField
 } from '@mui/material';
 
 const useStyles = makeStyles()(theme => {
@@ -61,18 +62,18 @@ function DashboardSupport() {
           spacing={3}
           width="70%"
         >
-          <InputBase
+          <TextField
             direction="rtl"
             placeholder="البريد الإلكتروني "
             value={email}
             type="email"
             onChange={event => setEmail(event.target.value)}
             fullWidth
-            style={{ width: '70%' }}
+            style={{ width: '70%',background:'white' }}
             inputProps={{ dir: 'rtl' }}
             className={classes.inputbase}
           />
-          <InputBase
+          <TextField
             placeholder="أكتب رسالة "
             value={message}
             onChange={event => setMessage(event.target.value)}
@@ -80,7 +81,7 @@ function DashboardSupport() {
             type="text"
             rows={4}
             fullWidth
-            style={{ width: '80%' }}
+            style={{ width: '80%',background:'white' }}
             inputProps={{ dir: 'rtl' }}
             className={classes.inputbase}
           />

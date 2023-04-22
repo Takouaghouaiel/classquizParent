@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAcheivement } from '../context/AcheivementContext';
 import { NavLink } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop:'-4vh'
   },
 }));
 
@@ -66,9 +67,10 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
           width: drawerWidth,
           background: 'linear-gradient(to bottom right, #1CC3CB, #67D5D7)',
           color: 'white',
+      
         }}
       >
-        <Box className={classes.toolbar}>
+        <Box className={classes.toolbar} >
           <Avatar
             alt="User Avatar"
             src={student?.avatar?.urlPath}
@@ -85,13 +87,14 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
             }}
           >
             <Box sx={{ alignSelf: 'center' }}>
-              <ListItem>
+              <ListItem sx={{ marginTop:'-8vh',}}>
                 <ListItemText
+               
                   primaryTypographyProps={{ variant: 'h5' }}
                   primary={student?.fullName}
                   secondaryTypographyProps={{ variant: 'h6' ,color:'white'}}
                   secondary={
-                    <Box sx={{ display: 'flex', alignItems: 'center',justifyContent:'space-between',flexDirection:'row' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center',justifyContent:'space-between',flexDirection:'row',    marginTop:'-1vh' }}>
                     <React.Fragment>
                       {`${stars}/${totalStars}`}
                       <Box sx={{marginTop:'10%',marginRight:'10%'}}>
@@ -103,11 +106,13 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                 />
               </ListItem>
             </Box>
-            <List>
+            <List >
               <ListItem
+              
                 button
                 sx={{
                   display: 'flex',
+                  marginTop:'-5vh',
                   alignItems: 'center',
                   flexDirection: 'row',
                   '&:hover': {

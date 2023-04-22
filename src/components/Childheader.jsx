@@ -24,10 +24,13 @@ const useStyles = makeStyles(theme => ({
 const Header = ({ onToggleDrawer }) => {
   const classes = useStyles();
 
- const navigate=useNavigate();
-
-  const { loginData } = useAuth();
+  const navigate = useNavigate();
+  
+  const { loginData,logout } = useAuth();
   const fullName = loginData?.user?.fullName;
+
+
+
   const [anchorEl, setAnchorEl] = useState(null);
   const handleMenuOpen = event => {
     setAnchorEl(event.currentTarget);
@@ -36,20 +39,22 @@ const Header = ({ onToggleDrawer }) => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-  const handleLogout = () => {
-    // Implement your logout logic here
+  const handleLogout = async() => {
+    try {
+      await logout();
+ 
+     
+    } catch (error) {
+      console.error('Error:', error);
+    }
     console.log('Logout clicked');
     handleMenuClose();
   };
+
   const handleparentUpdate = () => {
-    // Implement your update logic here
-    console.log('update clicked');
-    
-      navigate('/UpdateParent/');
-    
+    navigate('/UpdateParent/');
 
     handleMenuClose();
-
   };
 
   return (
@@ -104,12 +109,13 @@ const Header = ({ onToggleDrawer }) => {
             onClose={handleMenuClose}
           >
             <MenuItem onClick={handleparentUpdate}>إعدادات الحساب</MenuItem>
-           
-            <MenuItem onClick={handleLogout} sx={{ color: 'red' }}>
+
+            <MenuItem 
+            onClick={handleLogout} 
+            sx={{ color: 'red' }}>
               تسجيل الخروج
             </MenuItem>
           </Menu>
-         
         </Box>
         {/* Add a media query for maximum width 768px */}
         <Box
@@ -124,10 +130,6 @@ const Header = ({ onToggleDrawer }) => {
         </Box>
       </Toolbar>
     </StyleAppBar>
-   
-
-   
-    
   );
 };
 

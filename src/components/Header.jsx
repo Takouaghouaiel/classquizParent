@@ -13,7 +13,7 @@ const Header = () => {
             
             backgroundSize: 'cover',
             backgroundPosition: 'center center',
-            // backgroundColor: theme.palette.primary.main
+          
         }
     ));
 
@@ -22,7 +22,7 @@ const Header = () => {
         
         <StyleHeader >
             <img src={logo} alt="logo" width="330px"  />
-            {/* <SearchInputEl /> */}
+      
         </StyleHeader>
     )
 }

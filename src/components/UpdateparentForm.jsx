@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Dialog,
@@ -8,12 +8,14 @@ import {
   DialogTitle,
   TextField,
   Button,
+  InputBase,
   MenuItem,
 } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { ArrowBack } from '@mui/icons-material';
 import { makeStyles } from 'tss-react/mui';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 
 const useStyles = makeStyles()(theme => {
@@ -27,50 +29,64 @@ const useStyles = makeStyles()(theme => {
     },
   };
 });
-const cities = [
-  { value: 'Tunis', label: 'تونس' },
-  { value: 'Ariana', label: 'أريانة' },
-  { value: 'Ben Arous', label: 'بن عروس' },
-  { value: 'Manouba', label: 'منوبة' },
-  { value: 'Nabeul', label: 'نابل' },
-  { value: 'Zaghouan', label: 'زغوان' },
-  { value: 'Bizerte', label: 'بنزرت' },
-  { value: 'Béja', label: 'باجة' },
-  { value: 'Jendouba', label: 'جندوبة' },
-  { value: 'Le Kef', label: 'الكاف' },
-  { value: 'Siliana', label: 'سليانة' },
-  { value: 'Sousse', label: 'سوسة' },
-  { value: 'Monastir', label: 'المنستير' },
-  { value: 'Mahdia', label: 'المهدية' },
-  { value: 'Sfax', label: 'صفاقس' },
-  { value: 'Kairouan', label: 'القيروان' },
-  { value: 'Kasserine', label: 'القصرين' },
-  { value: 'Sidi Bouzid', label: 'سيدي بوزيد' },
-  { value: 'Gabès', label: 'قابس' },
-  { value: 'Medenine', label: 'مدنين' },
-  { value: 'Tataouine', label: 'تطاوين' },
-  { value: 'Tozeur', label: 'توزر' },
-  { value: 'Kebili', label: 'قبلي' },
-  { value: 'Gafsa', label: 'قفصة' },
-];
 function UpdateparentForm() {
-  const { classes } = useStyles();
 
+  const { user: connectedUser ,refreshState} = useAuth();
+  // console.log('current user is :',connectedUser)
+  const { classes } = useStyles();
+ 
   const [email, setEmail] = React.useState('');
   const [address, setAddress] = React.useState('');
   const [phone, setPhone] = React.useState('');
   const [fullName, setfullName] = React.useState('');
-  const [city, setCity] = React.useState('');
+  const [cities, setCities] = React.useState([]);
   const [gender, setGender] = useState(null);
+  const [selectedCity, setSelectedCity] = useState({ id: "", name: "" });
+  console.log(selectedCity)
+
+  useEffect(() => {
+    setfullName(connectedUser?.fullName);
+    setEmail(connectedUser?.email);
+    setAddress(connectedUser?.address);
+    setPhone(connectedUser?.phone);
+    // setSelectedCity({ id: connectedUser?.state?.id, name: connectedUser?.state?.name });
+    setSelectedCity({ id: connectedUser?.state?.id || undefined, name: connectedUser?.state?.name || undefined });
+    setGender(connectedUser?.gender);
+  }, [connectedUser]);
+
+  const handleCities = async () => {
+    try {
+      const token = localStorage.getItem('token');
+
+      const config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: 'https://api.omega.classquiz.tn/v2/countries/1',
+        headers: {
+          Accept: 'application/json',
+          Authorization: 'Bearer ' + token,
+        },
+      };
+
+      const response = await axios.request(config);
+      const data = response.data;
+      setCities(data.states);
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  React.useEffect(() => {
+    handleCities();
+   
+  }, []);
 
 
   // popup
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
-    console.log('handleOpen triggered');
     setOpen(true);
-    
   };
 
   const handleClose = () => {
@@ -84,9 +100,14 @@ function UpdateparentForm() {
   const handleFemaleClick = () => {
     setGender('2');
   };
+ 
 
   const handleChange = event => {
-    setCity(event.target.value);
+    const city = event.target.value;
+    const cityObject = cities.find((c) => c.name === city);
+    if (cityObject) {
+      setSelectedCity(cityObject);
+    }
   };
 
   let navigate = useNavigate();
@@ -95,18 +116,19 @@ function UpdateparentForm() {
     navigate(-1);
   };
   function handleUpdate() {
-    console.log('handleUpdate triggered');
+    console.log('handleUpdate clicked')
     handleUpdateParent();
     handleOpen();
   }
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log(`Email: ${email}`);
   };
 
   const handleUpdateParent = async () => {
     const token = localStorage.getItem('token');
+
+ 
     try {
       const config = {
         method: 'post',
@@ -116,63 +138,24 @@ function UpdateparentForm() {
           Accept: 'application/json',
           Authorization: 'Bearer ' + token,
         },
-        body: JSON.stringify({
+        data: {
           fullName: fullName,
           email: email,
           phone: phone,
-          city: city,
+          stateId:selectedCity.id,
           address: address,
           gender: gender,
-        }),
+        },
       };
-      setfullName(fullName);
+    
       const response = await axios.request(config);
       console.log(JSON.stringify(response.data));
+     refreshState(response.data.user)
+
     } catch (error) {
       console.log(error);
     }
   };
-  //   const handleUpdateParent = async () => {
-  //     const token = localStorage.getItem('token');
-  //   try {
-  //     const response = await fetch('https://api.omega.classquiz.tn/v2/users', {
-
-  //       method: 'POST',
-
-  //       headers: {
-  //                Accept: 'application/json',
-  //               Authorization: 'Bearer ' + token,
-  //            },
-  //            body: JSON.stringify({
-  //                     fullName: fullName,
-  //                     email: email,
-  //                     phone: phone,
-  //                     city: city,
-  //                     address: address,
-  //                     gender: gender,
-  //                   }),
-  //     });
-
-  //     if (response.status === 200) {
-
-  //       const data = await response.json();
-
-  //       localStorage.setItem('fullName', JSON.stringify(data.fullName));
-
-  //       setfullName(data.fullName);
-  //       console.log(fullName);
-
-  //       return 'success';
-  //     } else if (response.status === 401) {
-  //       throw new Error('Unauthorized');
-  //     } else {
-  //       throw new Error(`Unexpected response status: ${response.status}`);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //     return 'error';
-  //   }
-  // };
 
   return (
     <Box>
@@ -225,7 +208,7 @@ function UpdateparentForm() {
               className={classes.inputbase}
             />
 
-            <TextField
+            <InputBase
               placeholder="البريد الإلكتروني "
               value={email}
               type="email"
@@ -246,20 +229,20 @@ function UpdateparentForm() {
               placeholder="الولاية"
               inputProps={{ dir: 'rtl' }}
               className={classes.inputbase}
-              value={city}
+              value={selectedCity.name}
               onChange={handleChange}
             >
-              {cities.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
+              {cities.map(city => (
+                <MenuItem key={city.id} value={city.name}>
+                  {city.name}
                 </MenuItem>
               ))}
             </TextField>
             <Box display="flex" justifyContent="center">
               <Button
                 style={{
-                  background: gender === '1' ? '#3BC5CA' : 'white',
-                  color: gender === '1' ? 'white' : '#3BC5CA',
+                  background: gender == '1' ? '#3BC5CA' : 'white',
+                  color: gender == '1' ? 'white' : '#3BC5CA',
                   borderRadius: '10%',
                   border: '2px solid #3BC5CA',
                 }}
@@ -270,8 +253,8 @@ function UpdateparentForm() {
 
               <Button
                 style={{
-                  background: gender === '2' ? '#3BC5CA' : 'white',
-                  color: gender === '2' ? 'white' : '#3BC5CA',
+                  background: gender == '2' ? '#3BC5CA' : 'white',
+                  color: gender == '2' ? 'white' : '#3BC5CA',
                   borderRadius: '10%',
                   border: '2px solid #3BC5CA',
                   marginLeft: '8px',
