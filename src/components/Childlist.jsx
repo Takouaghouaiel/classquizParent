@@ -1,6 +1,7 @@
 import React from 'react';
 import GroupsIcon from '@mui/icons-material/Groups';
 import {
+  Box,
   Card,
   CardContent,
   CardMedia,
@@ -8,8 +9,6 @@ import {
   Grid,
   ButtonBase,
 } from '@mui/material';
-import { Box } from '@mui/system';
-import Add_child from '/src/images/add_child.svg';
 import { useNavigate } from 'react-router-dom';
 
 const List = ({ childrenList }) => {
@@ -20,7 +19,6 @@ const List = ({ childrenList }) => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
         justifyContent: 'space-around',
       }}
     >

@@ -13,22 +13,10 @@ import {
 } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { ArrowBack } from '@mui/icons-material';
-import { makeStyles } from 'tss-react/mui';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 
-const useStyles = makeStyles()(theme => {
-  return {
-    inputbase: {
-      border: '2px solid #3BC5CA',
-      borderRadius: '10px',
-      background: 'white',
-      width: '100vh',
-      maxWidth: 400,
-    },
-  };
-});
 function UpdateparentForm() {
 
   const { user: connectedUser ,refreshState} = useAuth();
@@ -197,7 +185,11 @@ function UpdateparentForm() {
               type="text"
               onChange={event => setfullName(event.target.value)}
               inputProps={{ dir: 'rtl' }}
-              className={classes.inputbase}
+              sx={{ border: '2px solid #3BC5CA',
+              borderRadius: '10px',
+              background: 'white',
+              width: '100vh',
+              maxWidth: 400,}}
             />
             <TextField
               placeholder=" العنوان  "
@@ -205,7 +197,11 @@ function UpdateparentForm() {
               type="text"
               onChange={event => setAddress(event.target.value)}
               inputProps={{ dir: 'rtl' }}
-              className={classes.inputbase}
+              sx={{ border: '2px solid #3BC5CA',
+              borderRadius: '10px',
+              background: 'white',
+              width: '100vh',
+              maxWidth: 400,}}
             />
 
             <InputBase
@@ -214,7 +210,11 @@ function UpdateparentForm() {
               type="email"
               onChange={event => setEmail(event.target.value)}
               inputProps={{ dir: 'rtl' }}
-              className={classes.inputbase}
+              sx={{ border: '2px solid #3BC5CA',
+              borderRadius: '10px',
+              background: 'white',
+              width: '100vh',
+              maxWidth: 400,}}
             />
             <TextField
               placeholder=" رقم الهاتف  "
@@ -222,13 +222,21 @@ function UpdateparentForm() {
               type="number"
               onChange={event => setPhone(event.target.value)}
               inputProps={{ dir: 'rtl' }}
-              className={classes.inputbase}
+              sx={{ border: '2px solid #3BC5CA',
+              borderRadius: '10px',
+              background: 'white',
+              width: '100vh',
+              maxWidth: 400,}}
             />
             <TextField
               select
               placeholder="الولاية"
               inputProps={{ dir: 'rtl' }}
-              className={classes.inputbase}
+              sx={{ border: '2px solid #3BC5CA',
+              borderRadius: '10px',
+              background: 'white',
+              width: '100vh',
+              maxWidth: 400,}}
               value={selectedCity.name}
               onChange={handleChange}
             >

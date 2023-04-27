@@ -8,7 +8,7 @@ import { useAuth } from '../context/AuthContext';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
- 
+
 const StyleAppBar = styled(AppBar)({
   backgroundColor: '#FFFFFF',
   boxShadow: '0px 0px 5px #00000059',
@@ -16,13 +16,10 @@ const StyleAppBar = styled(AppBar)({
 });
 
 const Header = ({ onToggleDrawer }) => {
-
   const navigate = useNavigate();
-  
-  const { loginData,logout } = useAuth();
+
+  const { loginData, logout } = useAuth();
   const fullName = loginData?.user?.fullName;
-
-
 
   const [anchorEl, setAnchorEl] = useState(null);
   const handleMenuOpen = event => {
@@ -32,11 +29,9 @@ const Header = ({ onToggleDrawer }) => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-  const handleLogout = async() => {
+  const handleLogout = async () => {
     try {
       await logout();
- 
-     
     } catch (error) {
       console.error('Error:', error);
     }
@@ -93,8 +88,7 @@ const Header = ({ onToggleDrawer }) => {
             sx={{
               cursor: 'pointer',
             }}
-            alt="User Avatar"
-            src="avatar.jpg"
+            alt="Parent"
             onClick={handleMenuOpen}
           />
           <Menu
@@ -105,9 +99,7 @@ const Header = ({ onToggleDrawer }) => {
           >
             <MenuItem onClick={handleparentUpdate}>إعدادات الحساب</MenuItem>
 
-            <MenuItem 
-            onClick={handleLogout} 
-            sx={{ color: 'red' }}>
+            <MenuItem onClick={handleLogout} sx={{ color: 'red' }}>
               تسجيل الخروج
             </MenuItem>
           </Menu>

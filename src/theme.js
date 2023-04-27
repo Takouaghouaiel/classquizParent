@@ -7,13 +7,13 @@ export const theme = createTheme({
 
     },
     palette: {
-        primary: {
-            main: blue[500]
-        },
         secondary: {
             main: lightBlue[800],
             midNightBlue: "#003366",
-            grey:"#707070"
-        }
+            grey:"#707070",
+            myblue:'#3BC5CA',
+            white:'#FFFFFF'
+        },
+      
     }
 });

@@ -49,7 +49,7 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
         }}
       >
         <Box
-          className={{
+          sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',

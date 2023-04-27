@@ -32,7 +32,7 @@ function App() {
                     {/* Use AuthGuard to protect routes that require authentication */}
               <Route path="/children" element={<AuthGuard><Children /></AuthGuard>} />
 
-              <Route path="/dashboard/:studentId" element={<AuthGuard><Dashboard /></AuthGuard>}>
+              <Route path="/dashboard/:studentId" element={<Dashboard />}>
                 <Route path="advancement" element={<DashboardAdvancement />} />
 
                 <Route path="achievement" element={<DashboardAchievement />} />

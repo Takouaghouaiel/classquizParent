@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Stack from '@mui/material/Stack';
-import { makeStyles } from 'tss-react/mui';
 import {
   Dialog,
   DialogActions,
@@ -8,7 +7,7 @@ import {
   DialogContentText,
   DialogTitle,
   Button,
- 
+  Box,
   TextField
 } from '@mui/material';
 
@@ -37,8 +36,8 @@ function DashboardSupport() {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <div
-        style={{
+      <Box
+        sx={{ 
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -150,7 +149,7 @@ function DashboardSupport() {
             </DialogActions>
           </Dialog>
         </Stack>
-      </div>
+      </Box>
     </form>
   );
 }
