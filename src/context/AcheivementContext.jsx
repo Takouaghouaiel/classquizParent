@@ -28,6 +28,8 @@ export default function AcheivementProvider({ children }) {
         setStudent({
           ...res.data,
         });
+       
+      
       })
       .catch(err => {
         console.log(err);

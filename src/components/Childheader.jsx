@@ -1,28 +1,21 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@mui/styles';
 import { IconButton } from '@mui/material';
 import { AppBar, Toolbar, Typography, Avatar, Box } from '@mui/material';
 import logo from '/src/images/logo.png';
 import styled from '@emotion/styled';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useAuth } from '../context/AuthContext';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
-
+ 
 const StyleAppBar = styled(AppBar)({
   backgroundColor: '#FFFFFF',
   boxShadow: '0px 0px 5px #00000059',
   opacity: 1,
 });
-const useStyles = makeStyles(theme => ({
-  avatar: {
-    cursor: 'pointer',
-  },
-}));
 
 const Header = ({ onToggleDrawer }) => {
-  const classes = useStyles();
 
   const navigate = useNavigate();
   
@@ -97,7 +90,9 @@ const Header = ({ onToggleDrawer }) => {
           }}
         >
           <Avatar
-            className={classes.avatar}
+            sx={{
+              cursor: 'pointer',
+            }}
             alt="User Avatar"
             src="avatar.jpg"
             onClick={handleMenuOpen}

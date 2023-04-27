@@ -8,24 +8,14 @@ import {
   DialogContentText,
   DialogTitle,
   Button,
-  InputBase,
+ 
   TextField
 } from '@mui/material';
 
-const useStyles = makeStyles()(theme => {
-  return {
-    root: {
-      color: theme.palette.primary.main,
-    },
-    inputbase: {
-      border: '2px solid #3BC5CA',
-      borderRadius: '7px',
-    },
-  };
-});
+
 
 function DashboardSupport() {
-  const { classes } = useStyles();
+  
 
   // popup
   const [open, setOpen] = useState(false);
@@ -71,7 +61,8 @@ function DashboardSupport() {
             fullWidth
             style={{ width: '70%',background:'white' }}
             inputProps={{ dir: 'rtl' }}
-            className={classes.inputbase}
+            sx={{ border: '2px solid #3BC5CA',
+            borderRadius: '7px',}}
           />
           <TextField
             placeholder="أكتب رسالة "
@@ -83,7 +74,8 @@ function DashboardSupport() {
             fullWidth
             style={{ width: '80%',background:'white' }}
             inputProps={{ dir: 'rtl' }}
-            className={classes.inputbase}
+            sx={{ border: '2px solid #3BC5CA',
+            borderRadius: '7px',}}
           />
           <Button
             variant="contained"

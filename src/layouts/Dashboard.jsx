@@ -31,7 +31,7 @@ function Dashboard() {
           height: '100vh',
           width: '100%',
           minHeight: '100vh',
-          position: 'fixed',
+          // position: 'fixed',
         }}
       >
         <Stack sx={{ display: 'flex', minHeight: '100vh' }}>

@@ -116,7 +116,7 @@ function UpdateparentForm() {
     navigate(-1);
   };
   function handleUpdate() {
-    console.log('handleUpdate clicked')
+   
     handleUpdateParent();
     handleOpen();
   }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useAcheivement } from '../context/AcheivementContext';
 import { NavLink } from 'react-router-dom';
-import { makeStyles } from '@mui/styles';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -23,27 +22,7 @@ import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 300;
 
-const useStyles = makeStyles(theme => ({
-  drawerPaper: {
-    width: drawerWidth,
-    background: 'linear-gradient(to bottom right, #1CC3CB, #67D5D7)',
-    // where the content is displayed
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
-  toolbar: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop:'-4vh'
-  },
-}));
-
 function Sidebar({ handleLogout, isSideBarOpen }) {
-  const classes = useStyles();
   const navigate = useNavigate();
   const { studentId } = useParams();
 
@@ -67,10 +46,17 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
           width: drawerWidth,
           background: 'linear-gradient(to bottom right, #1CC3CB, #67D5D7)',
           color: 'white',
-      
         }}
       >
-        <Box className={classes.toolbar} >
+        <Box
+          className={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: '-4vh',
+          }}
+        >
           <Avatar
             alt="User Avatar"
             src={student?.avatar?.urlPath}
@@ -87,32 +73,38 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
             }}
           >
             <Box sx={{ alignSelf: 'center' }}>
-              <ListItem sx={{ marginTop:'-8vh',}}>
+              <ListItem sx={{ marginTop: '-8vh' }}>
                 <ListItemText
-               
                   primaryTypographyProps={{ variant: 'h5' }}
                   primary={student?.fullName}
-                  secondaryTypographyProps={{ variant: 'h6' ,color:'white'}}
+                  secondaryTypographyProps={{ variant: 'h6', color: 'white' }}
                   secondary={
-                    <Box sx={{ display: 'flex', alignItems: 'center',justifyContent:'space-between',flexDirection:'row',    marginTop:'-1vh' }}>
-                    <React.Fragment>
-                      {`${stars}/${totalStars}`}
-                      <Box sx={{marginTop:'10%',marginRight:'10%'}}>
-                      <StarSvg  />
-                      </Box>
-                    </React.Fragment>
-                  </Box>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        flexDirection: 'row',
+                        marginTop: '-1vh',
+                      }}
+                    >
+                      <React.Fragment>
+                        {`${stars}/${totalStars}`}
+                        <Box sx={{ marginTop: '10%', marginRight: '10%' }}>
+                          <StarSvg />
+                        </Box>
+                      </React.Fragment>
+                    </Box>
                   }
                 />
               </ListItem>
             </Box>
-            <List >
+            <List>
               <ListItem
-              
                 button
                 sx={{
                   display: 'flex',
-                  marginTop:'-5vh',
+                  marginTop: '-5vh',
                   alignItems: 'center',
                   flexDirection: 'row',
                   '&:hover': {
@@ -235,9 +227,11 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
               </ListItem>
             </List>
             <List>
-              <ListItem   onClick={() => {
-                    navigate('/children/');
-                  }}>
+              <ListItem
+                onClick={() => {
+                  navigate('/children/');
+                }}
+              >
                 <ListItemIcon>
                   <ExitIcon />
                 </ListItemIcon>
