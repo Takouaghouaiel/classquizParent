@@ -9,7 +9,15 @@ import LinearProgress, {
   linearProgressClasses,
 } from '@mui/material/LinearProgress';
 
-const SecondCardContent = ({ icon, iconn, titlle, title, UserId, level }) => {
+const SecondCardContent = ({
+  icon,
+  iconn,
+  titlle,
+  progressvalue,
+  title,
+  UserId,
+  level,
+}) => {
   return (
     <CardContent
       sx={{
@@ -29,11 +37,14 @@ const SecondCardContent = ({ icon, iconn, titlle, title, UserId, level }) => {
       </Stack>
       <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'end' }}>
         {iconn}
-        <Typography sx={{ color: 'gray' }}>{titlle}</Typography>
+        <Typography sx={{ color: 'gray' }}>
+          {titlle} {progressvalue}
+        </Typography>
       </Box>
     </CardContent>
   );
 };
+
 const styles = {
   root: {
     flexGrow: 1,
@@ -44,16 +55,16 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: '48%',
+    justifyContent: 'space-between',
+    '& > *': {
+      marginRight: 3, // add spacing between child elements
+    },
+   
   },
-  progress: {
-    padding: '8%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
+
   card: theme => ({
     display: 'flex',
+    alignItems: 'center',
     flexDirection: 'column',
     margin: theme.spacing(2),
     border: '2px solid #3BC5CA',
@@ -70,7 +81,7 @@ const styles = {
 const CardList = ({ items, scoreitems }) => {
   const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     height: 10,
-    width: '70%',
+    width: '100%',
     borderRadius: 5,
     [`&.${linearProgressClasses.colorPrimary}`]: {
       backgroundColor:
@@ -103,18 +114,19 @@ const CardList = ({ items, scoreitems }) => {
           {scoreitems.map(scoreitem => (
             <Grid item xs={12} sm={6} md={4} key={scoreitem.id}>
               <Card sx={styles.card}>
-                <Box sx={styles.progress}>
-                  <Box sx={styles.success}>
-                    {scoreitem.titlle}
+                  <Stack sx={styles.success}>
                     {scoreitem.iconn}
-                  </Box>
+                    {scoreitem.titlle}
+                    <Box sx={styles.progressValue}>
+                      <Typography sx={{fontWeight: 'bold',}}> {scoreitem.progressvalue}</Typography>
+                    </Box>
+                  </Stack>
 
-                  <BorderLinearProgress
-                    sx={{ marginLeft: '20%', marginTop: '-5%' }}
-                    variant="determinate"
-                    value={50}
-                  />
-                </Box>
+                <BorderLinearProgress
+                  variant="determinate"
+                  value={60}
+                  sx={{ width: '40%', marginBottom: '10%' }}
+                />
               </Card>
             </Grid>
           ))}

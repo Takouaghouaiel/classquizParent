@@ -2,9 +2,11 @@ import * as React from 'react';
 import IdentityCards from './IdentityCards';
 import { Box, Stack } from '@mui/material';
 import Subjectadvancement from './Subjectadvancement';
+import TrackingCharts from './TrackingCharts'
 import Avatar from '@mui/material/Avatar';
 import quizo from '../images/quizo.png';
-import Success from '../images/Success.png';
+import Star from '../images/star.png'
+import Progressicon from '../images/Progressicon.png';
 import { useAcheivement } from '../context/AcheivementContext';
 function DashboardAdvancement() {
   const { student } = useAcheivement();
@@ -41,53 +43,28 @@ function DashboardAdvancement() {
   const scoreitems = [
     {
       id: 1,
-      titlle: 'Success',
-      iconn: <img src={Success} alt="Success" width={40} />,
-      progressvalue: 'x',
+      titlle: 'نسبة التميّز',
+      iconn:<img src={Star} alt="star" width={50}/>,
+      progressvalue: '60%',
     },
     {
       id: 2,
-      titlle: 'Success',
-      iconn: <img src={Success} alt="Success" width={40} />,
-      progressvalue: 'x',
+      titlle: 'نسبة التّقدّم',
+      iconn: <img src={Progressicon} alt="Success" width={50} />,
+      progressvalue: '60%',
     },
 
-    {
-      id: 3,
-      titlle: 'Success',
-      iconn: <img src={Success} alt="Success" width={40} />,
-      progressvalue: 'x',
-    },
-
-    {
-      id: 4,
-      titlle: 'Success',
-      iconn: <img src={Success} alt="Success" width={40} />,
-      progressvalue: 'x',
-    },
-
-    {
-      id: 5,
-      titlle: 'Success',
-      iconn: <img src={Success} alt="Success" width={40} />,
-      progressvalue: 'x',
-    },
-
-    {
-      id: 6,
-      titlle: 'Success',
-      iconn: <img src={Success} alt="Success" width={40} />,
-      progressvalue: 'x',
-    },
+ 
   ];
 
   return (
     <Box>
       <IdentityCards items={items} scoreitems={scoreitems} />
       <Stack
-        sx={{ display: 'flex', flexDirection: 'col', alignItems: 'center' }}
+        sx={{ display: 'flex', flexDirection: 'col', alignItems: 'center' ,justifyContent:'space-between' }}
       >
         <Subjectadvancement />
+        <TrackingCharts/>
       </Stack>
     </Box>
   );

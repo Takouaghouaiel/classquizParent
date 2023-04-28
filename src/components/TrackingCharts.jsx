@@ -5,10 +5,11 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import Buttongroup from './Buttongroup.jsx';
+import LineChart from './LineChart.jsx';
 import SubjectChart from './SubjectChart.jsx';
-export default function Subjectadvancement() {
+export default function TrackingCharts() {
   return (
-    <Card sx={{ maxWidth: "90%" ,
+    <Card sx={{ maxWidth: "85%" ,
         display: 'flex',
         // alignItems: 'center',
         // justifyContent: 'center',
@@ -22,7 +23,7 @@ export default function Subjectadvancement() {
         
           <Buttongroup/>
           
-         <SubjectChart/>
+         <LineChart/>
         </CardContent>
       </CardActionArea>
     </Card>
