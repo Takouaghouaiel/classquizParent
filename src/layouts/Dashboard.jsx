@@ -11,10 +11,12 @@ function Dashboard() {
   
   const { getStudentDetails } = useAcheivement();
   const {getLastAchievement}= useAcheivement();
+  const {getQuizo}= useAcheivement();
   const { studentId } = useParams();
   useEffect(() => {
     getStudentDetails(studentId);
     getLastAchievement(studentId);
+    getQuizo(studentId);
   }, []);
 
   const [isDrawerOpen, toggleDrawer] = useState(false);

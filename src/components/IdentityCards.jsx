@@ -17,6 +17,8 @@ const SecondCardContent = ({
   title,
   UserId,
   level,
+  subscription,
+  index,
 }) => {
   return (
     <CardContent
@@ -32,8 +34,20 @@ const SecondCardContent = ({
       <Stack>
         {icon}
         <Typography sx={{ color: '#3BC5CA' }}>{title}</Typography>
-        <Typography sx={{ color: 'gray' }}>{UserId} </Typography>
-        <Typography sx={{ color: 'gray' }}>{level}</Typography>
+        {index === 0 && (
+          <>
+            <Typography sx={{ color: 'gray' }}>
+              المعرف الوحيد: <span style={{ color: 'orange' }}>{UserId}</span>
+            </Typography>
+            <Typography sx={{ color: 'gray' }}>
+              السنة الدراسية : <span style={{ color: 'orange' }}>{level}</span>
+            </Typography>
+            <Typography sx={{ color: 'gray' }}>
+              الإشتراك الحالي المفعّل :{' '}
+              <span style={{ color: 'orange' }}>{subscription}</span>
+            </Typography>
+          </>
+        )}
       </Stack>
       <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'end' }}>
         {iconn}
@@ -44,6 +58,7 @@ const SecondCardContent = ({
     </CardContent>
   );
 };
+
 
 const styles = {
   root: {
@@ -95,7 +110,7 @@ const CardList = ({ items, scoreitems }) => {
   return (
     <>
       <Grid container sx={styles.root}>
-        {items.map(item => (
+        {items.map((item, index) => (
           <Grid item xs={12} sm={6} md={4} key={item.id}>
             <Card sx={styles.card}>
               <SecondCardContent
@@ -103,6 +118,8 @@ const CardList = ({ items, scoreitems }) => {
                 title={item.title}
                 UserId={item.UserId}
                 level={item.level}
+                subscription={item.subscription}
+                index={index}
               />
             </Card>
           </Grid>

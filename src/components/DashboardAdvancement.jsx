@@ -5,22 +5,24 @@ import Subjectadvancement from './Subjectadvancement';
 import TrackingCharts from './TrackingCharts';
 import Lastachievement from './Lastachievement';
 import Avatar from '@mui/material/Avatar';
-import quizo from '../images/quizo.png';
 import Star from '../images/star.png'
 import Progressicon from '../images/Progressicon.png';
 import { useAcheivement } from '../context/AcheivementContext';
 function DashboardAdvancement() {
   const { student } = useAcheivement();
+  const {QuizoData} = useAcheivement();
+
   const items = [
     {
       id: 1,
       title: student?.fullName,
-      UserId: 'المعرف الوحيد : ' + (student?.id ?? ''),
-      level: 'السنة الدراسية : ' + (student?.level?.name ?? ''),
+      UserId: student?.id, 
+      level: student?.level?.name,
+      subscription:student?.placeholder,
     },
     {
       id: 2,
-      title: ' Avatar ',
+      title: ' Avatar : ' + (student?.id ?? ''),
       icon: (
         <Avatar
           alt="User Avatar"
@@ -31,12 +33,12 @@ function DashboardAdvancement() {
     },
     {
       id: 3,
-      title: '  Quizo',
+      title: ' Quizo : ' + (student?.quizoId ?? ''),
       icon: (
         <Avatar
-          alt="User Avatar"
+          alt="User Quizo"
           sx={{ width: 100, height: 100 }}
-          src={quizo}
+          src={QuizoData?.imgUrl}
         />
       ),
     },
