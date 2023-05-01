@@ -25,7 +25,6 @@ const drawerWidth = 300;
 function Sidebar({ handleLogout, isSideBarOpen }) {
   const navigate = useNavigate();
   const { studentId } = useParams();
-
   const { totalStars, stars, student } = useAcheivement();
 
   return (

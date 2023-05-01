@@ -8,11 +8,13 @@ import { useEffect } from 'react';
 import { useAcheivement } from '../context/AcheivementContext';
 import { useParams } from 'react-router-dom';
 function Dashboard() {
+  
   const { getStudentDetails } = useAcheivement();
-
+  const {getLastAchievement}= useAcheivement();
   const { studentId } = useParams();
   useEffect(() => {
     getStudentDetails(studentId);
+    getLastAchievement(studentId);
   }, []);
 
   const [isDrawerOpen, toggleDrawer] = useState(false);

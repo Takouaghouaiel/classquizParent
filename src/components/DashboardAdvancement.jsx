@@ -2,7 +2,8 @@ import * as React from 'react';
 import IdentityCards from './IdentityCards';
 import { Box, Stack } from '@mui/material';
 import Subjectadvancement from './Subjectadvancement';
-import TrackingCharts from './TrackingCharts'
+import TrackingCharts from './TrackingCharts';
+import Lastachievement from './Lastachievement';
 import Avatar from '@mui/material/Avatar';
 import quizo from '../images/quizo.png';
 import Star from '../images/star.png'
@@ -63,6 +64,7 @@ function DashboardAdvancement() {
       <Stack
         sx={{ display: 'flex', flexDirection: 'col', alignItems: 'center' ,justifyContent:'space-between' }}
       >
+        <Lastachievement/>
         <Subjectadvancement />
         <TrackingCharts/>
       </Stack>

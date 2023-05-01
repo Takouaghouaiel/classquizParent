@@ -13,6 +13,7 @@ export default function AcheivementProvider({ children }) {
   const [totalStars, settotalStars] = useState(0);
   const [totalTime, settotalTime] = useState(0);
   const [student, setStudent] = useState(null);
+  const [lastUnlockedRewardData,setlastUnlockedRewardData]=useState([]);
 
   const getStudentDetails = async studentId => {
     const token = localStorage.getItem('token');
@@ -28,13 +29,14 @@ export default function AcheivementProvider({ children }) {
         setStudent({
           ...res.data,
         });
-       
+     
       
       })
       .catch(err => {
         console.log(err);
       });
     achievements(studentId);
+
   };
   const achievements = async studentId => {
     try {
@@ -73,10 +75,44 @@ export default function AcheivementProvider({ children }) {
       console.log(error);
     }
   };
+ 
+  const getLastAchievement = async studentId =>{
+    
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(
+        'https://api.omega.classquiz.tn/v2/students/' +
+        studentId +
+        '/reward-categories/last',
+        {
+          headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token,
+          },
+        }
+      );
+      if (response.status === 200) {
+
+        const data = response.data;
+        setlastUnlockedRewardData(data);
+        
+        
+        return 'success Acheivement';
+      } else if (response.status === 401) {
+        throw new Error('Failure Acheivement');
+      } else {
+        throw new Error(`Unexpected response status: ${response.status}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  
+  }
 
   return (
     <AcheivementContext.Provider
       value={{
+      
         totalExercises,
         donuts,
         coins,
@@ -89,6 +125,8 @@ export default function AcheivementProvider({ children }) {
         setAcheivementData,
         student,
         getStudentDetails,
+        lastUnlockedRewardData,
+        getLastAchievement,
       }}
     >
       {children}
