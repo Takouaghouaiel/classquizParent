@@ -5,6 +5,7 @@ import cookies from '../images/cookies.png'
 import Money from '../images/money.png'
 import Star from '../images/star.png'
 import Session from '../images/Session.png';
+import Exercice from '../images/Exercice.png';
 import { useAcheivement } from '../context/AcheivementContext';
 
 
@@ -40,15 +41,16 @@ function DashboardAchievement() {
     {
       id: 4,
   
-      title: ' مجموع االنجوم ',
+      title: ' مجموع النجوم ',
       score: stars,
       icon:<img src={Star} alt="Star" width={50}/>,
     },
     {
       id: 5,
-      title: ' مجموع االتمارين المنجزة ',
+      title: ' مجموع التمارين المنجزة ',
       score: totalExercises,
       icon:<img src={Session} alt="Session" width={50}/>,
+      
     },
     {
       id: 6,
@@ -59,9 +61,9 @@ function DashboardAchievement() {
     
     {
       id: 7,
-      title: '  أطول حصة مقضّات',
-      score: 'x',
-      icon:<img src={Session} alt="Session" width={50}/>,
+      title:'المحاور المنجزة',
+      score:AcheivementData?.finishedChapters,
+      icon:<img src={Exercice} alt="Session" width={50}/>,
     },
   ];
   return (

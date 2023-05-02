@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import { useTheme } from '@mui/material/styles';
 
-const options = ['قائمة المواد'];
+const options = [' الثلاثي الأول ', ' الثلاثي الثاني ', 'الثلاثي الثالث'];
 
 export default function Buttongroup() {
 
@@ -18,7 +18,7 @@ const theme =useTheme();
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const handleClick = () => {
     console.info(`You clicked ${options[selectedIndex]}`);
@@ -43,7 +43,7 @@ const theme =useTheme();
 
   return (
     <React.Fragment>
-      <ButtonGroup  sx={{backgroundColor: theme.palette.secondary.myblue,}}ref={anchorRef} aria-label="split button" >
+      <ButtonGroup variant="string" sx={{backgroundColor: theme.palette.secondary.myblue,color:theme.palette.secondary.white}} ref={anchorRef} aria-label="split button" >
         <Button sx={{color: theme.palette.secondary.white}}onClick={handleClick}>{options[selectedIndex]}</Button>
         <Button
           size="small"
@@ -79,7 +79,7 @@ const theme =useTheme();
                   {options.map((option, index) => (
                     <MenuItem
                       key={option}
-                      disabled={index === 2}
+                    
                       selected={index === selectedIndex}
                       onClick={(event) => handleMenuItemClick(event, index)}
                     >

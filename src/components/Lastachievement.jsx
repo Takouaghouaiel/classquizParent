@@ -60,12 +60,12 @@ export default function Lastachievement() {
               { content: r1?.description, image: r1?.imgUrl },
             ].map(({ content, image }, index) => (
               <Grid item xs={2} sm={4} md={4} key={index}>
-                <Item sx={{display:'flex', alignItem
-            :'stretch', justifyContent:'space-evenly'}}>
+                <Box sx={{display:'flex', justifyContent:'space-evenly'}}>
+                <Item>{content}</Item>
                 
-                  {content}
                   <Avatar src={image} />
-                </Item>
+                
+                </Box>
               </Grid>
             ))}
           </Grid>

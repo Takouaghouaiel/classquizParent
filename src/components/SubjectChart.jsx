@@ -1,4 +1,5 @@
 import React from 'react';
+import {  Box } from '@mui/material';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -28,29 +29,38 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Chart.js Bar Chart',
+      text: 'تقدم الطفل حسب كل مادة',
     },
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const labels = ['يناير', ];
+
 
 export const data = {
   labels,
   datasets: [
     {
-      label: 'Dataset 1',
+      label: ' الإجابات المتميّزة',
       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      backgroundColor: '#B0F2B6',
     },
     {
-      label: 'Dataset 2',
+      label: ' الإجابات المتوسطة',
       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      backgroundColor: '#FAC881',
     },
+    {
+    label: ' الإجابات الضعيفة',
+    data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+    backgroundColor: '#FF6961',
+    
+  },
   ],
 };
 
 export default function SubjectChart() {
-  return <Bar options={options} data={data} />;
+  return  <Box sx={{  border: '2px solid #3BC5CA', borderRadius: 2, width: '60%', margin: 'auto' }}>
+  <Bar options={options} data={data} />
+</Box>
 }

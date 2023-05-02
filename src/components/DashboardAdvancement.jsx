@@ -9,8 +9,8 @@ import Star from '../images/star.png'
 import Progressicon from '../images/Progressicon.png';
 import { useAcheivement } from '../context/AcheivementContext';
 function DashboardAdvancement() {
-  const { student } = useAcheivement();
-  const {QuizoData} = useAcheivement();
+  const { student ,QuizoData,AcheivementData,States} = useAcheivement();
+
 
   const items = [
     {
@@ -18,7 +18,7 @@ function DashboardAdvancement() {
       title: student?.fullName,
       UserId: student?.id, 
       level: student?.level?.name,
-      subscription:student?.placeholder,
+      subscription:student?.subscription?.ActivePack?.name,
     },
     {
       id: 2,
@@ -48,26 +48,33 @@ function DashboardAdvancement() {
       id: 1,
       titlle: 'نسبة التميّز',
       iconn:<img src={Star} alt="star" width={50}/>,
-      progressvalue: '60%',
+      progressvalue: ((AcheivementData?.stars)%((AcheivementData?.totalExercises)*3) ) + '%'
     },
     {
       id: 2,
       titlle: 'نسبة التّقدّم',
       iconn: <img src={Progressicon} alt="Success" width={50} />,
-      progressvalue: '60%',
+      progressvalue: ((AcheivementData?.totalExercises / AcheivementData?.totalLevelExercises) * 100 || 0).toFixed(2) + '%',
+
+
+
     },
+    
 
  
   ];
-
+ 
   return (
     <Box>
       <IdentityCards items={items} scoreitems={scoreitems} />
       <Stack
         sx={{ display: 'flex', flexDirection: 'col', alignItems: 'center' ,justifyContent:'space-between' }}
       >
+       
         <Lastachievement/>
+        
         <Subjectadvancement />
+       
         <TrackingCharts/>
       </Stack>
     </Box>

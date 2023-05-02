@@ -93,7 +93,7 @@ const styles = {
   },
 };
 
-const CardList = ({ items, scoreitems }) => {
+const CardList = ({ items, scoreitems,progressvalue }) => {
   const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     height: 10,
     width: '100%',
@@ -141,8 +141,9 @@ const CardList = ({ items, scoreitems }) => {
 
                 <BorderLinearProgress
                   variant="determinate"
-                  value={60}
-                  sx={{ width: '40%', marginBottom: '10%' }}
+                  value={progressvalue}
+                
+                  sx={{ width: '50%', marginBottom: '10%' }}
                 />
               </Card>
             </Grid>

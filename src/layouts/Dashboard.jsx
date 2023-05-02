@@ -9,14 +9,14 @@ import { useAcheivement } from '../context/AcheivementContext';
 import { useParams } from 'react-router-dom';
 function Dashboard() {
   
-  const { getStudentDetails } = useAcheivement();
-  const {getLastAchievement}= useAcheivement();
-  const {getQuizo}= useAcheivement();
+  
+  const {getQuizo,getStates,getLastAchievement,getStudentDetails}= useAcheivement();
   const { studentId } = useParams();
   useEffect(() => {
     getStudentDetails(studentId);
     getLastAchievement(studentId);
     getQuizo(studentId);
+    getStates(studentId);
   }, []);
 
   const [isDrawerOpen, toggleDrawer] = useState(false);
