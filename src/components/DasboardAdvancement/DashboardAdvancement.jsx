@@ -74,7 +74,7 @@ function DashboardAdvancement() {
        
         <Lastachievement/>
         
-        <Subjectadvancement />
+        <Subjectadvancement sx={{marginTop:'10%'}} />
        
         <TrackingCharts/>
       </Stack>

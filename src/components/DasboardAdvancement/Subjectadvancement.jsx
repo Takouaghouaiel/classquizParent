@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box ,Card} from '@mui/material';
+import { Box, Card } from '@mui/material';
 import ButtongroupSubject from './ButtongroupSubject.jsx';
 
 import ButtongroupSemester from './ButtongroupeSemester.jsx';
@@ -23,16 +23,24 @@ export default function Subjectadvancement() {
             alignItems: 'flex-start',
             justifyContent: 'space-evenly',
             marginLeft: '20%',
-            marginTop:'1%'
+            marginTop: '1%',
           }}
         >
-          <ButtongroupSemester />
+          <ButtongroupSemester  />
           <ButtongroupSubject />
         </Box>
-        <Box sx={{ display: 'flex',alignItems:'center',justifyContent:'space-evenly' }}>
-        
-            <SubjectCards/>
-       
+        <Box
+          sx={{
+              display: 'flex',
+              flexDirection: {md: 'row', xs: 'column'},
+              alignItems: 'center',
+              justifyContent: 'center',
+              Height:'100%'
+            
+          }}
+        >
+          <SubjectCards />
+
           <SubjectChart />
         </Box>
       </Box>

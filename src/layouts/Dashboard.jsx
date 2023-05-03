@@ -10,13 +10,15 @@ import { useParams } from 'react-router-dom';
 function Dashboard() {
   
   
-  const {getQuizo,getStates,getLastAchievement,getStudentDetails}= useAcheivement();
+  const {getQuizo,getStates,getLastAchievement,getStudentDetails,getSubjects}= useAcheivement();
   const { studentId } = useParams();
   useEffect(() => {
     getStudentDetails(studentId);
     getLastAchievement(studentId);
     getQuizo(studentId);
     getStates(studentId);
+    getSubjects(studentId);
+   
   }, []);
 
   const [isDrawerOpen, toggleDrawer] = useState(false);

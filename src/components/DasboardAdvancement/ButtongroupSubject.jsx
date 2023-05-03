@@ -9,12 +9,21 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import { useTheme } from '@mui/material/styles';
+import { useAcheivement } from '../../context/AcheivementContext';
 
-const options = [' العربيّة', ' French', 'English', 'Math', 'Science'];
 
 export default function Buttongroup() {
-  const theme = useTheme();
+  const {Subjects}=useAcheivement();
+  
+  const Arabic=(Subjects?.[0]?.title)
+  const Math=(Subjects?.[1]?.title)
+  const Science=(Subjects?.[2]?.title)
+  const Frensh=(Subjects?.[3]?.title)
 
+ 
+  const options = [Arabic,Math, Science, Frensh];
+
+  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const [selectedIndex, setSelectedIndex] = React.useState(0);

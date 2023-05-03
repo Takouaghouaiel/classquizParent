@@ -16,6 +16,7 @@ export default function AcheivementProvider({ children }) {
   const [lastUnlockedRewardData,setlastUnlockedRewardData]=useState([]);
   const [QuizoData,setQuizoData]=useState(null);
   const [States,setStates]=useState(null);
+  const [Subjects,setSubjects]=useState(null);
 
   const getStudentDetails = async studentId => {
     const token = localStorage.getItem('token');
@@ -174,6 +175,38 @@ export default function AcheivementProvider({ children }) {
     }
   
   }
+  const getSubjects = async studentId =>{
+    
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(
+        'https://api.omega.classquiz.tn/v2/students/' +
+        studentId +
+        '/subjects',
+        {
+          headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token,
+          },
+        }
+      );
+      if (response.status === 200) {
+
+        const data = response.data;
+        setSubjects(data);
+        
+        
+        return 'success statesbysubject';
+      } else if (response.status === 401) {
+        throw new Error('Failure states');
+      } else {
+        throw new Error(`Unexpected response status: ${response.status}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  
+  }
  
 
   return (
@@ -197,7 +230,10 @@ export default function AcheivementProvider({ children }) {
         lastUnlockedRewardData,
         getLastAchievement,
         getStates,
+        getSubjects,
         States,
+        getSubjects,
+        Subjects,
       }}
     >
       {children}
