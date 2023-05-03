@@ -11,7 +11,7 @@ import AuthProvider from './context/AuthContext';
 import AcheivementProvider from './context/AcheivementContext';
 import DashboardAchievement from './components/DashboardAchievement';
 import DashboardSupport from './components/DashboardSupport';
-import DashboardAdvancement from './components/DashboardAdvancement';
+import DashboardAdvancement from './components/DasboardAdvancement/DashboardAdvancement';
 import DashboardBehaviours from './components/DashboardBehaviours';
 import DashboardSubscription from './components/DashboardSubscription';
 import UpdateParent from './layouts/UpdateParent';

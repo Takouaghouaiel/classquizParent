@@ -23,6 +23,8 @@ ChartJS.register(
 
 export const options = {
   responsive: true,
+  maintainAspectRatio: false, // Add this line
+  aspectRatio: 1.5, // Add this line
   plugins: {
     legend: {
       position: 'top',

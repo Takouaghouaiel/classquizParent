@@ -20,6 +20,7 @@ const SecondCardContent = ({
   subscription,
   index,
 }) => {
+  console.log(progressvalue);
   return (
     <CardContent
       sx={{
@@ -93,7 +94,7 @@ const styles = {
   },
 };
 
-const CardList = ({ items, scoreitems,progressvalue }) => {
+const CardList = ({ items, scoreitems }) => {
   const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     height: 10,
     width: '100%',
@@ -107,10 +108,11 @@ const CardList = ({ items, scoreitems,progressvalue }) => {
       backgroundColor: theme.palette.mode === 'light' ? '#3BC5CA' : '#3BC5CA',
     },
   }));
+ 
   return (
     <>
       <Grid container sx={styles.root}>
-        {items.map((item, index) => (
+        {items.map((item, index,scoreitems) => (
           <Grid item xs={12} sm={6} md={4} key={item.id}>
             <Card sx={styles.card}>
               <SecondCardContent
@@ -120,6 +122,8 @@ const CardList = ({ items, scoreitems,progressvalue }) => {
                 level={item.level}
                 subscription={item.subscription}
                 index={index}
+                progressvalue={scoreitems[index].progressvalue}
+                
               />
             </Card>
           </Grid>
@@ -141,7 +145,8 @@ const CardList = ({ items, scoreitems,progressvalue }) => {
 
                 <BorderLinearProgress
                   variant="determinate"
-                  value={progressvalue}
+                  value={scoreitem.progressvalue}
+                 
                 
                   sx={{ width: '50%', marginBottom: '10%' }}
                 />

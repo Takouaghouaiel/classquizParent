@@ -5,11 +5,11 @@ import Subjectadvancement from './Subjectadvancement';
 import TrackingCharts from './TrackingCharts';
 import Lastachievement from './Lastachievement';
 import Avatar from '@mui/material/Avatar';
-import Star from '../images/star.png'
-import Progressicon from '../images/Progressicon.png';
-import { useAcheivement } from '../context/AcheivementContext';
+import Star from '../../images/star.png';
+import Progressicon from '../../images/Progressicon.png';
+import { useAcheivement } from '../../context/AcheivementContext';
 function DashboardAdvancement() {
-  const { student ,QuizoData,AcheivementData,States} = useAcheivement();
+  const { student ,QuizoData,AcheivementData} = useAcheivement();
 
 
   const items = [
@@ -48,13 +48,13 @@ function DashboardAdvancement() {
       id: 1,
       titlle: 'نسبة التميّز',
       iconn:<img src={Star} alt="star" width={50}/>,
-      progressvalue: ((AcheivementData?.stars)%((AcheivementData?.totalExercises)*3) ) + '%'
+      progressvalue: ((AcheivementData?.stars)%((AcheivementData?.totalExercises)*3) ) 
     },
     {
       id: 2,
       titlle: 'نسبة التّقدّم',
       iconn: <img src={Progressicon} alt="Success" width={50} />,
-      progressvalue: ((AcheivementData?.totalExercises / AcheivementData?.totalLevelExercises) * 100 || 0).toFixed(2) + '%',
+      progressvalue: ((AcheivementData?.totalExercises / AcheivementData?.totalLevelExercises) * 100 || 0).toFixed(2) 
 
 
 
@@ -63,6 +63,7 @@ function DashboardAdvancement() {
 
  
   ];
+  
  
   return (
     <Box>

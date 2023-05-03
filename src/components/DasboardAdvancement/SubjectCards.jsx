@@ -1,9 +1,9 @@
 import { Card, CardContent, Typography } from '@mui/material';
-import { useAcheivement } from '../context/AcheivementContext';
-import Session from '../images/Session.png';
-import Exercice from '../images/Exercice.png';
-import Mistake from '../images/Mistake.png';
-import Progressicon from '../images/Progressicon.png';
+import { useAcheivement } from '../../context/AcheivementContext';
+import Session from '../../images/Session.png';
+import Exercice from '../../images/Exercice.png';
+import Mistake from '../../images/Mistake.png';
+import Progressicon from '../../images/Progressicon.png';
 
 const SecondCardContent = ({ icon, score }) => {
     return (
