@@ -1,11 +1,16 @@
-import * as React from 'react';
-import { Box, Card } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Card,CardHeader,Typography } from '@mui/material';
 import ButtongroupSubject from './ButtongroupSubject.jsx';
-
 import ButtongroupSemester from './ButtongroupeSemester.jsx';
 import SubjectChart from './SubjectChart.jsx';
 import SubjectCards from './SubjectCards.jsx';
+
 export default function Subjectadvancement() {
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [selectedSubjectId , setSelectedSubjectId] = useState(null)
+  const handleSubjectButtonClick=()=>{
+    setIsButtonDisabled(false);
+  }
   return (
     <Card
       sx={{
@@ -17,6 +22,13 @@ export default function Subjectadvancement() {
       }}
     >
       <Box>
+      <CardHeader
+        title={
+          <Typography variant="h4" color="orange">
+                   تقدّم الطفل حسب كل مادة
+          </Typography>
+        }
+      />
         <Box
           sx={{
             display: 'flex',
@@ -26,8 +38,8 @@ export default function Subjectadvancement() {
             marginTop: '1%',
           }}
         >
-          <ButtongroupSemester  />
-          <ButtongroupSubject />
+          <ButtongroupSemester disabled={isButtonDisabled}  />
+          <ButtongroupSubject onSubjectButtonClick={handleSubjectButtonClick} setSelectedSubjectId={setSelectedSubjectId}/>
         </Box>
         <Box
           sx={{

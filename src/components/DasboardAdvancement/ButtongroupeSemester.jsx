@@ -12,7 +12,7 @@ import { useTheme } from '@mui/material/styles';
 
 const options = [' الثلاثي الأول ', ' الثلاثي الثاني ', 'الثلاثي الثالث'];
 
-export default function Buttongroup() {
+export default function Buttongroup(isButtonDisabled) {
 
 const theme =useTheme();
 
@@ -51,6 +51,7 @@ const theme =useTheme();
           aria-expanded={open ? 'true' : undefined}
           aria-label="قائمة المواد"
           aria-haspopup="menu"
+          disabled={isButtonDisabled.disabled}
           onClick={handleToggle}
         >
           <ArrowDropDownIcon />

@@ -11,34 +11,36 @@ import MenuList from '@mui/material/MenuList';
 import { useTheme } from '@mui/material/styles';
 import { useAcheivement } from '../../context/AcheivementContext';
 
+export default function Buttongroup({ onSubjectButtonClick }) {
+  const { Subjects } = useAcheivement();
 
-export default function Buttongroup() {
-  const {Subjects}=useAcheivement();
+  const Arabic = Subjects?.[0]?.title;
+  const Math = Subjects?.[1]?.title;
+  const Science = Subjects?.[2]?.title;
+  const Frensh = Subjects?.[3]?.title;
   
-  const Arabic=(Subjects?.[0]?.title)
-  const Math=(Subjects?.[1]?.title)
-  const Science=(Subjects?.[2]?.title)
-  const Frensh=(Subjects?.[3]?.title)
+  const options = [Arabic, Math, Science, Frensh];
 
- 
-  const options = [Arabic,Math, Science, Frensh];
+  const handleClick = () => {
+    console.info(`You clicked ${options[selectedIndex]}`);
+    onSubjectButtonClick();
+  };
+
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
-  const handleClick = () => {
-    console.info(`You clicked ${options[selectedIndex]}`);
-  };
-
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setOpen(false);
+    onSubjectButtonClick();
   };
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
+    
   };
 
   const handleClose = event => {
@@ -51,30 +53,26 @@ export default function Buttongroup() {
 
   return (
     <React.Fragment>
-   <ButtonGroup
-  variant="string"
-  sx={{backgroundColor: theme.palette.secondary.myblue,color:theme.palette.secondary.white}}
-  ref={anchorRef}
-  aria-label="split button"
-
+      <ButtonGroup
+        variant="string"
+        sx={{
+          backgroundColor: theme.palette.secondary.myblue,
+          color: theme.palette.secondary.white,
+        }}
+        ref={anchorRef}
+        aria-label="split button"
+      >
+        <Button onClick={handleClick}>{options[selectedIndex]}</Button>
+        <Button
+  size="small"
+  aria-controls={open ? 'split-button-menu' : undefined}
+  aria-expanded={open ? 'true' : undefined}
+  aria-label="قائمة المواد"
+  aria-haspopup="menu"
+  onClick={handleToggle}
 >
-
-        <Button
-          // sx={{ color: theme.palette.secondary.white, }}
-          onClick={handleClick}
-        >
-          {options[selectedIndex]}
-        </Button>
-        <Button
-          size="small"
-          aria-controls={open ? 'split-button-menu' : undefined}
-          aria-expanded={open ? 'true' : undefined}
-          aria-label="قائمة المواد"
-          aria-haspopup="menu"
-          onClick={handleToggle}
-        >
-          <ArrowDropDownIcon />
-        </Button>
+   <ArrowDropDownIcon />
+</Button>
       </ButtonGroup>
       <Popper
         sx={{ zIndex: 1 }}

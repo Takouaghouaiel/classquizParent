@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box } from '@mui/material';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -30,7 +31,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Chart.js Line Chart',
+      text: 'تقدّم الطفل حسب كل مادة',
     },
   },
 };
@@ -41,20 +42,25 @@ export const data = {
   labels,
   datasets: [
     {
-      label: 'Dataset 1',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      label: '  متابعة الأخطاء',
+      data: labels.map(() => faker.datatype.number({ min: 100, max: 500 })),
+      borderColor: '#FF6961',
+      backgroundColor: '#FF6961',
     },
     {
-      label: 'Dataset 2',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      label: '  متابعة التمارين',
+      data: labels.map(() => faker.datatype.number({ min: 100, max: 500 })),
+      borderColor: '#B0F2B6',
+      backgroundColor: '#B0F2B6',
     },
+    
   ],
 };
 
 export default function App() {
-  return <Line options={options} data={data} />;
+  return (
+  <Box sx={{  border: '2px solid #3BC5CA', borderRadius: 2, width: '60%', margin: 'auto' }}>
+  <Line  options={options} data={data} />;
+  </Box>
+  )
 }
