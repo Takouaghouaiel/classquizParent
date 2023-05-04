@@ -62,7 +62,7 @@ export const data = {
 };
 
 export default function SubjectChart() {
-  return  <Box sx={{  border: '2px solid #3BC5CA', borderRadius: 2, width: '60%', margin: 'auto' }}>
+  return  <Box sx={{  border: '2px solid #3BC5CA', borderRadius: 2, width: '60%',height:'40vh', margin: 'auto' }}>
   <Bar options={options} data={data} />
 </Box>
 }

@@ -70,7 +70,7 @@ export default function SubjectCards() {
     const pairs = chunk(cards, 2); // utility function to group cards into pairs
   
     return (
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2%',width: '25%',height:'20%' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2%',width: '25%' }}>
         {pairs.map((pair, index) => (
           <div key={index} style={{ display: 'flex', gap: '2%', marginBottom: '2%' }}>
             {pair.map((card, i) => (

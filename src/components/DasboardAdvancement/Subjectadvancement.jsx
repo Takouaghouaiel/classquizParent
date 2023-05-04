@@ -19,9 +19,16 @@ export default function Subjectadvancement() {
         textAlign: 'center',
         border: '2px solid #3BC5CA',
         backgroundColor: 'white',
+
       }}
     >
-      <Box>
+      <Box
+      sx={{ '& > *': {
+        marginBottom: '2rem' ,// Add margin bottom to all direct children
+        marginLeft:'1rem',
+      },
+    }}
+      >
       <CardHeader
         title={
           <Typography variant="h4" color="orange">
@@ -35,7 +42,8 @@ export default function Subjectadvancement() {
             alignItems: 'flex-start',
             justifyContent: 'space-evenly',
             marginLeft: '20%',
-            marginTop: '1%',
+       
+            
           }}
         >
           <ButtongroupSemester disabled={isButtonDisabled}  />
@@ -44,10 +52,18 @@ export default function Subjectadvancement() {
         <Box
           sx={{
               display: 'flex',
-              flexDirection: {md: 'row', xs: 'column'},
+              flexDirection: {md: 'row',sm:'column', xs: 'column'},
               alignItems: 'center',
               justifyContent: 'center',
-              Height:'100%'
+              Height:'100%',
+           
+              '@media (max-width: 1050px)': {
+                '& > *': {
+                  marginBottom: '1rem', // Adjust margin for small screens
+                  alignItems:'center',
+                  justifyContent:'center',
+                }
+              }
             
           }}
         >
