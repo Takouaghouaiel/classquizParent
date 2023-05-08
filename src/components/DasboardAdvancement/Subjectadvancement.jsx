@@ -4,12 +4,35 @@ import ButtongroupSubject from './ButtongroupSubject.jsx';
 import ButtongroupSemester from './ButtongroupeSemester.jsx';
 import SubjectChart from './SubjectChart.jsx';
 import SubjectCards from './SubjectCards.jsx';
-
+import { useParams } from 'react-router-dom';
+import { useAcheivement } from '../../context/AcheivementContext.jsx';
 export default function Subjectadvancement() {
+
+  let {studentId}  =  useParams()
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [selectedSubjectId , setSelectedSubjectId] = useState(null)
-  const handleSubjectButtonClick=()=>{
+  const [selectedSubjectId , setSelectedSubjectId] = useState(null);
+  const [selectedChapterId , setselectedchapterid] = useState(null);
+  const [selectedSubjectIndex, setSelectedSubjectIndex] = useState(0);
+  let {getStatesbySubjects,getStatesbySubjectsANDChapiter} = useAcheivement()
+
+  
+  const handleSubjectButtonClick=(index)=>{
     setIsButtonDisabled(false);
+    setSelectedSubjectIndex(index);
+  }
+
+  const handleChangeSubjectId = (subjectId)=>{
+    // console.log(subjectId);
+    // console.log(studentId);
+
+    getStatesbySubjects(studentId , subjectId)
+  
+  }
+
+  const handleChangeChapterId = (SubjectId,ChapterId)=>{
+    console.log('chapterId:',ChapterId);
+    console.log('subjectId:',SubjectId);
+    getStatesbySubjectsANDChapiter(studentId , SubjectId,ChapterId)
   }
   return (
     <Card
@@ -46,8 +69,8 @@ export default function Subjectadvancement() {
             
           }}
         >
-          <ButtongroupSemester disabled={isButtonDisabled}  />
-          <ButtongroupSubject onSubjectButtonClick={handleSubjectButtonClick} setSelectedSubjectId={setSelectedSubjectId}/>
+          <ButtongroupSemester buttonProps={{ disabled: isButtonDisabled }} handleChangeChapterId={handleChangeChapterId}/>
+          <ButtongroupSubject onSubjectButtonClick={handleSubjectButtonClick}   handleChangeSubjectId={handleChangeSubjectId}/>
         </Box>
         <Box
           sx={{
@@ -69,7 +92,7 @@ export default function Subjectadvancement() {
         >
           <SubjectCards />
 
-          <SubjectChart />
+          <SubjectChart  onSubjectButtonClick={handleSubjectButtonClick} />
         </Box>
       </Box>
     </Card>

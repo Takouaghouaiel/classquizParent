@@ -35,33 +35,35 @@ function chunk(array, size) {
   }
   
 export default function SubjectCards() {
-    const { AcheivementData,States } = useAcheivement();
+    const { StatesbySubjects } = useAcheivement();
+    // console.log(StatesbySubjects)
+    
    
   const cards = [
     {
         id:1,
         title: '  الأسئلة المنجزة',
-        score:States?.nbCompletedQuestions,
+        score:StatesbySubjects?.nbCompletedQuestions,
         icon:<img src={Session} alt="Session" width={40}/>,
      
       },
       {
         id:2,
-        title: '  التمارين المنجزة',
-        score:AcheivementData?.totalExercises,
+        title: '  الإجابات الضعيفة ',
+        score:StatesbySubjects?.badResponses,
         icon:<img src={Exercice} alt="Session" width={45}/>,
         
       },
     {
       id:3,
       title: '    الأخطاء المرتكبة',
-      score:States?.nbMistakes,
+      score:StatesbySubjects?.nbMistakes,
       icon:<img src={Mistake} alt="Session" width={50}/>,
     },
     {
       id:4,
       title:'  الإجابات الممتازة',
-      score:States?.excellentResponses,
+      score:StatesbySubjects?.excellentResponses,
       icon:<img src={Progressicon} alt="Session" width={50}/>,
     
     },

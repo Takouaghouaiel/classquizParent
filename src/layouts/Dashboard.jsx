@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 function Dashboard() {
   
   
-  const {getQuizo,getStates,getLastAchievement,getStudentDetails,getSubjects}= useAcheivement();
+  const {getQuizo,getStates,getLastAchievement,getStudentDetails,getSubjects,getChapter}= useAcheivement();
   const { studentId } = useParams();
   useEffect(() => {
     getStudentDetails(studentId);
@@ -18,6 +18,7 @@ function Dashboard() {
     getQuizo(studentId);
     getStates(studentId);
     getSubjects(studentId);
+    getChapter();
    
   }, []);
 

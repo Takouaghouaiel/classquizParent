@@ -597,3 +597,63 @@ export function ProgressIcon() {
   
   );
 }
+export function InstagramIcon(){
+  return(
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="55.708" height="55.708" viewBox="0 0 55.708 55.708">
+  <defs>
+    <linearGradient id="linear-gradient" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#67d5d7"/>
+      <stop offset="1" stop-color="#1cc3cb"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_1772" data-name="Group 1772" transform="translate(1212.186 -7922.38)">
+    <circle id="Ellipse_225" data-name="Ellipse 225" cx="26.854" cy="26.854" r="26.854" transform="translate(-1211.186 7923.38)" fill="#fff" stroke="#65cac7" stroke-miterlimit="10" stroke-width="2"/>
+    <g id="Group_1771" data-name="Group 1771">
+      <g id="Group_1770" data-name="Group 1770">
+        <path id="Path_3084" data-name="Path 3084" d="M-1176,7940.076a1.845,1.845,0,0,0-1.846,1.845,1.846,1.846,0,0,0,1.846,1.846,1.846,1.846,0,0,0,1.846-1.846A1.846,1.846,0,0,0-1176,7940.076Z" fill="#fff"/>
+        <path id="Path_3085" data-name="Path 3085" d="M-1184.2,7942.443a7.763,7.763,0,0,0-7.754,7.754,7.764,7.764,0,0,0,7.754,7.754,7.763,7.763,0,0,0,7.754-7.754A7.762,7.762,0,0,0-1184.2,7942.443Zm0,12.721a4.972,4.972,0,0,1-4.967-4.967,4.972,4.972,0,0,1,4.967-4.967,4.972,4.972,0,0,1,4.967,4.967A4.972,4.972,0,0,1-1184.2,7955.164Z" fill="url(#linear-gradient)"/>
+        <path id="Path_3086" data-name="Path 3086" d="M-1178.047,7965.94h-12.571a9.468,9.468,0,0,1-9.457-9.458v-12.571a9.467,9.467,0,0,1,9.457-9.457h12.571a9.468,9.468,0,0,1,9.458,9.457v12.571A9.469,9.469,0,0,1-1178.047,7965.94Zm-12.571-28.524a6.5,6.5,0,0,0-6.495,6.5v12.571a6.5,6.5,0,0,0,6.495,6.5h12.571a6.5,6.5,0,0,0,6.5-6.5v-12.571a6.5,6.5,0,0,0-6.5-6.5Z" fill="url(#linear-gradient)"/>
+      </g>
+    </g>
+  </g>
+</svg>
+
+  )
+}
+export function WhatsappIcon() {
+  return(
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="78.578" height="78.578" viewBox="0 0 78.578 78.578">
+  <defs>
+    <linearGradient id="linear-gradient" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#67d5d7"/>
+      <stop offset="1" stop-color="#1cc3cb"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_1775" data-name="Group 1775" transform="translate(1291.505 -7911.555)">
+    <circle id="Ellipse_226" data-name="Ellipse 226" cx="26.854" cy="26.854" r="26.854" transform="translate(-1290.095 7953.579) rotate(-49.13)" fill="#fff" stroke="#65cac7" stroke-miterlimit="10" stroke-width="2"/>
+    <path id="Path_3089" data-name="Path 3089" d="M-1266.725,7966.04l2.239-8.354a15.369,15.369,0,0,1-1.935-7.452A15.442,15.442,0,0,1-1251,7934.81a15.442,15.442,0,0,1,15.425,15.424A15.442,15.442,0,0,1-1251,7965.659a15.379,15.379,0,0,1-7.332-1.869Zm8.814-5.38.529.315a12.487,12.487,0,0,0,6.386,1.769,12.524,12.524,0,0,0,12.509-12.51A12.524,12.524,0,0,0-1251,7937.725a12.524,12.524,0,0,0-12.509,12.509,12.47,12.47,0,0,0,1.829,6.486l.325.533-1.25,4.664Z" fill="url(#linear-gradient)"/>
+    <path id="Path_3090" data-name="Path 3090" d="M-1245.258,7952.38a2.594,2.594,0,0,0-2.209-.5c-.574.235-.94,1.133-1.312,1.592a.55.55,0,0,1-.711.154,10.01,10.01,0,0,1-4.994-4.277.613.613,0,0,1,.078-.837,3.373,3.373,0,0,0,.907-1.472,3.217,3.217,0,0,0-.406-1.743,4.139,4.139,0,0,0-1.286-1.94,1.764,1.764,0,0,0-1.915.285,3.89,3.89,0,0,0-1.348,3.08,4.387,4.387,0,0,0,.121.977,8.133,8.133,0,0,0,.938,2.161,17.254,17.254,0,0,0,.978,1.488,15.138,15.138,0,0,0,4.245,3.942,12.868,12.868,0,0,0,2.648,1.258,5.874,5.874,0,0,0,3.081.487,3.731,3.731,0,0,0,2.8-2.078,1.815,1.815,0,0,0,.129-1.061C-1243.678,7953.167-1244.667,7952.733-1245.258,7952.38Z" fill-rule="evenodd" fill="url(#linear-gradient)"/>
+  </g>
+</svg>
+
+  )
+}
+export function FacebookIcon(){
+  return(
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="55.707" height="55.676" viewBox="0 0 55.707 55.676">
+  <defs>
+    <linearGradient id="linear-gradient" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#67d5d7"/>
+      <stop offset="1" stop-color="#1cc3cb"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_1774" data-name="Group 1774" transform="translate(1418.401 -7923.689)">
+    <g id="Group_1773" data-name="Group 1773">
+      <path id="Path_3087" data-name="Path 3087" d="M-1363.694,7951.543a26.853,26.853,0,0,0-26.854-26.854,26.853,26.853,0,0,0-26.853,26.854,26.86,26.86,0,0,0,22.658,26.528v-18.765h-6.819v-7.763h6.819v-5.916c0-6.73,4.009-10.448,10.143-10.448a41.261,41.261,0,0,1,6.011.525v6.608h-3.386c-3.336,0-4.376,2.07-4.376,4.194v5.037h7.447l-1.19,7.763h-6.257v18.765A26.861,26.861,0,0,0-1363.694,7951.543Z" fill="#fff" stroke="#65cac7" stroke-miterlimit="10" stroke-width="2"/>
+      <path id="Path_3088" data-name="Path 3088" d="M-1379.234,7959.42l1.289-8.11h-8.063v-5.263c0-2.218,1.126-4.381,4.738-4.381h3.666v-6.9a46.25,46.25,0,0,0-6.508-.548c-6.641,0-10.981,3.884-10.981,10.915v6.181h-7.382v8.11h7.382v19.6a30.324,30.324,0,0,0,4.542.341,30.326,30.326,0,0,0,4.543-.341v-19.6Z" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+</svg>
+
+  )
+}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Card ,CardHeader,Typography,Grid} from '@mui/material';
+import { Box, Card ,CardHeader,Typography,Grid,Stack} from '@mui/material';
 import ButtongroupSubject from './ButtongroupSubject.jsx';
 import ButtongroupSemester from './ButtongroupeSemester.jsx';
 import MistakesTable from './MistakesTable.jsx';
@@ -36,21 +36,31 @@ export default function TrackingCharts() {
           justifyContent: 'center',
         }}
       >
-        <Grid container spacing={2} justifyContent="center">
+        <Stack container spacing={2} justifyContent="center"
+       
+        >
           
-          <Grid item>
+          <Grid item
+              sx={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                justifyContent: 'space-evenly',
+                marginLeft: '20%',
+           
+                
+              }}
+          >
             <ButtongroupSemester disabled={isButtonDisabled} />
-          </Grid>
-          <Grid item>
             <ButtongroupSubject
               onSubjectButtonClick={handleSubjectButtonClick}
               setSelectedSubjectId={setSelectedSubjectId}
             />
           </Grid>
-          <Grid>
+       
+          <Box>
             <MistakesTable/>
-          </Grid>
-        </Grid>
+          </Box>
+        </Stack>
       </Box>
     
     </Box>

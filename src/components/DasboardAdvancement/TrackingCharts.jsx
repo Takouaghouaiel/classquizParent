@@ -6,8 +6,11 @@ import LineChart1 from './LineChart1.jsx';
 import LineChart2 from './LineChart2.jsx';
 import FirstDateButton  from './FirstDateButton.jsx';
 import SecondDateButton  from './SecondDateButton.jsx';
+import { useAcheivement } from '../../context/AcheivementContext';
 
 export default function TrackingCharts() {
+
+  
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [selectedSubjectId , setSelectedSubjectId] = useState(null)
   const handleSubjectButtonClick=()=>{

@@ -22,7 +22,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
 
-      <Router>
+      {/* <Router> */}
         <AuthProvider>
           <AcheivementProvider>
             <Routes>
@@ -49,7 +49,7 @@ function App() {
             </Routes>
           </AcheivementProvider>
         </AuthProvider>
-      </Router>
+      {/* </Router> */}
     </ThemeProvider>
   );
 }

@@ -176,7 +176,7 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                   />
                 </NavLink>
               </ListItem>
-              <ListItem
+              {/* <ListItem
                 button
                 sx={{
                   '&:hover': {
@@ -199,7 +199,7 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                     primary="العروض "
                   />
                 </NavLink>
-              </ListItem>
+              </ListItem> */}
 
               <ListItem
                 button

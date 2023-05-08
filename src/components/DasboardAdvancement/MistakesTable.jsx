@@ -3,7 +3,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 export default function MistakesTable() {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }}>
+      <Table sx={{ maxWidth: 500 }}>
         <TableHead>
           <TableRow>
             <TableCell>Column 1</TableCell>

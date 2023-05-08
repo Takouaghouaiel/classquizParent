@@ -9,12 +9,27 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import { useTheme } from '@mui/material/styles';
+import { useAcheivement } from '../../context/AcheivementContext';
 
-const options = [' الثلاثي الأول ', ' الثلاثي الثاني ', 'الثلاثي الثالث'];
 
-export default function Buttongroup(isButtonDisabled) {
+export default function Buttongroup({buttonProps,handleChangeChapterId}) {
+  const { Chapter} = useAcheivement();
+  // retrive chapter titles 
+    const chapter1 = Chapter?.[0]?.name;
+    const chapter2 = Chapter?.[1]?.name;
+    const chapter3 = Chapter?.[2]?.name;
+   
+    const options = [chapter1, chapter2, chapter3];
 
-const theme =useTheme();
+    // retrive chapter id 
+    const chapter1Id = Chapter?.[0]?.id;
+    const chapter2Id = Chapter?.[1]?.id;
+    const chapter3Id = Chapter?.[2]?.id;
+   
+    const ChapterId = [chapter1Id, chapter2Id, chapter3Id];
+    
+
+    const theme =useTheme();
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -24,13 +39,16 @@ const theme =useTheme();
     console.info(`You clicked ${options[selectedIndex]}`);
   };
 
-  const handleMenuItemClick = (event, index) => {
+  const handleMenuItemClick = (index,SubjectId) => {
     setSelectedIndex(index);
     setOpen(false);
+    // buttonProps.setselectedchapterid(ChapterId[index]);
+    handleChangeChapterId(SubjectId, ChapterId[index]);
   };
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
+
   };
 
   const handleClose = (event) => {
@@ -51,7 +69,7 @@ const theme =useTheme();
           aria-expanded={open ? 'true' : undefined}
           aria-label="قائمة المواد"
           aria-haspopup="menu"
-          disabled={isButtonDisabled.disabled}
+          {...buttonProps} // spread the buttonProps object here
           onClick={handleToggle}
         >
           <ArrowDropDownIcon />

@@ -20,7 +20,7 @@ const SecondCardContent = ({
   subscription,
   index,
 }) => {
-  console.log(progressvalue);
+  // console.log(progressvalue);
   return (
     <CardContent
       sx={{

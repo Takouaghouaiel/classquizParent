@@ -8,14 +8,15 @@ import {
   DialogTitle,
   Button,
   Box,
-  TextField
+  TextField,
+  Grid,
 } from '@mui/material';
-
-
+import {
+  FacebookIcon,
+  InstagramIcon,
+} from '.././components/icons/sidebaricons';
 
 function DashboardSupport() {
-  
-
   // popup
   const [open, setOpen] = useState(false);
 
@@ -37,7 +38,7 @@ function DashboardSupport() {
   return (
     <form onSubmit={handleSubmit}>
       <Box
-        sx={{ 
+        sx={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -58,10 +59,9 @@ function DashboardSupport() {
             type="email"
             onChange={event => setEmail(event.target.value)}
             fullWidth
-            style={{ width: '70%',background:'white' }}
+            style={{ width: '70%', background: 'white' }}
             inputProps={{ dir: 'rtl' }}
-            sx={{ border: '2px solid #3BC5CA',
-            borderRadius: '7px',}}
+            sx={{ border: '2px solid #3BC5CA', borderRadius: '7px' }}
           />
           <TextField
             placeholder="أكتب رسالة "
@@ -71,10 +71,9 @@ function DashboardSupport() {
             type="text"
             rows={4}
             fullWidth
-            style={{ width: '80%',background:'white' }}
+            style={{ width: '80%', background: 'white' }}
             inputProps={{ dir: 'rtl' }}
-            sx={{ border: '2px solid #3BC5CA',
-            borderRadius: '7px',}}
+            sx={{ border: '2px solid #3BC5CA', borderRadius: '7px' }}
           />
           <Button
             variant="contained"
@@ -111,9 +110,7 @@ function DashboardSupport() {
           >
             <DialogTitle>لقد تم إرسال الرسالة بنجاح</DialogTitle>
             <DialogContent>
-              <DialogContentText>
-              شكرا على الثقة
-              </DialogContentText>
+              <DialogContentText>شكرا على الثقة</DialogContentText>
             </DialogContent>
             <DialogActions
               sx={{
@@ -148,6 +145,16 @@ function DashboardSupport() {
               </Button>
             </DialogActions>
           </Dialog>
+          <Grid
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <a href="https://www.facebook.com/ClassQuiz" target="_blank"> <FacebookIcon /></a>
+           
+            <a href="https://www.instagram.com/classquiz/" target="_blank"> <InstagramIcon /></a>
+          </Grid>
         </Stack>
       </Box>
     </form>

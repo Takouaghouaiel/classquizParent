@@ -11,19 +11,30 @@ import MenuList from '@mui/material/MenuList';
 import { useTheme } from '@mui/material/styles';
 import { useAcheivement } from '../../context/AcheivementContext';
 
-export default function Buttongroup({ onSubjectButtonClick }) {
-  const { Subjects } = useAcheivement();
+export default function Buttongroup({ onSubjectButtonClick,handleChangeSubjectId }) {
 
+  const { Subjects} = useAcheivement();
+
+// retrive subject titles 
   const Arabic = Subjects?.[0]?.title;
   const Math = Subjects?.[1]?.title;
   const Science = Subjects?.[2]?.title;
   const Frensh = Subjects?.[3]?.title;
-  
   const options = [Arabic, Math, Science, Frensh];
+  
+// retrive subject's id
+const ArabicId = Subjects?.[0]?.id;
+const MathId = Subjects?.[1]?.id;
+const ScienceId = Subjects?.[2]?.id;
+const FrenshId = Subjects?.[3]?.id;
+const SubjectId = [ArabicId, MathId, ScienceId, FrenshId];
+// console.log(SubjectId);
+ 
 
   const handleClick = () => {
     console.info(`You clicked ${options[selectedIndex]}`);
     onSubjectButtonClick();
+  
   };
 
 
@@ -33,9 +44,13 @@ export default function Buttongroup({ onSubjectButtonClick }) {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const handleMenuItemClick = (event, index) => {
+
     setSelectedIndex(index);
     setOpen(false);
     onSubjectButtonClick();
+    handleChangeSubjectId(SubjectId[index]);
+    // getStatesbySubjects(index);
+    // console.log(SubjectId[index]);
   };
 
   const handleToggle = () => {
