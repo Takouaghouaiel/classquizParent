@@ -15,6 +15,7 @@ import DashboardAdvancement from './components/DasboardAdvancement/DashboardAdva
 import DashboardBehaviours from './components/DashboardBehaviours';
 import DashboardSubscription from './components/DashboardSubscription';
 import UpdateParent from './layouts/UpdateParent';
+import Addchild from './layouts/addchild';
 import GuestGuard from './Guards/GuestGuard';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             <Route path="/login" element={<GuestGuard><Login /></GuestGuard>} />
 
               <Route path="UpdateParent" element={<UpdateParent />} />
+              <Route path="add-child" element={<Addchild/>} />
                     {/* Use AuthGuard to protect routes that require authentication */}
               <Route path="/children" element={<AuthGuard><Children /></AuthGuard>} />
 

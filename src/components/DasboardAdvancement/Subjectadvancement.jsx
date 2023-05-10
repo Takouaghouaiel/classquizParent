@@ -32,7 +32,7 @@ export default function Subjectadvancement() {
   const handleChangeChapterId = (SubjectId,ChapterId)=>{
     console.log('chapterId:',ChapterId);
     console.log('subjectId:',SubjectId);
-    getStatesbySubjectsANDChapiter(studentId , SubjectId,ChapterId)
+    getStatesbySubjectsANDChapiter(studentId ,SubjectId,ChapterId)
   }
   return (
     <Card

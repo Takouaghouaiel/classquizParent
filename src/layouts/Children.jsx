@@ -3,8 +3,8 @@ import { Box } from '@mui/material';
 import Childheader from '../components/Childheader';
 import Childlist from '../components/Childlist';
 import background from '../images/background.png';
-
-
+import {AddChildIcon} from '.././components/icons/sidebaricons';
+import Star from '../images/star.png'
 export default function Children() {
 
  
