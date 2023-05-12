@@ -1,5 +1,6 @@
 import * as React from 'react';
 import CardList from './CardList';
+import {Sweets,TimeIcon} from '.././components/icons/sidebaricons';
 import cookies from '../images/cookies.png'
 import Money from '../images/money.png'
 import Star from '../images/star.png'

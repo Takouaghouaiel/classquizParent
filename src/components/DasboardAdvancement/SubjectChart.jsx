@@ -22,45 +22,48 @@ ChartJS.register(
 );
 
 export const options = {
+  
   responsive: true,
   maintainAspectRatio: false, 
   aspectRatio: 1.5, 
   plugins: {
     legend: {
+      display:false,
       position: 'top',
     },
     title: {
       display: true,
       text: 'تقدم الطفل حسب كل مادة',
     },
+ 
   },
 };
 
 
-export default function SubjectChart({handleSubjectClick}) {
-  const { StatesbySubjects, Subjects } = useAcheivement();
-  const excellentResponses = [StatesbySubjects?.excellentResponses];
-  const goodResponses = [StatesbySubjects?.goodResponses];
-  const badResponses = [StatesbySubjects?.badResponses];
+export default function SubjectChart(scoreType) {
+
+  const { StatesbySubjects,StatesbySubjectsANDChapiter,Subjects } = useAcheivement();
+
+  const excellentResponses =[scoreType === 'subject' ? StatesbySubjects?.excellentResponses : StatesbySubjectsANDChapiter?.excellentResponses];
+  const goodResponses = [scoreType === 'subject' ? StatesbySubjects?.goodResponses : StatesbySubjectsANDChapiter?.goodResponses];
+  const badResponses = [scoreType === 'subject' ? StatesbySubjects?.badResponses : StatesbySubjectsANDChapiter?.badResponses];
 
   const [selectedSubjectIndex, setSelectedSubjectIndex] = useState(0);
   const selectedSubject = Subjects?.[selectedSubjectIndex];
-  const label = selectedSubject?.title || '';
+  // const label = selectedSubject?.title || '';
 
   const data = {
     labels: ['الإجابات المتميّزة', ' الإجابات المتوسطة', ' الإجابات الضعيفة'],
     datasets: [
       {
-        label: label,
+        // label: label,
         data: [excellentResponses, goodResponses, badResponses],
         backgroundColor: ['#B0F2B6', '#FAC881', '#FF6961'],
       },
     ],
   };
 
-  // const handleSubjectClick = (index) => {
-  //   setSelectedSubjectIndex(index);
-  // };
+  
 
   return (
     <Box

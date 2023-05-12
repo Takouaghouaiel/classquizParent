@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Card,CardHeader,Typography } from '@mui/material';
+import { Box, Card, CardHeader, Typography } from '@mui/material';
 import ButtongroupSubject from './ButtongroupSubject.jsx';
 import ButtongroupSemester from './ButtongroupeSemester.jsx';
 import SubjectChart from './SubjectChart.jsx';
@@ -7,33 +7,41 @@ import SubjectCards from './SubjectCards.jsx';
 import { useParams } from 'react-router-dom';
 import { useAcheivement } from '../../context/AcheivementContext.jsx';
 export default function Subjectadvancement() {
-
-  let {studentId}  =  useParams()
+  let { studentId } = useParams();
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [selectedSubjectId , setSelectedSubjectId] = useState(null);
-  const [selectedChapterId , setselectedchapterid] = useState(null);
-  const [selectedSubjectIndex, setSelectedSubjectIndex] = useState(0);
-  let {getStatesbySubjects,getStatesbySubjectsANDChapiter} = useAcheivement()
+  const [selectedSubjectId, setSelectedSubjectId] = useState(null);
+  const [selectedChapterId, setselectedchapterid] = useState(null);
 
-  
-  const handleSubjectButtonClick=(index)=>{
+  let { getStatesbySubjects, getStatesbySubjectsANDChapiter } =
+    useAcheivement();
+
+  const [scoreType, setScoreType] = useState('subject');
+  const handleScoreTypeChange = newScoreType => {
+    setScoreType(newScoreType);
+  };
+
+  const handleSubjectButtonClick = index => {
     setIsButtonDisabled(false);
-    setSelectedSubjectIndex(index);
-  }
+    setSelectedSubjectId(index);
+  };
+  const handleChapterButtonClick = index => {
+    setselectedchapterid(index);
+  };
 
-  const handleChangeSubjectId = (subjectId)=>{
-    // console.log(subjectId);
-    // console.log(studentId);
 
-    getStatesbySubjects(studentId , subjectId)
-  
-  }
+  const handleChangeSubjectId = subjectId => {
+    setSelectedSubjectId(subjectId);
+    getStatesbySubjects(studentId, subjectId);
+  };
 
-  const handleChangeChapterId = (SubjectId,ChapterId)=>{
-    console.log('chapterId:',ChapterId);
-    console.log('subjectId:',SubjectId);
-    getStatesbySubjectsANDChapiter(studentId ,SubjectId,ChapterId)
-  }
+  const handleChangeChapterId = ChapterId => {
+    setselectedchapterid(ChapterId);
+    getStatesbySubjectsANDChapiter(
+      studentId,
+      selectedSubjectId,
+      selectedChapterId
+    );
+  };
   return (
     <Card
       sx={{
@@ -42,57 +50,63 @@ export default function Subjectadvancement() {
         textAlign: 'center',
         border: '2px solid #3BC5CA',
         backgroundColor: 'white',
-
       }}
     >
       <Box
-      sx={{ '& > *': {
-        marginBottom: '2rem' ,// Add margin bottom to all direct children
-        marginLeft:'1rem',
-      },
-    }}
+        sx={{
+          '& > *': {
+            marginBottom: '2rem', // Add margin bottom to all direct children
+            marginLeft: '1rem',
+          },
+        }}
       >
-      <CardHeader
-        title={
-          <Typography variant="h4" color="orange">
-                   تقدّم الطفل حسب كل مادة
-          </Typography>
-        }
-      />
+        <CardHeader
+          title={
+            <Typography variant="h4" color="orange">
+              تقدّم الطفل حسب كل مادة
+            </Typography>
+          }
+        />
         <Box
           sx={{
             display: 'flex',
             alignItems: 'flex-start',
             justifyContent: 'space-evenly',
             marginLeft: '20%',
-       
-            
           }}
         >
-          <ButtongroupSemester buttonProps={{ disabled: isButtonDisabled }} handleChangeChapterId={handleChangeChapterId}/>
-          <ButtongroupSubject onSubjectButtonClick={handleSubjectButtonClick}   handleChangeSubjectId={handleChangeSubjectId}/>
+          <ButtongroupSemester
+            buttonProps={{ disabled: isButtonDisabled }}
+            onChapterButtonClick={handleChapterButtonClick}
+            handleChangeChapterId={handleChangeChapterId}
+            handleScoreTypeChange={handleScoreTypeChange}
+          />
+          <ButtongroupSubject
+            onSubjectButtonClick={handleSubjectButtonClick}
+            handleChangeSubjectId={handleChangeSubjectId}
+            handleScoreTypeChange={handleScoreTypeChange}
+          />
         </Box>
         <Box
           sx={{
-              display: 'flex',
-              flexDirection: {md: 'row',sm:'column', xs: 'column'},
-              alignItems: 'center',
-              justifyContent: 'center',
-              Height:'100%',
-           
-              '@media (max-width: 1050px)': {
-                '& > *': {
-                  marginBottom: '1rem', // Adjust margin for small screens
-                  alignItems:'center',
-                  justifyContent:'center',
-                }
-              }
-            
+            display: 'flex',
+            flexDirection: { md: 'row', sm: 'column', xs: 'column' },
+            alignItems: 'center',
+            justifyContent: 'center',
+            Height: '100%',
+
+            '@media (max-width: 1050px)': {
+              '& > *': {
+                marginBottom: '1rem',
+                alignItems: 'center',
+                justifyContent: 'center',
+              },
+            },
           }}
         >
-          <SubjectCards />
+          <SubjectCards scoreType={scoreType} />
 
-          <SubjectChart  onSubjectButtonClick={handleSubjectButtonClick} />
+          <SubjectChart scoreType={scoreType} />
         </Box>
       </Box>
     </Card>

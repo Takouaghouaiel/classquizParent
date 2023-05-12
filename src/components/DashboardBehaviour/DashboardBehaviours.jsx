@@ -3,10 +3,11 @@ import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 import { CardActionArea } from '@mui/material';
-import smart from '../images/smart.png';
-import observe from '../images/observe.png';
-import communicate from '../images/communicate.png';
+import smart from '../../images/smart.png';
+import observe from '../../images/observe.png';
+import communicate from '../../images/communicate.png';
 export default function DashboardBehaviours() {
   return (
     <Grid  container
@@ -21,6 +22,7 @@ export default function DashboardBehaviours() {
     
     >
       <Grid item xs={12} sm={12} >
+        <Link to="smartquiz">
         <Card sx={{ maxWidth: 400, backgroundColor: '#FFC800' }}>
           <CardActionArea>
             <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
@@ -37,6 +39,7 @@ export default function DashboardBehaviours() {
             </CardContent>
           </CardActionArea>
         </Card>
+        </Link>
       </Grid>
       <Grid item xs={12} sm={12}>
         <Card sx={{ maxWidth: 400, backgroundColor: '#CB55D7' }}>

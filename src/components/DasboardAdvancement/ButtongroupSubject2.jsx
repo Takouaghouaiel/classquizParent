@@ -11,9 +11,11 @@ import MenuList from '@mui/material/MenuList';
 import { useTheme } from '@mui/material/styles';
 import { useAcheivement } from '../../context/AcheivementContext';
 
-export default function Buttongroup({ onSubjectButtonClick,handleChangeSubjectId ,handleScoreTypeChange}) {
+export default function Buttongroup({ onSubjectButtonClick ,handleScoreTypeChange,handlegetMistakesbySubject}) {
 
   const { Subjects} = useAcheivement();
+  const {getMistakesbySubjects } = useAcheivement();
+
 
 // retrive subject titles 
   const Arabic = Subjects?.[0]?.title;
@@ -35,8 +37,9 @@ const SubjectId = [ArabicId, MathId, ScienceId, FrenshId];
   const handleClick = () => {
     console.info(`You clicked ${options[selectedIndex]}`);
     onSubjectButtonClick();
-     handleScoreTypeChange('subject');
-  
+    handleScoreTypeChange('subject');  
+    const selectedSubjectId = SubjectId[index]; 
+    handlegetMistakesbySubject(selectedSubjectId); 
   };
 
 
@@ -46,14 +49,16 @@ const SubjectId = [ArabicId, MathId, ScienceId, FrenshId];
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const handleMenuItemClick = (event, index) => {
-
     setSelectedIndex(index);
     setOpen(false);
     onSubjectButtonClick();
-    handleChangeSubjectId(SubjectId[index]);
+    const selectedSubjectId = SubjectId[index]; // Get the selected subjectId
+    handlegetMistakesbySubject(selectedSubjectId); // Pass selectedSubjectId
     handleScoreTypeChange('subject');
-  };
 
+  };
+  
+console.log()
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
     

@@ -9,8 +9,13 @@ import Avatar from '@mui/material/Avatar';
 import Star from '../../images/star.png';
 import Progressicon from '../../images/Progressicon.png';
 import { useAcheivement } from '../../context/AcheivementContext';
+import { useParams } from 'react-router-dom';
 function DashboardAdvancement() {
-  const { student, QuizoData, AcheivementData } = useAcheivement();
+  const { studentId } = useParams();
+  const { student, QuizoData, AcheivementData,getMistakesbySubjects } = useAcheivement();
+// React.useEffect( ()=>{
+//   getMistakesbySubjects(studentId)
+// } )
 
   const items = [
     {
@@ -79,8 +84,8 @@ function DashboardAdvancement() {
 >
   <Lastachievement />
   <Subjectadvancement />
-  <TrackingCharts />
-  {/* <MistakeTable /> */}
+  {/* <TrackingCharts /> */}
+  <MistakeTable />
 </Stack>
 
       </Box>

@@ -34,36 +34,36 @@ function chunk(array, size) {
     }, []);
   }
   
-export default function SubjectCards() {
-    const { StatesbySubjects } = useAcheivement();
-    // console.log(StatesbySubjects)
-    
+export default function SubjectCards(scoreType) {
+    const { StatesbySubjects,StatesbySubjectsANDChapiter } = useAcheivement();
+  
+
    
   const cards = [
     {
         id:1,
         title: '  الأسئلة المنجزة',
-        score:StatesbySubjects?.nbCompletedQuestions,
+        score: scoreType === 'subject' ? StatesbySubjects?.completedQuestions : StatesbySubjectsANDChapiter?.nbCompletedQuestions,
         icon:<img src={Session} alt="Session" width={40}/>,
      
       },
       {
         id:2,
         title: '  الإجابات الضعيفة ',
-        score:StatesbySubjects?.badResponses,
+        score:scoreType==='subject'? StatesbySubjects?.badResponses :StatesbySubjectsANDChapiter?.badResponses ,
         icon:<img src={Exercice} alt="Session" width={45}/>,
         
       },
     {
       id:3,
       title: '    الأخطاء المرتكبة',
-      score:StatesbySubjects?.nbMistakes,
+      score:scoreType==='subject'? StatesbySubjects?.nbMistakes :StatesbySubjectsANDChapiter?.nbMistakes,
       icon:<img src={Mistake} alt="Session" width={50}/>,
     },
     {
       id:4,
       title:'  الإجابات الممتازة',
-      score:StatesbySubjects?.excellentResponses,
+      score:scoreType==='subject'? StatesbySubjects?.excellentResponses :StatesbySubjectsANDChapiter?.excellentResponses,
       icon:<img src={Progressicon} alt="Session" width={50}/>,
     
     },

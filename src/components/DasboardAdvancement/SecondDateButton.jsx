@@ -5,11 +5,12 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 
-export default function SecondDateButton() {
-  const [selectedDate, setSelectedDate] = React.useState(null);
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
+export default function SecondDateButton({handleChangeEndDate} , endDate) {
+ 
+  const handleDate = (endDate) => {
+   
+    handleChangeEndDate(endDate)
+    console.log(endDate)
   };
 
   return (
@@ -30,17 +31,9 @@ export default function SecondDateButton() {
                         
                         },
                       }}
-            
-        //   label=" إلى حدود"
-        
-          value={selectedDate}
-          onChange={handleDateChange}
-          disableFuture
-          inputFormat="DD/MM/YYYY"
-          okLabel="تأكيد"
-          cancelLabel="إلغاء"
-          clearLabel="مسح"
-          todayLabel="اليوم"
+             
+          value={endDate}
+          onChange={handleDate}
         />
       </DemoContainer>
     </LocalizationProvider>

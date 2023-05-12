@@ -1,76 +1,92 @@
 import React, { useState } from 'react';
-import { Box, Card ,CardHeader,Typography,Grid,Stack} from '@mui/material';
-import ButtongroupSubject from './ButtongroupSubject.jsx';
-import ButtongroupSemester from './ButtongroupeSemester.jsx';
+import { Box, Card, CardHeader, Typography, Grid, Stack,Button } from '@mui/material';
+import ButtongroupSubject2 from './ButtongroupSubject2.jsx';
+import ButtongroupSemester2 from './ButtongroupeSemester.jsx';
 import MistakesTable from './MistakesTable.jsx';
-
+import { useAcheivement } from '../../context/AcheivementContext.jsx';
+import { useParams } from 'react-router-dom';
 export default function TrackingCharts() {
+  let { studentId } = useParams();
+  const { getMistakesbySubjects } = useAcheivement();
+
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [selectedSubjectId , setSelectedSubjectId] = useState(null)
-  const handleSubjectButtonClick=()=>{
+  const [selectedSubjectId, setSelectedSubjectId] = useState(null);
+  const [selectedChapterId, setselectedchapterid] = useState(null);
+
+  const [scoreType, setScoreType] = useState('subject');
+  const handleScoreTypeChange = newScoreType => {
+    setScoreType(newScoreType);
+  };
+
+  const handleSubjectButtonClick = index => {
     setIsButtonDisabled(false);
-  }
+    setSelectedSubjectId(index);
+  };
+
+
+ 
+  // const handleChapterButtonClick=(index)=>{
+  //   setselectedchapterid(index);
+  // }
+
+
+
+  const handlegetMistakesbySubject = SubjectId => {
+    setSelectedSubjectId(SubjectId);
+    getMistakesbySubjects(studentId, selectedSubjectId);
+  };
+
   return (
     <Card
-    sx={{
-      maxWidth: '90%',
-      display: 'flex',
-      textAlign: 'center',
-      border: '2px solid #3BC5CA',
-      backgroundColor: 'white',
-    }}
-  >
-   
-    <Box>
-    <CardHeader
-        title={
-          <Typography variant="h4" color="orange">
-              قائمة التمارين حسب عدد الأخطاء 
-          </Typography>
-        }
-      />
-      <Box
-        sx={{
-          flexDirection: { md: 'column', xs: 'row' },
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Stack container spacing={2} justifyContent="center"
-       
+      sx={{
+        maxWidth: '90%',
+        display: 'flex',
+        textAlign: 'center',
+        border: '2px solid #3BC5CA',
+        backgroundColor: 'white',
+      }}
+    >
+      <Box>
+        <CardHeader
+          title={
+            <Typography variant="h4" color="orange">
+              قائمة التمارين حسب عدد الأخطاء
+            </Typography>
+          }
+        />
+
+        <Stack
+          container
+          spacing={2}
+          justifyContent="center"
+          alignItems="center"
         >
-          
-          <Grid item
-              sx={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                justifyContent: 'space-evenly',
-                marginLeft: '20%',
-           
-                
-              }}
+          <Grid
+            item
+            sx={{
+              display: 'flex',
+              alignItems: 'flex-start',
+
+              marginLeft: '10%',
+            }}
           >
-            <ButtongroupSemester disabled={isButtonDisabled} />
-            <ButtongroupSubject
+            <ButtongroupSemester2 disabled={isButtonDisabled} />
+            <ButtongroupSubject2
               onSubjectButtonClick={handleSubjectButtonClick}
-              setSelectedSubjectId={setSelectedSubjectId}
+              handlegetMistakesbySubject={handlegetMistakesbySubject}
+              handleScoreTypeChange={handleScoreTypeChange}
+              // handleChangeSubjectId={handleChangeSubjectId}
             />
           </Grid>
-       
-          <Box>
-            <MistakesTable/>
-          </Box>
+
+
+          <Grid>
+            <MistakesTable
+            
+            />
+          </Grid>
         </Stack>
       </Box>
-    
-    </Box>
-</Card>
-  
-  
-  
-  
-  
-  
-  
+    </Card>
   );
 }

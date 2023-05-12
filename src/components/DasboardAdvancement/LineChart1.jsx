@@ -57,7 +57,7 @@ export const data = {
   ],
 };
 
-export default function App() {
+export default function App(scoreType) {
   return (
   <Box sx={{  border: '2px solid #3BC5CA', borderRadius: 2, width: '60%', margin: 'auto' }}>
   <Line  options={options} data={data} />;
