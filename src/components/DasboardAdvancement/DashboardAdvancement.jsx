@@ -84,7 +84,7 @@ function DashboardAdvancement() {
 >
   <Lastachievement />
   <Subjectadvancement />
-  {/* <TrackingCharts /> */}
+  <TrackingCharts />
   <MistakeTable />
 </Stack>
 

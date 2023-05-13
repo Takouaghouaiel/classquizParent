@@ -5,15 +5,15 @@ import ButtongroupSemester2 from './ButtongroupeSemester.jsx';
 import MistakesTable from './MistakesTable.jsx';
 import { useAcheivement } from '../../context/AcheivementContext.jsx';
 import { useParams } from 'react-router-dom';
-export default function TrackingCharts() {
+export default function MistakeTable() {
   let { studentId } = useParams();
-  const { getMistakesbySubjects } = useAcheivement();
+  const { getMistakesbySubjects ,getMistakesbySubjectsANDChapiter} = useAcheivement();
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [selectedSubjectId, setSelectedSubjectId] = useState(null);
   const [selectedChapterId, setselectedchapterid] = useState(null);
 
-  const [scoreType, setScoreType] = useState('subject');
+  const [scoreType, setScoreType] = useState('semester');
   const handleScoreTypeChange = newScoreType => {
     setScoreType(newScoreType);
   };
@@ -22,20 +22,26 @@ export default function TrackingCharts() {
     setIsButtonDisabled(false);
     setSelectedSubjectId(index);
   };
-
-
  
-  // const handleChapterButtonClick=(index)=>{
-  //   setselectedchapterid(index);
-  // }
+  const handleChapterButtonClick=(index)=>{
+    setselectedchapterid(index);
+  }
 
 
 
   const handlegetMistakesbySubject = SubjectId => {
     setSelectedSubjectId(SubjectId);
-    getMistakesbySubjects(studentId, selectedSubjectId);
+    getMistakesbySubjects(studentId, SubjectId);
   };
 
+  const handleChangeChapterId = ChapterId => {
+    setselectedchapterid(ChapterId);
+    getMistakesbySubjectsANDChapiter(
+      studentId,
+      selectedSubjectId,
+      selectedChapterId
+    );
+  };
   return (
     <Card
       sx={{
@@ -70,19 +76,24 @@ export default function TrackingCharts() {
               marginLeft: '10%',
             }}
           >
-            <ButtongroupSemester2 disabled={isButtonDisabled} />
+            <ButtongroupSemester2 
+            buttonProps={{ disabled: isButtonDisabled }}
+            onChapterButtonClick={handleChapterButtonClick}
+            handleChangeChapterId={handleChangeChapterId}
+            handleScoreTypeChange={handleScoreTypeChange}
+            />
             <ButtongroupSubject2
               onSubjectButtonClick={handleSubjectButtonClick}
               handlegetMistakesbySubject={handlegetMistakesbySubject}
               handleScoreTypeChange={handleScoreTypeChange}
-              // handleChangeSubjectId={handleChangeSubjectId}
+           
             />
           </Grid>
 
 
           <Grid>
             <MistakesTable
-            
+            scoreType={scoreType}
             />
           </Grid>
         </Stack>

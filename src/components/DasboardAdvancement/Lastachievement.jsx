@@ -63,7 +63,7 @@ export default function Lastachievement() {
                 <Box sx={{display:'flex', justifyContent:'space-evenly'}}>
                 <Item>{content}</Item>
                 
-                  <Avatar src={image} />
+                  <Avatar src={image}  sx={{ width: 70, height: 70 }} />
                 
                 </Box>
               </Grid>

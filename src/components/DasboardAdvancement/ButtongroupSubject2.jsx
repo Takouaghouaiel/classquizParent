@@ -14,8 +14,6 @@ import { useAcheivement } from '../../context/AcheivementContext';
 export default function Buttongroup({ onSubjectButtonClick ,handleScoreTypeChange,handlegetMistakesbySubject}) {
 
   const { Subjects} = useAcheivement();
-  const {getMistakesbySubjects } = useAcheivement();
-
 
 // retrive subject titles 
   const Arabic = Subjects?.[0]?.title;
@@ -38,8 +36,6 @@ const SubjectId = [ArabicId, MathId, ScienceId, FrenshId];
     console.info(`You clicked ${options[selectedIndex]}`);
     onSubjectButtonClick();
     handleScoreTypeChange('subject');  
-    const selectedSubjectId = SubjectId[index]; 
-    handlegetMistakesbySubject(selectedSubjectId); 
   };
 
 
@@ -52,8 +48,7 @@ const SubjectId = [ArabicId, MathId, ScienceId, FrenshId];
     setSelectedIndex(index);
     setOpen(false);
     onSubjectButtonClick();
-    const selectedSubjectId = SubjectId[index]; // Get the selected subjectId
-    handlegetMistakesbySubject(selectedSubjectId); // Pass selectedSubjectId
+    handlegetMistakesbySubject(SubjectId[index]); 
     handleScoreTypeChange('subject');
 
   };

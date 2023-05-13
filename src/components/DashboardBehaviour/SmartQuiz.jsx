@@ -1,61 +1,67 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
+// import React, { useState } from 'react';
 
-const Quiz = () => {
-  const [questions, setQuestions] = useState([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedChoice, setSelectedChoice] = useState('');
-  const [score, setScore] = useState(0);
+// const SmartQuiz = () => {
+//   const questions = [
+//     {
+//       question: 'What is the capital of France?',
+//       options: ['Paris', 'London', 'Berlin', 'Madrid'],
+//       answer: 'Paris'
+//     },
+//     {
+//       question: 'Which animal is known as the "king of the jungle"?',
+//       options: ['Lion', 'Tiger', 'Elephant', 'Giraffe'],
+//       answer: 'Lion'
+//     },
+//     {
+//       question: 'How many planets are there in our solar system?',
+//       options: ['7', '8', '9', '10'],
+//       answer: '8'
+//     }
+//   ];
 
-  useEffect(() => {
-    fetchQuestions();
-  }, []);
+//   const [currentQuestion, setCurrentQuestion] = useState(0);
+//   const [score, setScore] = useState(0);
+//   const [showScore, setShowScore] = useState(false);
 
-  const fetchQuestions = async () => {
-    try {
-      const response = await fetch('https://api.example.com/quiz/questions');
-      const data = await response.json();
-      setQuestions(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+//   const handleAnswerOptionClick = (selectedAnswer) => {
+//     if (selectedAnswer === questions[currentQuestion].answer) {
+//       setScore(score + 1);
+//     }
 
-  const handleChoiceChange = (event) => {
-    setSelectedChoice(event.target.value);
-  };
+//     const nextQuestion = currentQuestion + 1;
+//     if (nextQuestion < questions.length) {
+//       setCurrentQuestion(nextQuestion);
+//     } else {
+//       setShowScore(true);
+//     }
+//   };
 
-  const handleNextQuestion = () => {
-    const currentQuestion = questions[currentQuestionIndex];
-    if (selectedChoice === currentQuestion.correctChoice) {
-      setScore(score + 1);
-    }
+//   return (
+//     <div className="quiz">
+//       {showScore ? (
+//         <div className="score-section">
+//           You scored {score} out of {questions.length}
+//         </div>
+//       ) : (
+//         <>
+//           <div className="question-section">
+//             <div className="question-text">{questions[currentQuestion].question}</div>
+//           </div>
+//           <div className="answer-section">
+//             {questions[currentQuestion].options.map((option) => (
+//               <button key={option} onClick={() => handleAnswerOptionClick(option)}>{option}</button>
+//             ))}
+//           </div>
+//         </>
+//       )}
+//     </div>
+//   );
+// };
 
-    if (currentQuestionIndex + 1 < questions.length) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setSelectedChoice('');
-    } else {
-      // Quiz finished, display score or redirect to a new page
-      console.log('Quiz finished! Score: ', score);
-    }
-  };
+// export default SmartQuiz;
+import * as React from 'react';
 
-  const currentQuestion = questions[currentQuestionIndex];
-
+export default function SmartQuiz() {
   return (
-    <div>
-      <Typography variant="h5">{currentQuestion.question}</Typography>
-      <FormControl component="fieldset">
-        <FormLabel component="legend">Choose an option:</FormLabel>
-        <RadioGroup name="choices" value={selectedChoice} onChange={handleChoiceChange}>
-          {currentQuestion.choices.map((choice, index) => (
-            <FormControlLabel key={index} value={choice} control={<Radio />} label={choice} />
-          ))}
-        </RadioGroup>
-      </FormControl>
-      <Button variant="contained" onClick={handleNextQuestion}>Next Question</Button>
-    </div>
-  );
-};
-
-export default Quiz;
+    <div>this is quiz</div>
+  );}

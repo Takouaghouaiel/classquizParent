@@ -72,7 +72,7 @@ function UpdateparentForm() {
   };
 
   const handleCloseErrorPopup = () => {
-    setShowErrorPopup(false);
+    setShowErrorPopup(!showErrorPopup);
   };
 
   const handleMaleClick = () => {
@@ -107,7 +107,7 @@ function UpdateparentForm() {
     const token = localStorage.getItem('token');
 
  
-    try {
+    
       const config = {
         method: 'post',
         maxBodyLength: Infinity,
@@ -125,21 +125,11 @@ function UpdateparentForm() {
         },
       };
     
-      const response = await axios.request(config);
-      console.log(JSON.stringify(response.data));
-     
-      if (response.status >= 300) {
-        setShowErrorPopup(true);
-      } else {
+      const response = await axios.request(config).then(response =>{
         handleOpen();
         refreshState(response.data.user);
-      }
-      
-     
-    } catch (error) {
-        setShowErrorPopup(true);
-      console.log(error);
-    }
+      }).catch(error=>setShowErrorPopup(!showErrorPopup))
+
   };
 
   return (

@@ -43,11 +43,11 @@ export default function Buttongroup({buttonProps,handleChangeChapterId,onChapter
     handleScoreTypeChange('semester');
   };
 
-  const handleMenuItemClick = (chapterId) => {
-    setSelectedIndex(chapterId);
+  const handleMenuItemClick =(event, index) => {
+    setSelectedIndex(index);
     setOpen(false);
     onChapterButtonClick();
-    handleChangeChapterId(ChapterId[chapterId]);
+    handleChangeChapterId(ChapterId[index]);
     handleScoreTypeChange('semester');
   };
 

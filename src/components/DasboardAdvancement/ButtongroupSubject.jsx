@@ -11,7 +11,7 @@ import MenuList from '@mui/material/MenuList';
 import { useTheme } from '@mui/material/styles';
 import { useAcheivement } from '../../context/AcheivementContext';
 
-export default function Buttongroup({ onSubjectButtonClick,handleChangeSubjectId ,handleScoreTypeChange}) {
+export default function Buttongroup({ onSubjectButtonClick,handleChangeSubjectId },handleScoreTypeChange) {
 
   const { Subjects} = useAcheivement();
 

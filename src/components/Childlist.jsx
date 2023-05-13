@@ -1,5 +1,6 @@
 import React from 'react';
 import GroupsIcon from '@mui/icons-material/Groups';
+import addicon from '../images/addicon.png'
 import {
   Box,
   Card,
@@ -20,7 +21,9 @@ const List = ({ childrenList }) => {
       id: 'add-child',
       fullName: 'إضافة طفل جديد',
       avatar: {
-        urlPath: 'https://drive.google.com/file/d/1i6O_G3pEFsIuyaWgxDQ-ENvo79I99yIV/view?usp=share_link', // Replace with the URL of the "Add child" image
+        height:'140',
+        width:'140',
+        urlPath: addicon
       },
     };
   
@@ -52,7 +55,7 @@ const List = ({ childrenList }) => {
             >
               <CardMedia
                 component="img"
-                height="140"
+                height={child.avatar.height? child.avatar.height:  '140'} 
                 image={child.avatar.urlPath}
                 alt={child.fullName}
               />

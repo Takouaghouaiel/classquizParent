@@ -24,10 +24,10 @@ export default function Subjectadvancement() {
     setIsButtonDisabled(false);
     setSelectedSubjectId(index);
   };
+
   const handleChapterButtonClick = index => {
     setselectedchapterid(index);
   };
-
 
   const handleChangeSubjectId = subjectId => {
     setSelectedSubjectId(subjectId);
@@ -84,7 +84,7 @@ export default function Subjectadvancement() {
           <ButtongroupSubject
             onSubjectButtonClick={handleSubjectButtonClick}
             handleChangeSubjectId={handleChangeSubjectId}
-            handleScoreTypeChange={handleScoreTypeChange}
+            handleScoreTypeChange={()=>handleScoreTypeChange()}
           />
         </Box>
         <Box
