@@ -36,10 +36,10 @@ function App() {
                 </GuestGuard>
               }
             />
-
+         
             <Route path="UpdateParent" element={<UpdateParent />} />
             <Route path="add-child" element={<Addchild />} />
-            <Route path="smartquiz" element={<SmartQuiz />} />
+
             {/* Use AuthGuard to protect routes that require authentication */}
             <Route
               path="/children"
@@ -57,10 +57,10 @@ function App() {
 
               <Route path="support" element={<DashboardSupport />} />
 
-              <Route path="behaviours" element={<DashboardBehaviours />} />
-
-
-              <Route path="subscription" element={<DashboardSubscription />} />
+              <Route path="behaviours" element={<DashboardBehaviours />} >
+                
+              </Route>
+              <Route path="smartquiz" element={<SmartQuiz />} />
             </Route>
           </Routes>
         </AcheivementProvider>

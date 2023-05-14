@@ -63,16 +63,18 @@ function UpdateparentForm() {
 
   const handleOpen = () => {
     setOpen(true);
+    setShowErrorPopup(prevState => !prevState)
+    console.log(showErrorPopup);
   };
 
   const handleClose = () => {
     setOpen(false);
-    setShowErrorPopup(false); 
+  
     navigate('/children/');
   };
 
   const handleCloseErrorPopup = () => {
-    setShowErrorPopup(!showErrorPopup);
+    setShowErrorPopup(prevState => !prevState)
   };
 
   const handleMaleClick = () => {
@@ -128,7 +130,7 @@ function UpdateparentForm() {
       const response = await axios.request(config).then(response =>{
         handleOpen();
         refreshState(response.data.user);
-      }).catch(error=>setShowErrorPopup(!showErrorPopup))
+      }).catch(error=>setShowErrorPopup(prevState => !prevState))
 
   };
 
