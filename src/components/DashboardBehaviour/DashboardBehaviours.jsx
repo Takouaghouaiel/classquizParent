@@ -9,6 +9,8 @@ import observe from '../../images/observe.png';
 import communicate from '../../images/communicate.png';
 import { useParams } from 'react-router-dom';
 import SmartQuiz from './SmartQuiz';
+import DifQuiz from './DifQuiz';
+import InterestQuiz from './InterestQuiz';
 import axios from 'axios';
 
 export default function DashboardBehaviours() {
@@ -58,11 +60,11 @@ export default function DashboardBehaviours() {
       selectedQuizComponent = <SmartQuiz />;
       break;
     case 2:
-      selectedQuizComponent = <SmartQuiz />;
+      selectedQuizComponent = <DifQuiz />;
       break;
 
     case 3:
-      selectedQuizComponent = <SmartQuiz />;
+      selectedQuizComponent = <InterestQuiz />;
       break;
 
     default:

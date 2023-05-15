@@ -11,6 +11,7 @@ const QuizContainer = styled.div`
   height: 100vh;
   background-color: #fff;
   border: 2px solid #3bc5ca;
+  
 `;
 
 const CompteurSection = styled.div`
@@ -24,6 +25,7 @@ const QuestionSection = styled.div`
 
 const QuestionText = styled.div`
   font-size: 30px;
+
 `;
 
 const AnswerButton = styled.button`
@@ -33,7 +35,7 @@ const AnswerButton = styled.button`
   margin-bottom: 10px;
   width: 100%;
   padding: 10px;
-  background-color: #3bc5ca;
+  background-color:#3bc5ca;
   color: white;
   border: 2px solid #3bc5ca;
   border-radius: 5px;
@@ -44,6 +46,7 @@ const AnswerButton = styled.button`
     color: #3bc5ca;
   }
 `;
+
 
 const SmartQuiz = () => {
   const { studentId } = useParams();
@@ -56,7 +59,7 @@ const SmartQuiz = () => {
       try {
         const token = localStorage.getItem('token');
         const response = await axios.get(
-          `https://api.omega.classquiz.tn/v2/student/${studentId}/quiz/1/questions`,
+          `https://api.omega.classquiz.tn/v2/student/${studentId}/quiz/3/questions`,
           {
             headers: {
               Accept: 'application/json',
@@ -70,10 +73,10 @@ const SmartQuiz = () => {
 
           const extractedQuestions = data.map(item => item.question);
           setQuestions(extractedQuestions);
-          // console.log('questions:', extractedQuestions);
+          console.log('questions:', extractedQuestions);
           const extractedAnswers = data.map(question => question.responses);
           setAnswers(extractedAnswers);
-          // console.log('responses:', extractedAnswers);
+          console.log('responses:', extractedAnswers);
         } else if (response.status === 401) {
           throw new Error('Failure getQ/A');
         } else {
@@ -87,78 +90,35 @@ const SmartQuiz = () => {
     fetchSmartQuiz();
   }, [studentId]);
 
-  const fetchResult = async (responses) => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.post(
-        `https://api.omega.classquiz.tn/v2/student/${studentId}/quiz/1/responses`,
-
-        {
-          // responses: [
-          //   {
-          //     questionId:,
-          //     responseId,
-          //   }
-          // ],
-        },
-
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.status === 200) {
-        const data = response.data;
-        setResult(data);
-      } else if (response.status === 401) {
-        throw new Error('Failure result');
-      } else {
-        throw new Error(`Unexpected response status: ${response.status}`);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
   const handleAnswerOptionClick = selectedAnswer => {
-    const updatedResponses = [...answers]; // Copy the current responses
-    updatedResponses[currentQuestion] = selectedAnswer; // Update the response for the current question
-    // Call fetchResult with the updated responses
-    fetchResult(updatedResponses);
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < questions.length) {
       setCurrentQuestion(nextQuestion);
     }
-   console.log('updatedResponses:',updatedResponses);
   };
 
   return (
-    <Box sx={{ color: '#3bc5ca' }}>
-      <QuizContainer>
-        <CompteurSection>
-          {currentQuestion}/{questions.length}
-        </CompteurSection>
-        <>
-          <QuestionSection>
-            <QuestionText>{questions[currentQuestion]}</QuestionText>
-          </QuestionSection>
-          <div>
-            {answers[currentQuestion] &&
-              answers[currentQuestion].map(option => (
-                <AnswerButton
-                  key={option}
-                  onClick={() => handleAnswerOptionClick(option.response)}
-                >
-                  {option.response}
-                </AnswerButton>
-              ))}
-          </div>
-        </>
-      </QuizContainer>
+    <Box  sx={{  color : '#3bc5ca'}}>
+    <QuizContainer>
+      <CompteurSection>
+{currentQuestion}/{questions.length}
+      </CompteurSection>
+      <>
+        <QuestionSection >
+          <QuestionText >{questions[currentQuestion]}</QuestionText>
+        </QuestionSection>
+        <div>
+  {answers[currentQuestion] && answers[currentQuestion].map((option) => (
+    <AnswerButton key={option} onClick={() => handleAnswerOptionClick(option.response)}>
+      {option.response}
+    </AnswerButton>
+  ))}
+</div>
+
+      </>
+    </QuizContainer>
     </Box>
   );
 };
