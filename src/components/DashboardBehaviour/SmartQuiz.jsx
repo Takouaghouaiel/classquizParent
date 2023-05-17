@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Box } from '@mui/material';
+import { Box ,Button} from '@mui/material';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
+
 const QuizContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -50,6 +51,39 @@ const SmartQuiz = () => {
   const [SmartQuiz, setSmartQuiz] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
+  const [Result, setResult] = useState([]);
+  const [selectedAnswerId, setselectedAnswerId] = useState(0);
+  const [questionId, setquestionId] = useState(0);
+ const [responses,setresponses]=useState([]);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [QuizResult,setQuizResult]=([])
+  const [ResultisVisible, setResultIsVisible] = useState(false);
+
+  const getResult = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(
+        `https://api.omega.classquiz.tn/v2/student/${studentId}/quiz`,
+        {
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        const data = response.data;
+        setQuizResult(data);
+        console.log(QuizResult);
+      } else if (response.status === 401) {
+        throw new Error('Failure QuizResult');
+      } else {
+        throw new Error(`Unexpected response status: ${response.status}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const fetchSmartQuiz = async () => {
@@ -68,12 +102,19 @@ const SmartQuiz = () => {
           const data = response.data;
           setSmartQuiz(data);
 
-          const extractedQuestions = data.map(item => item.question);
+          const extractedQuestions = data.map(item => ({
+            id: item.id,
+            question: item.question,
+          }));
+
+          console.log('extractedQuestions:', extractedQuestions);
           setQuestions(extractedQuestions);
-          // console.log('questions:', extractedQuestions);
+
           const extractedAnswers = data.map(question => question.responses);
           setAnswers(extractedAnswers);
-          // console.log('responses:', extractedAnswers);
+          const questionId = questions[currentQuestion].id;
+          const questionText = questions[currentQuestion].question;
+          console.log('questionId:', questionId, 'questionText', questionText);
         } else if (response.status === 401) {
           throw new Error('Failure getQ/A');
         } else {
@@ -87,28 +128,35 @@ const SmartQuiz = () => {
     fetchSmartQuiz();
   }, [studentId]);
 
-  const fetchResult = async (responses) => {
+  useEffect(() => {
+    if (questions.length > 0) {
+      const questionId = questions[currentQuestion].id;
+      const questionText = questions[currentQuestion].question;
+      console.log('questionId:', questionId, 'questionText', questionText);
+      setquestionId(questionId);
+    }
+  }, [questions, currentQuestion]);
+
+  const fetchResult = async currentQuestion => {
     try {
       const token = localStorage.getItem('token');
+
       const response = await axios.post(
         `https://api.omega.classquiz.tn/v2/student/${studentId}/quiz/1/responses`,
 
         {
-          // responses: [
-          //   {
-          //     questionId:,
-          //     responseId,
-          //   }
-          // ],
+          'responses':responses ,
         },
 
         {
           headers: {
+            'Content-Type': 'application/json',
             Accept: 'application/json',
             Authorization: `Bearer ${token}`,
           },
         }
       );
+      console.log(responses);
       if (response.status === 200) {
         const data = response.data;
         setResult(data);
@@ -122,20 +170,36 @@ const SmartQuiz = () => {
     }
   };
 
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+
 
   const handleAnswerOptionClick = selectedAnswer => {
     const updatedResponses = [...answers]; // Copy the current responses
-    updatedResponses[currentQuestion] = selectedAnswer; // Update the response for the current question
-    // Call fetchResult with the updated responses
-    fetchResult(updatedResponses);
+    //  console.log(questions);
+    updatedResponses[currentQuestion] = selectedAnswer.response; // Update the response for the current question
+    console.log('selectedAnswer:', selectedAnswer);
+    setselectedAnswerId(selectedAnswer.id);
+   
     const nextQuestion = currentQuestion + 1;
-    if (nextQuestion < questions.length) {
+    if (nextQuestion <= questions.length) {
       setCurrentQuestion(nextQuestion);
+    }else if (nextQuestion=questions.length){
+      setResultIsVisible(true)
     }
-   console.log('updatedResponses:',updatedResponses);
-  };
+    setresponses(prevResponses => [
+      ...prevResponses,
+      {
+        'questionId': questionId,
+        'responseId': selectedAnswerId,
+      },
+    ]);
+    
 
+  };
+const handlegetQuizResult=()=>{
+  getResult()
+   // Call fetchResult with the updated responses
+   fetchResult(currentQuestion);
+}
   return (
     <Box sx={{ color: '#3bc5ca' }}>
       <QuizContainer>
@@ -144,19 +208,20 @@ const SmartQuiz = () => {
         </CompteurSection>
         <>
           <QuestionSection>
-            <QuestionText>{questions[currentQuestion]}</QuestionText>
+            <QuestionText>{questions[currentQuestion]?.question}</QuestionText>
           </QuestionSection>
           <div>
             {answers[currentQuestion] &&
-              answers[currentQuestion].map(option => (
+              answers[currentQuestion]?.map(option => (
                 <AnswerButton
                   key={option}
-                  onClick={() => handleAnswerOptionClick(option.response)}
+                  onClick={() => handleAnswerOptionClick(option)}
                 >
                   {option.response}
                 </AnswerButton>
               ))}
           </div>
+          <Button onClick={()=>handlegetQuizResult()}>resuuuult</Button>
         </>
       </QuizContainer>
     </Box>

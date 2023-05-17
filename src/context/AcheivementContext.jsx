@@ -316,7 +316,7 @@ export default function AcheivementProvider({ children }) {
       );
 
       if (response.status === 200) {
-        const data = response.data;
+        const data = response.data.data;
         setMistakesbySubject(data);
 
         return 'success mistakesbysubject';
@@ -353,7 +353,7 @@ export default function AcheivementProvider({ children }) {
         }
       );
       if (response.status === 200) {
-        const data = response.data;
+        const data = response.data.data;
         setStatesbyMistakesANDChapiter(data);
 
         return 'success statesbysubject and chapter';

@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import { CardActionArea ,Stack} from '@mui/material';
 import smart from '../../images/smart.png';
 import observe from '../../images/observe.png';
 import communicate from '../../images/communicate.png';
@@ -12,10 +12,11 @@ import SmartQuiz from './SmartQuiz';
 import DifQuiz from './DifQuiz';
 import InterestQuiz from './InterestQuiz';
 import axios from 'axios';
-
+import QuizResult from './QuizResult';
 export default function DashboardBehaviours() {
   const { studentId } = useParams();
   const [QuizType, setQuizType] = useState(null);
+  const [ResultisVisible, setResultIsVisible] = useState(false);
 
   useEffect(() => {
     const fetchQuizType = async () => {
@@ -51,6 +52,7 @@ export default function DashboardBehaviours() {
 
   const handleQuizCardClick = quizId => {
     setSelectedQuiz(quizId);
+    setResultIsVisible(true);
   };
 
   let selectedQuizComponent = null;
@@ -75,15 +77,15 @@ export default function DashboardBehaviours() {
     return selectedQuizComponent;
   }
   return (
-    <Grid
-      container
+    <Stack
+      
       spacing={3}
-      style={{ minHeight: '100vh', flexGrow: 2, textAlign: 'center' }}
+      style={{  textAlign: 'center' }}
       justifyContent="center"
       alignItems="center"
       alignContent="center"
-      height="100vh"
-      padding="30%"
+    
+     
     >
       <Grid item xs={12} sm={12}>
         <Card sx={{ maxWidth: 400, backgroundColor: '#FFC800' }}>
@@ -98,7 +100,7 @@ export default function DashboardBehaviours() {
               >
                 {QuizType?.[0]?.description}
               </Typography>
-              <img src={smart} alt="smart" width={150} />
+              <img src={smart} alt="smart" width={190} height={110} />
             </CardContent>
           </CardActionArea>
         </Card>
@@ -139,6 +141,11 @@ export default function DashboardBehaviours() {
           </CardActionArea>
         </Card>
       </Grid>
-    </Grid>
+      <Grid>
+{/* {ResultisVisible && <QuizResult />} */}
+<QuizResult/>
+</Grid>
+    </Stack>
+
   );
 }
