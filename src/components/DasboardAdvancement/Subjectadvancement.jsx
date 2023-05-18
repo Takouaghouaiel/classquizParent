@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { Box, Card, CardHeader, Typography } from '@mui/material';
 import ButtongroupSubject from './ButtongroupSubject.jsx';
 import ButtongroupSemester from './ButtongroupeSemester.jsx';
@@ -10,7 +11,7 @@ export default function Subjectadvancement() {
   let { studentId } = useParams();
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [selectedSubjectId, setSelectedSubjectId] = useState(null);
-  const [selectedChapterId, setselectedchapterid] = useState(null);
+  const [selectedChapterId, setselectedchapterid] = useState(1);
 
   let { getStatesbySubjects, getStatesbySubjectsANDChapiter } =
     useAcheivement();
@@ -42,6 +43,11 @@ export default function Subjectadvancement() {
       selectedChapterId
     );
   };
+
+  useEffect((ChapterId) => {
+    handleChangeSubjectId(selectedSubjectId)
+    handleChangeChapterId(selectedChapterId)
+  }, []);
   return (
     <Card
       sx={{

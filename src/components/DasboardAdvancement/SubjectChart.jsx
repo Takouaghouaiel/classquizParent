@@ -40,6 +40,7 @@ export const options = {
 
 
 export default function SubjectChart(scoreType) {
+  
 
   const { StatesbySubjects,StatesbySubjectsANDChapiter,Subjects } = useAcheivement();
 

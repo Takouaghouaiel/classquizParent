@@ -84,6 +84,7 @@ export default function DashboardBehaviours() {
       justifyContent="center"
       alignItems="center"
       alignContent="center"
+      marginTop="10%"
     
      
     >

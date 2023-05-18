@@ -25,7 +25,9 @@ export default function AcheivementProvider({ children }) {
   const [ProgressbySubjectsANDChapiter, setProgressbySubjectsANDChapiter] =
     useState(null);
   const [MistakesbySubject, setMistakesbySubject] = useState(null);
-  const [MistakesbySubjectsANDChapiter,setStatesbyMistakesANDChapiter]=useState(null);
+  const [MistakesbySubjectsANDChapiter, setStatesbyMistakesANDChapiter] =
+    useState(null);
+  const[Progress,setProgress]=useState(null)
   // console.log(MistakesbySubject);
 
   const getStudentDetails = async studentId => {
@@ -330,7 +332,7 @@ export default function AcheivementProvider({ children }) {
     }
   };
 
-  const getMistakesbySubjectsANDChapiter= async (
+  const getMistakesbySubjectsANDChapiter = async (
     studentId,
     selectedSubjectId,
     selectedChapterId
@@ -427,6 +429,31 @@ export default function AcheivementProvider({ children }) {
     }
   };
 
+  const getProgress = async (studentId, startDate, endDate) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(
+        `https://api.omega.classquiz.tn/v2/students/${studentId}/progress?start_date=${startDate}&end_date=${endDate}`,
+        {
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const data = response.data;
+        setProgress(data);
+        return 'success progress and chapter';
+      } else {
+        throw new Error(`Unexpected response status: ${response.status}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AcheivementContext.Provider
       value={{
@@ -465,6 +492,8 @@ export default function AcheivementProvider({ children }) {
         getProgressbySubjects,
         getMistakesbySubjectsANDChapiter,
         MistakesbySubjectsANDChapiter,
+        Progress,
+        getProgress,
       }}
     >
       {children}

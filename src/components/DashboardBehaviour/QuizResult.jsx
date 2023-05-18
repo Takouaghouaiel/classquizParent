@@ -1,5 +1,7 @@
-import { Typography, Box, Stack } from '@mui/material';
+import { Typography, Box, Stack, Grid } from '@mui/material';
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import InterestChart from './InterestChart';
 import SmartChart from './SmartChart';
@@ -13,50 +15,75 @@ const ResultBox = styled.div`
 `;
 
 const SmartQuiz = () => {
-  return (
-    <Stack spacing={3}>
-      <Box>
-        <Typography
-          variant="h5"
-          component="div"
-          fontSize="24px"
-          fontWeight="bold"
-        >
-          نتيجة اختبار ميولات الطفل
-        </Typography>
-        <ResultBox>
-          <InterestChart />
-        </ResultBox>
-      </Box>
+  const [QuizResult, setQuizResult] = useState([]);
+  const { studentId } = useParams();
+  const getResult = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(
+        `https://api.omega.classquiz.tn/v2/student/${studentId}/quiz`,
+        {
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        const data = response.data;
+        setQuizResult(data);
+        console.log('QuizResult:',QuizResult);
+      } else if (response.status === 401) {
+        throw new Error('Failure QuizResult');
+      } else {
+        throw new Error(`Unexpected response status: ${response.status}`);
 
-      <Box>
-        <Typography
-          variant="h5"
-          component="div"
-          fontSize="24px"
-          fontWeight="bold"
-        >
-          نتيجة اختبار الذكاء
-        </Typography>
-        <ResultBox>
-          <SmartChart />
-        </ResultBox>
-      </Box>
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-      <Box>
-        <Typography
-          variant="h5"
-          component="div"
-          fontSize="24px"
-          fontWeight="bold"
-        >
-          نتيجة اختبار صعوبات التعلم
-        </Typography>
-        <ResultBox>
-          <DifChart />
-        </ResultBox>
-      </Box>
-    </Stack>
-  );
+  useEffect(() => {
+    getResult();
+    // console.log(QuizResult);
+  }, [QuizResult]);
+
+    return (
+        <Stack spacing={3}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <Box>
+                <Typography variant="h5" component="div" fontSize="24px" fontWeight="bold">
+                  نتيجة اختبار ميولات الطفل
+                </Typography>
+                <ResultBox>
+                  <InterestChart QuizResult={QuizResult} />
+                </ResultBox>
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Box>
+                <Typography variant="h5" component="div" fontSize="24px" fontWeight="bold">
+                  نتيجة اختبار الذكاء
+                </Typography>
+                <ResultBox>
+                  <SmartChart />
+                </ResultBox>
+              </Box>
+            </Grid>
+          </Grid>
+      
+          <Box>
+            <Typography variant="h5" component="div" fontSize="24px" fontWeight="bold">
+              نتيجة اختبار صعوبات التعلم
+            </Typography>
+            <ResultBox>
+              <DifChart />
+            </ResultBox>
+          </Box>
+        </Stack>
+      );
+      
 };
 export default SmartQuiz;

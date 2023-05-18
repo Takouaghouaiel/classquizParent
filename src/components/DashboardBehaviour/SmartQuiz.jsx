@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Box ,Button} from '@mui/material';
+import { Box, Button } from '@mui/material';
 import styled from 'styled-components';
 import axios from 'axios';
-import {  useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const QuizContainer = styled.div`
   display: flex;
@@ -54,36 +54,11 @@ const SmartQuiz = () => {
   const [Result, setResult] = useState([]);
   const [selectedAnswerId, setselectedAnswerId] = useState(0);
   const [questionId, setquestionId] = useState(0);
- const [responses,setresponses]=useState([]);
+  const [responses, setresponses] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [QuizResult,setQuizResult]=([])
   const [ResultisVisible, setResultIsVisible] = useState(false);
 
-  const getResult = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get(
-        `https://api.omega.classquiz.tn/v2/student/${studentId}/quiz`,
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.status === 200) {
-        const data = response.data;
-        setQuizResult(data);
-        console.log(QuizResult);
-      } else if (response.status === 401) {
-        throw new Error('Failure QuizResult');
-      } else {
-        throw new Error(`Unexpected response status: ${response.status}`);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
 
   useEffect(() => {
     const fetchSmartQuiz = async () => {
@@ -137,7 +112,7 @@ const SmartQuiz = () => {
     }
   }, [questions, currentQuestion]);
 
-  const fetchResult = async currentQuestion => {
+  const postresponses = async currentQuestion => {
     try {
       const token = localStorage.getItem('token');
 
@@ -145,7 +120,7 @@ const SmartQuiz = () => {
         `https://api.omega.classquiz.tn/v2/student/${studentId}/quiz/1/responses`,
 
         {
-          'responses':responses ,
+          responses: responses,
         },
 
         {
@@ -170,36 +145,38 @@ const SmartQuiz = () => {
     }
   };
 
-
-
   const handleAnswerOptionClick = selectedAnswer => {
-    const updatedResponses = [...answers]; // Copy the current responses
-    //  console.log(questions);
-    updatedResponses[currentQuestion] = selectedAnswer.response; // Update the response for the current question
+    const updatedResponses = [...answers];
+    updatedResponses[currentQuestion] = selectedAnswer.response;
     console.log('selectedAnswer:', selectedAnswer);
     setselectedAnswerId(selectedAnswer.id);
-   
+
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion <= questions.length) {
       setCurrentQuestion(nextQuestion);
-    }else if (nextQuestion=questions.length){
-      setResultIsVisible(true)
+    } else if ((nextQuestion = questions.length)) {
+      setResultIsVisible(true);
     }
-    setresponses(prevResponses => [
-      ...prevResponses,
-      {
-        'questionId': questionId,
-        'responseId': selectedAnswerId,
-      },
-    ]);
-    
 
+    setresponses(prevResponses => [
+    
+      {
+        questionId: questionId,
+        responseId: selectedAnswerId,
+      },
+      prevResponses,
+    ]);
+    console.log('final responses are:', responses);
   };
-const handlegetQuizResult=()=>{
-  getResult()
-   // Call fetchResult with the updated responses
-   fetchResult(currentQuestion);
-}
+
+
+
+
+  const handlegetQuizResult = () => {
+   
+    // Call postresponses with the updated responses
+    postresponses(currentQuestion);
+  };
   return (
     <Box sx={{ color: '#3bc5ca' }}>
       <QuizContainer>
@@ -221,7 +198,7 @@ const handlegetQuizResult=()=>{
                 </AnswerButton>
               ))}
           </div>
-          <Button onClick={()=>handlegetQuizResult()}>resuuuult</Button>
+          <Button onClick={() => handlegetQuizResult()}>resuuuult</Button>
         </>
       </QuizContainer>
     </Box>

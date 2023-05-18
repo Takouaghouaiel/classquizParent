@@ -45,7 +45,7 @@ export default function Lastachievement() {
       />
 
       <CardContent>
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, direction: 'rtl' }}>
           <Grid
             container
             spacing={{ xs: 2, md: 3 }}
@@ -57,7 +57,7 @@ export default function Lastachievement() {
               { content: r3?.description, image: r3?.imgUrl },
               { content: r4?.description, image: r4?.imgUrl },
               { content: r5?.description, image: r5?.imgUrl },
-              { content: r1?.description, image: r1?.imgUrl },
+              
             ].map(({ content, image }, index) => (
               <Grid item xs={2} sm={4} md={4} key={index}>
                 <Box sx={{display:'flex', justifyContent:'space-evenly'}}>

@@ -14,10 +14,10 @@ export default function TrackingCharts() {
   let {studentId}  =  useParams()
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [selectedSubjectId , setSelectedSubjectId] = useState(null);
-  const [selectedChapterId , setselectedchapterid] = useState(null);
+  const [selectedChapterId , setselectedchapterid] = useState(1);
   const [startDate,setStartDate]=useState(null);
   const [endDate,setEndDate]=useState(null);
-  let {getStatesbySubjects,getStatesbySubjectsANDChapiter,getProgressbySubjectsANDChapiter} = useAcheivement()
+  let {getStatesbySubjects,getStatesbySubjectsANDChapiter,getProgress,getProgressbySubjects,getProgressbySubjectsANDChapiter} = useAcheivement()
   
   const [scoreType, setScoreType] = useState('subject');
   const handleScoreTypeChange = (newScoreType) => {
@@ -95,10 +95,10 @@ export default function TrackingCharts() {
       }}
         >
           <Grid item>
-            <SecondDateButton  handleChangeEndDate={handleChangeEndDate} endDate/>
+            <SecondDateButton  handleChangeEndDate={handleChangeEndDate} endDate startDate/>
           </Grid>
           <Grid item>
-            <FirstDateButton handleChangeStartDate={handleChangeStartDate} startDate/>
+            <FirstDateButton handleChangeStartDate={handleChangeStartDate} startDate endDate/>
           </Grid>
           <Grid item>
             <ButtongroupSemester buttonProps={{ disabled: isButtonDisabled }} onChapterButtonClick={handleChapterButtonClick}  handleChangeChapterId={handleChangeChapterId} handleScoreTypeChange={handleScoreTypeChange} />

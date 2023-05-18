@@ -11,7 +11,7 @@ export default function MistakeTable() {
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [selectedSubjectId, setSelectedSubjectId] = useState(null);
-  const [selectedChapterId, setselectedchapterid] = useState(null);
+  const [selectedChapterId, setselectedchapterid] = useState(1);
 
   const [scoreType, setScoreType] = useState('semester');
   const handleScoreTypeChange = newScoreType => {

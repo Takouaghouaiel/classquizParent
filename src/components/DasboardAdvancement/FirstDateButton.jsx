@@ -5,10 +5,10 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 
-export default function FirstDateButton({ handleChangeStartDate }, startDate) {
-  const handleDate = (startDate) => {
-    handleChangeStartDate(startDate);
-    console.log(startDate);
+export default function FirstDateButton({ handleChangeStartDate }, startDate,endDate) {
+  const handleDate = (startDate,endDate) => {
+    handleChangeStartDate(startDate,endDate);
+    console.log(startDate,endDate);
   };
 
   return (
