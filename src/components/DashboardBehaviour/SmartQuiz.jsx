@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button } from '@mui/material';
+import { Box, Button,  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+   } from '@mui/material';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
+
 
 const QuizContainer = styled.div`
   display: flex;
@@ -56,9 +62,20 @@ const SmartQuiz = () => {
   const [questionId, setquestionId] = useState(0);
   const [responses, setresponses] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [ResultisVisible, setResultIsVisible] = useState(false);
+  // const [quizCompleted, setQuizCompleted] = useState(true);
+ 
+  let navigate = useNavigate();
+  // popup
+  const [open, setOpen] = useState(false);
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+    navigate('/dashboard/' + studentId +'/behaviours');
+  };
 
   useEffect(() => {
     const fetchSmartQuiz = async () => {
@@ -99,19 +116,19 @@ const SmartQuiz = () => {
         console.log(error);
       }
     };
-
+  
     fetchSmartQuiz();
   }, [studentId]);
-
+  
   useEffect(() => {
-    if (questions.length > 0) {
+    if (questions.length > 0 && currentQuestion < questions.length) {
       const questionId = questions[currentQuestion].id;
       const questionText = questions[currentQuestion].question;
       console.log('questionId:', questionId, 'questionText', questionText);
       setquestionId(questionId);
     }
   }, [questions, currentQuestion]);
-
+  
   const postresponses = async currentQuestion => {
     try {
       const token = localStorage.getItem('token');
@@ -150,57 +167,133 @@ const SmartQuiz = () => {
     updatedResponses[currentQuestion] = selectedAnswer.response;
     console.log('selectedAnswer:', selectedAnswer);
     setselectedAnswerId(selectedAnswer.id);
-
+  
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion <= questions.length) {
       setCurrentQuestion(nextQuestion);
-    } else if ((nextQuestion = questions.length)) {
-      setResultIsVisible(true);
+    } 
+    if (nextQuestion > questions.length) {
+      setQuizCompleted(true);
     }
-
+  
     setresponses(prevResponses => [
-    
+      ...prevResponses,
       {
-        questionId: questionId,
-        responseId: selectedAnswerId,
+        questionId: questions[currentQuestion].id,
+        responseId: selectedAnswer.id,
       },
-      prevResponses,
     ]);
     console.log('final responses are:', responses);
   };
-
+  
 
 
 
   const handlegetQuizResult = () => {
-   
+    handleOpen();
     // Call postresponses with the updated responses
     postresponses(currentQuestion);
   };
   return (
     <Box sx={{ color: '#3bc5ca' }}>
-      <QuizContainer>
-        <CompteurSection>
-          {currentQuestion}/{questions.length}
-        </CompteurSection>
-        <>
-          <QuestionSection>
-            <QuestionText>{questions[currentQuestion]?.question}</QuestionText>
-          </QuestionSection>
-          <div>
-            {answers[currentQuestion] &&
-              answers[currentQuestion]?.map(option => (
-                <AnswerButton
-                  key={option}
-                  onClick={() => handleAnswerOptionClick(option)}
-                >
-                  {option.response}
-                </AnswerButton>
-              ))}
-          </div>
-          <Button onClick={() => handlegetQuizResult()}>resuuuult</Button>
-        </>
-      </QuizContainer>
+
+  <QuizContainer>
+    <CompteurSection>
+      {currentQuestion}/{questions.length}
+    </CompteurSection>
+    <>
+      <QuestionSection>
+        <QuestionText>{questions[currentQuestion]?.question}</QuestionText>
+      </QuestionSection>
+      <div>
+        {answers[currentQuestion] &&
+          answers[currentQuestion]?.map(option => (
+            <AnswerButton
+              key={option}
+              onClick={() => handleAnswerOptionClick(option)}
+            >
+              {option.response}
+            </AnswerButton>
+          ))}
+      </div>
+      {currentQuestion === questions.length && (
+        // <Button onClick={() => handlegetQuizResult()}>resuuuult</Button>
+        <Button
+        variant="contained"
+        color="primary"
+        type="submit"
+        sx={{
+         
+          background:
+            'linear-gradient(to bottom right, #1CC3CB, #67D5D7)',
+          
+          borderRadius: '6px',
+        }}
+        onClick={() => handlegetQuizResult()}
+      >
+        تسجيل
+      </Button>
+      )}
+    </>
+  </QuizContainer>
+
+
+   
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          '& .MuiDialogContent-root': {
+            textAlign: 'center',
+          },
+          '@media (max-width: 600px)': {
+            '& .MuiDialogTitle-root, & .MuiDialogActions-root': {
+              textAlign: 'center',
+            },
+          },
+        }}
+      >
+        <DialogTitle sx={{  display: 'flex',
+            justifyContent: 'center',}}>لقد تم إنهاء الإختبار بنجاح</DialogTitle>
+        <DialogContent>
+          <DialogContentText>يمكنك الرجوع إلى قائمة الإختبارات لتلقي النتيجة </DialogContentText>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            '& .MuiDialogContent-root': {
+              textAlign: 'center',
+            },
+            '@media (max-width: 600px)': {
+              '& .MuiDialogTitle-root, & .MuiDialogActions-root': {
+                textAlign: 'center',
+              },
+            },
+          }}
+        >
+          <Button
+            type="submit"
+            sx={{
+              alignSelf: 'center',
+              background: 'linear-gradient(to bottom right, #1CC3CB, #67D5D7)',
+              width: '200px',
+              height: '35px',
+              borderRadius: '10px',
+              color: 'white',
+            }}
+            onClick={handleClose}
+          >
+            أنا موافق
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

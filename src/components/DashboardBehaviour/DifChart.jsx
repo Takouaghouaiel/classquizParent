@@ -59,15 +59,7 @@ class DifChart extends React.Component {
 
   
 
-    render() {
-      const { QuizResult } = this.props;
-      const DifResultQuiz = QuizResult?.[1]?.result;
-
-      const Concentration=DifResultQuiz?.Concentration;
-      const Dyscalculie=DifResultQuiz?.Dyscalculie;
-      const Dysgraphie=DifResultQuiz?.Dysgraphie;
-      const Dyslexie=DifResultQuiz?.Dyslexie;
-      // console.log(Concentration);
+    render() { 
       return (
         
 
@@ -79,6 +71,5 @@ class DifChart extends React.Component {
 }
 export default DifChart; 
 
-const domContainer = document.querySelector('#app');
-ReactDOM.createRoot[React.createElement(DifChart)];
+
 

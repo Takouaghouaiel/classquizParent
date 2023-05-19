@@ -7,14 +7,15 @@ import { CardActionArea ,Stack} from '@mui/material';
 import smart from '../../images/smart.png';
 import observe from '../../images/observe.png';
 import communicate from '../../images/communicate.png';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import SmartQuiz from './SmartQuiz';
 import DifQuiz from './DifQuiz';
-// import InterestQuiz from './InterestQuiz';
+import InterestQuiz from './InterestQuiz';
 import axios from 'axios';
 import QuizResult from './QuizResult';
 export default function DashboardBehaviours() {
   const { studentId } = useParams();
+  let navigate = useNavigate();
   const [QuizType, setQuizType] = useState(null);
   // const [ResultisVisible, setResultIsVisible] = useState(false);
 
@@ -52,7 +53,8 @@ export default function DashboardBehaviours() {
 
   const handleQuizCardClick = quizId => {
     setSelectedQuiz(quizId);
-    // setResultIsVisible(true);
+    navigate('/dashboard/' + studentId +'/behaviours/quiz' +quizId);
+ 
   };
 
   let selectedQuizComponent = null;
@@ -66,7 +68,7 @@ export default function DashboardBehaviours() {
       break;
 
     case 3:
-      // selectedQuizComponent = <InterestQuiz />;
+      selectedQuizComponent = <InterestQuiz />;
       break;
 
     default:

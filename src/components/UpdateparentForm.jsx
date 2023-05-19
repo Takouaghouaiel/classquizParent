@@ -31,7 +31,7 @@ function UpdateparentForm() {
   const [cities, setCities] = React.useState([]);
   const [gender, setGender] = useState(null);
   const [selectedCity, setSelectedCity] = useState({ id: "", name: "" });
-  console.log(selectedCity)
+  // console.log(selectedCity)
 
   useEffect(() => {
     setfullName(connectedUser?.fullName);

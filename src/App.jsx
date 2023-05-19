@@ -18,6 +18,8 @@ import UpdateParent from './layouts/UpdateParent';
 import Addchild from './layouts/addchild';
 import GuestGuard from './Guards/GuestGuard';
 import SmartQuiz from './components/DashboardBehaviour/SmartQuiz';
+import DifQuiz from './components/DashboardBehaviour/DifQuiz';
+import InterestQuiz from './components/DashboardBehaviour/InterestQuiz';
 
 function App() {
   return (
@@ -36,7 +38,7 @@ function App() {
                 </GuestGuard>
               }
             />
-         
+
             <Route path="UpdateParent" element={<UpdateParent />} />
             <Route path="add-child" element={<Addchild />} />
 
@@ -55,13 +57,22 @@ function App() {
 
               <Route path="achievement" element={<DashboardAchievement />} />
 
-              <Route path="support" element={<DashboardSupport />} />
+              <Route path="support" index element={<DashboardSupport />} />
 
-              <Route path="behaviours" element={<DashboardBehaviours />} >
-                
-              </Route>
-              <Route path="smartquiz" element={<SmartQuiz />} />
+              <Route path="behaviours" element={<DashboardBehaviours />} />
             </Route>
+            <Route
+              path="/dashboard/:studentId/behaviours/quiz1"
+              element={<SmartQuiz />}
+            />
+            <Route
+              path="/dashboard/:studentId/behaviours/quiz2"
+              element={<DifQuiz />}
+            />
+            <Route
+              path="/dashboard/:studentId/behaviours/quiz3"
+              element={<InterestQuiz />}
+            />
           </Routes>
         </AcheivementProvider>
       </AuthProvider>

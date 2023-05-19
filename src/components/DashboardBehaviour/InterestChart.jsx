@@ -14,9 +14,10 @@ const InterestChart = (props) => {
   const Achiever=InterestResultQuiz?.Achiever;
   const Free_spirit=InterestResultQuiz?.['Free spirit'];
   
-//  console.log(InterestResultQuiz)
+ console.log(InterestResultQuiz)
   const data = {
     labels: InterestResultQuiz ? Object.keys(InterestResultQuiz) : [],
+   
 
     datasets: [
       {
