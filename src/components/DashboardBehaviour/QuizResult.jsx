@@ -14,7 +14,7 @@ const ResultBox = styled.div`
   border-radius: 5px;
 `;
 
-const SmartQuiz = () => {
+const QuizResult = () => {
   const [QuizResult, setQuizResult] = useState([]);
   const { studentId } = useParams();
   const getResult = async () => {
@@ -32,7 +32,7 @@ const SmartQuiz = () => {
       if (response.status === 200) {
         const data = response.data;
         setQuizResult(data);
-        console.log('QuizResult:',QuizResult);
+        // console.log('QuizResult:',QuizResult);
       } else if (response.status === 401) {
         throw new Error('Failure QuizResult');
       } else {
@@ -68,7 +68,7 @@ const SmartQuiz = () => {
                   نتيجة اختبار الذكاء
                 </Typography>
                 <ResultBox>
-                  <SmartChart />
+                  <SmartChart QuizResult={QuizResult} />
                 </ResultBox>
               </Box>
             </Grid>
@@ -79,11 +79,11 @@ const SmartQuiz = () => {
               نتيجة اختبار صعوبات التعلم
             </Typography>
             <ResultBox>
-              <DifChart />
+              <DifChart QuizResult={QuizResult} />
             </ResultBox>
           </Box>
         </Stack>
       );
       
 };
-export default SmartQuiz;
+export default QuizResult;

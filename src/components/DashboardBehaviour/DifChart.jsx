@@ -3,41 +3,29 @@ import ApexCharts from 'apexcharts';
 import ReactApexChart from 'react-apexcharts';
 import ReactDOM from 'react-dom/client';
 import createRoot from 'react-dom/client'
+
+
+
 class DifChart extends React.Component {
+ 
     constructor(props) {
       super(props);
+    
+
+      const { QuizResult } = props;
+      const DifResultQuiz = QuizResult?.[1]?.result;
 
       this.state = {
       
         series: [{
-          data: [400, 430, 448, 470, 540, 580, 690]
+          data: [DifResultQuiz?.Concentration, DifResultQuiz?.Dyscalculie, DifResultQuiz?.Dysgraphie, DifResultQuiz?.Dyslexie]
         }],
         options: {
           chart: {
             type: 'bar',
             height: 350
           },
-          annotations: {
-            xaxis: [{
-              x: 500,
-              borderColor: '#00E396',
-              label: {
-                borderColor: '#00E396',
-                style: {
-                  color: '#fff',
-                  background: '#00E396',
-                },
-                text: 'X annotation',
-              }
-            }],
-            yaxis: [{
-              y: 'July',
-              y2: 'September',
-              label: {
-                text: 'Y annotation'
-              }
-            }]
-          },
+        
           plotOptions: {
             bar: {
               horizontal: true,
@@ -47,7 +35,8 @@ class DifChart extends React.Component {
             enabled: true
           },
           xaxis: {
-            categories: ['June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            categories: DifResultQuiz ? Object.keys(DifResultQuiz) : [],
+
           },
           grid: {
             xaxis: {
@@ -71,6 +60,14 @@ class DifChart extends React.Component {
   
 
     render() {
+      const { QuizResult } = this.props;
+      const DifResultQuiz = QuizResult?.[1]?.result;
+
+      const Concentration=DifResultQuiz?.Concentration;
+      const Dyscalculie=DifResultQuiz?.Dyscalculie;
+      const Dysgraphie=DifResultQuiz?.Dysgraphie;
+      const Dyslexie=DifResultQuiz?.Dyslexie;
+      // console.log(Concentration);
       return (
         
 

@@ -7,35 +7,22 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const InterestChart = (props) => {
   const { QuizResult } = props;
   const InterestResultQuiz = QuizResult?.[2]?.result;
+  const Socializer=InterestResultQuiz?.Socializer;
+  const Philanthropist=InterestResultQuiz?.Philanthropist;
+  const Disruptor=InterestResultQuiz?.Disruptor;
+  const Player=InterestResultQuiz?.Player;
+  const Achiever=InterestResultQuiz?.Achiever;
+  const Free_spirit=InterestResultQuiz?.['Free spirit'];
+  
 //  console.log(InterestResultQuiz)
-
-const labels = Object.keys(InterestResultQuiz);
-
-console.log(labels);
   const data = {
-     labels : [
+    labels: InterestResultQuiz ? Object.keys(InterestResultQuiz) : [],
 
-      InterestResultQuiz['Free spirit'],
-
-     'السخي',
-     'ذو روح حرة',
-     'المشاغب',
-      'صاحب انجازات',
-      'لاعب جيّد',
-    
-    ],
     datasets: [
       {
         label: '# of Votes',
-        data: [
-          InterestResultQuiz?.Socializer,
-          InterestResultQuiz?.Philanthropist,
-          InterestResultQuiz?.Disruptor,
-          InterestResultQuiz?.Player,
-          InterestResultQuiz?.Achiever,
-          InterestResultQuiz?.Disruptor,
-          InterestResultQuiz?.['Free spirit'],
-        ],
+        data: [Socializer, Philanthropist, Disruptor, Player, Achiever, Free_spirit],
+     
         backgroundColor: [
           'rgba(255, 99, 132, 0.5)',
           'rgba(54, 162, 235, 0.5)',
