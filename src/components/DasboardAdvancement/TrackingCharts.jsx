@@ -17,7 +17,7 @@ export default function TrackingCharts() {
   const [selectedChapterId , setselectedchapterid] = useState(1);
   const [startDate,setStartDate]=useState(null);
   const [endDate,setEndDate]=useState(null);
-  let {getStatesbySubjects,getStatesbySubjectsANDChapiter,getProgress,getProgressbySubjects,getProgressbySubjectsANDChapiter} = useAcheivement()
+  let {getProgress,getProgressbySubjects,getProgressbySubjectsANDChapiter} = useAcheivement()
   
   const [scoreType, setScoreType] = useState('subject');
   const handleScoreTypeChange = (newScoreType) => {
@@ -36,18 +36,18 @@ export default function TrackingCharts() {
   }
   const handleChangeSubjectId = (subjectId)=>{
     setSelectedSubjectId(subjectId)
-    getStatesbySubjects(studentId , subjectId)
+    getProgressbySubjects(studentId , subjectId,startDate,endDate)
   
   }
 
   const handleChangeChapterId = (ChapterId)=>{
     setselectedchapterid(ChapterId)
-    getStatesbySubjectsANDChapiter(studentId, selectedSubjectId, selectedChapterId)
+    getProgressbySubjectsANDChapiter(studentId, selectedSubjectId, selectedChapterId,startDate,endDate)
   }
 
 
   const handleChangedate=()=>{
-    getProgressbySubjectsANDChapiter(studentId, selectedSubjectId, selectedChapterId,startDate, endDate)
+    getProgress(studentId,startDate, endDate)
   }
   
   const handleChangeStartDate = (date) =>{
