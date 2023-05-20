@@ -47,7 +47,7 @@ const QuizResult = () => {
   useEffect(() => {
     getResult();
     // console.log(QuizResult);
-  }, [QuizResult]);
+  }, []);
 
     return (
         <Stack spacing={3}>

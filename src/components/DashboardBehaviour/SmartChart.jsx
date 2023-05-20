@@ -9,25 +9,31 @@ const SmartChart=(props)=>{
   const {QuizResult}=props;
   const SmartResultQuiz = QuizResult?.[0]?.result;
 
-  const Inter_personnelle=SmartResultQuiz?.['Inter-personnelle'];
-  const Intra_personnelle=SmartResultQuiz?.['Intra-personnelle'];
-  const Kinesthésique=SmartResultQuiz?.Kinesthésique;
-  const Linguistique_et_verbale=SmartResultQuiz?.['SmartResultQuiz'];
-  const Logico_mathématique=SmartResultQuiz?.['Logico-mathématique '];
-  const Musicale=SmartResultQuiz?.Musicale;
-  const Naturiste=SmartResultQuiz?.Naturiste;
-  const Visuo_spatiale=SmartResultQuiz?.['Visuo-spatiale'];
+  // const Inter_personnelle=SmartResultQuiz?.['Inter-personnelle'];
+  // const Intra_personnelle=SmartResultQuiz?.['Intra-personnelle'];
+  // const Kinesthésique=SmartResultQuiz?.Kinesthésique;
+  // const Linguistique_et_verbale=SmartResultQuiz?.['SmartResultQuiz'];
+  // const Logico_mathématique=SmartResultQuiz?.['Logico-mathématique '];
+  // const Musicale=SmartResultQuiz?.Musicale;
+  // const Naturiste=SmartResultQuiz?.Naturiste;
+  // const Visuo_spatiale=SmartResultQuiz?.['Visuo-spatiale'];
+  const keys= SmartResultQuiz? Object.keys(SmartResultQuiz) : []
+  const values =[] 
+  keys.map(key=>{
+    values.push(SmartResultQuiz[key])
+  } )
+
 
 
   // console.log(SmartResultQuiz);
 
   const data = {
-    labels: SmartResultQuiz ? Object.keys(SmartResultQuiz) : [],
+    labels:keys?? [],
 
     datasets: [
       {
         label: '# of Votes',
-        data: [Inter_personnelle, Intra_personnelle, Kinesthésique, Linguistique_et_verbale, Logico_mathématique, Musicale,Naturiste,Visuo_spatiale],
+        data:values,
         backgroundColor: [
           'rgba(255, 99, 132, 0.5)',
           'rgba(54, 162, 235,  0.5)',
