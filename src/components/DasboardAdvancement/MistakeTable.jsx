@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import { Box, Card, CardHeader, Typography, Grid, Stack,Button } from '@mui/material';
 import ButtongroupSubject2 from './ButtongroupSubject2.jsx';
 import ButtongroupSemester2 from './ButtongroupeSemester.jsx';
@@ -7,13 +7,13 @@ import { useAcheivement } from '../../context/AcheivementContext.jsx';
 import { useParams } from 'react-router-dom';
 export default function MistakeTable() {
   let { studentId } = useParams();
-  const { getMistakesbySubjects ,getMistakesbySubjectsANDChapiter} = useAcheivement();
+  const { getMistakesbySubjects ,getMistakesbySubjectsANDChapiter,getMistakes} = useAcheivement();
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [selectedSubjectId, setSelectedSubjectId] = useState(null);
   const [selectedChapterId, setselectedchapterid] = useState(1);
 
-  const [scoreType, setScoreType] = useState('semester');
+  const [scoreType, setScoreType] = useState('');
   const handleScoreTypeChange = newScoreType => {
     setScoreType(newScoreType);
   };
@@ -42,6 +42,12 @@ export default function MistakeTable() {
       selectedChapterId
     );
   };
+
+  useEffect(() => {
+    getMistakes(studentId)
+   
+  }, []);
+
   return (
     <Card
       sx={{
@@ -88,6 +94,7 @@ export default function MistakeTable() {
               handleScoreTypeChange={handleScoreTypeChange}
            
             />
+        
           </Grid>
 
 

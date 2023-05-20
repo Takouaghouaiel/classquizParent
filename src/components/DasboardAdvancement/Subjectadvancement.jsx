@@ -16,7 +16,7 @@ export default function Subjectadvancement() {
   let { getStatesbySubjects, getStatesbySubjectsANDChapiter } =
     useAcheivement();
 
-  const [scoreType, setScoreType] = useState('subject');
+  const [scoreType, setScoreType] = useState('');
   const handleScoreTypeChange = newScoreType => {
     setScoreType(newScoreType);
   };
@@ -44,10 +44,14 @@ export default function Subjectadvancement() {
     );
   };
 
-  useEffect((ChapterId) => {
-    handleChangeSubjectId(selectedSubjectId)
-    handleChangeChapterId(selectedChapterId)
+  useEffect(() => {
+    getStatesbySubjects(studentId, selectedSubjectId)
+    getStatesbySubjectsANDChapiter(   studentId,
+      selectedSubjectId,
+      selectedChapterId)
   }, []);
+
+
   return (
     <Card
       sx={{

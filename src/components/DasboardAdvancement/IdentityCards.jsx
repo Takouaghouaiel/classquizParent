@@ -8,7 +8,7 @@ import { styled } from '@mui/material/styles';
 import LinearProgress, {
   linearProgressClasses,
 } from '@mui/material/LinearProgress';
-
+import { motion } from "framer-motion"
 const SecondCardContent = ({
   icon,
   iconn,

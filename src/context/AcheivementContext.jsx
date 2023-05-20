@@ -24,6 +24,7 @@ export default function AcheivementProvider({ children }) {
   const [ProgressbySubjects, setProgressbySubjects] = useState(null);
   const [ProgressbySubjectsANDChapiter, setProgressbySubjectsANDChapiter] =
     useState(null);
+  const [CurrentMistakes,setMistakes]=useState(null);
   const [MistakesbySubject, setMistakesbySubject] = useState(null);
   const [MistakesbySubjectsANDChapiter, setStatesbyMistakesANDChapiter] =
     useState(null);
@@ -292,6 +293,39 @@ export default function AcheivementProvider({ children }) {
     }
   };
 
+
+  const getMistakes = async (studentId) => {
+
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(
+        'https://api.omega.classquiz.tn/v2/students/' +
+          studentId +
+          '/mistakes',
+        {
+          headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const data = response.data.data;
+        setMistakes(data);
+   
+        return 'success mistakes';
+      } else if (response.status === 401) {
+        throw new Error('Failure mistakes');
+      } else {
+        throw new Error(`Unexpected response status: ${response.status}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getMistakesbySubjects = async (studentId, selectedSubjectId) => {
     console.log(
       'Executing getMistakesbySubjects function with studentId:',
@@ -492,6 +526,8 @@ export default function AcheivementProvider({ children }) {
         ProgressbySubjects,
         getProgressbySubjects,
         getMistakesbySubjectsANDChapiter,
+        CurrentMistakes,
+        getMistakes,
         MistakesbySubjectsANDChapiter,
         Progress,
         getProgress,

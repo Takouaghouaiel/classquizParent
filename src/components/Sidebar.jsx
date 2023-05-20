@@ -36,7 +36,9 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
               xs: 'none',
               sm: 'flex',
             },
-        width: 300,
+          
+         
+            transition: 'width 0.3s ease-in-out', 
       }}
     >
       <Stack

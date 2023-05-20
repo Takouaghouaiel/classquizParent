@@ -38,11 +38,16 @@ function Dashboard() {
           height: '100vh',
           width: '100%',
           minHeight: '100vh',
-          // position: 'fixed',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          overflowY: 'auto',
         }}
       >
         <Stack sx={{ display: 'flex', minHeight: '100vh' }}>
-          <Childheader onToggleDrawer={handleDrawerToggle} />
+          <Childheader  onToggleDrawer={handleDrawerToggle} />
           <Box
             sx={{
               display: 'flex',
@@ -51,10 +56,10 @@ function Dashboard() {
               flexDirection: 'row',
             }}
           >
-            <Box sx={{ flex: 1 }}>
+            <Box sx={{ flex: 1, overflowY: 'auto', maxHeight: '100vh' }}>
               <Outlet />
             </Box>
-            <Sidebar isSideBarOpen={isDrawerOpen} />
+            <Sidebar  isSideBarOpen={isDrawerOpen} />
           </Box>
         </Stack>
       </Box>
