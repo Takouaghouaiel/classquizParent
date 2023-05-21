@@ -82,7 +82,7 @@ const SmartQuiz = () => {
       try {
         const token = localStorage.getItem('token');
         const response = await axios.get(
-          `https://api.omega.classquiz.tn/v2/student/${studentId}/quiz/2/questions`,
+          `https://api.omega.classquiz.tn/v2/student/${studentId}/quiz/3/questions`,
           {
             headers: {
               Accept: 'application/json',
@@ -134,7 +134,7 @@ const SmartQuiz = () => {
       const token = localStorage.getItem('token');
 
       const response = await axios.post(
-        `https://api.omega.classquiz.tn/v2/student/${studentId}/quiz/2/responses`,
+        `https://api.omega.classquiz.tn/v2/student/${studentId}/quiz/3/responses`,
 
         {
           responses: responses,

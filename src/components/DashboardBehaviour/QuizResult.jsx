@@ -46,7 +46,7 @@ const QuizResult = () => {
 
   useEffect(() => {
     getResult();
-    // console.log(QuizResult);
+
   }, []);
 
     return (

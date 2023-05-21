@@ -17,6 +17,8 @@ const SmartChart=(props)=>{
   // const Musicale=SmartResultQuiz?.Musicale;
   // const Naturiste=SmartResultQuiz?.Naturiste;
   // const Visuo_spatiale=SmartResultQuiz?.['Visuo-spatiale'];
+
+
   const keys= SmartResultQuiz? Object.keys(SmartResultQuiz) : []
   const values =[] 
   keys.map(key=>{
@@ -32,7 +34,7 @@ const SmartChart=(props)=>{
 
     datasets: [
       {
-        label: '# of Votes',
+        label: '# pourcentage ',
         data:values,
         backgroundColor: [
           'rgba(255, 99, 132, 0.5)',
