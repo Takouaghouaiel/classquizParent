@@ -2,6 +2,7 @@ import React, { useState ,useEffect} from 'react';
 import { Box, Card, CardHeader, Typography, Grid, Stack,Button } from '@mui/material';
 import ButtongroupSubject2 from './ButtongroupSubject2.jsx';
 import ButtongroupSemester2 from './ButtongroupeSemester.jsx';
+import ButtonPagination from './ButtonPagination.jsx';
 import MistakesTable from './MistakesTable.jsx';
 import { useAcheivement } from '../../context/AcheivementContext.jsx';
 import { useParams } from 'react-router-dom';
@@ -67,35 +68,41 @@ export default function MistakeTable() {
           }
         />
 
-        <Stack
+        <Box
           container
-          spacing={2}
+          // spacing={2}
           justifyContent="center"
           alignItems="center"
         >
-          <Grid
-            item
+          <Box
+
             sx={{
               display: 'flex',
               alignItems: 'flex-start',
-
+              justifyContent: 'space-evenly',
               marginLeft: '10%',
             }}
           >
             <ButtongroupSemester2 
+     
             buttonProps={{ disabled: isButtonDisabled }}
             onChapterButtonClick={handleChapterButtonClick}
             handleChangeChapterId={handleChangeChapterId}
             handleScoreTypeChange={handleScoreTypeChange}
             />
             <ButtongroupSubject2
+       
               onSubjectButtonClick={handleSubjectButtonClick}
               handlegetMistakesbySubject={handlegetMistakesbySubject}
               handleScoreTypeChange={handleScoreTypeChange}
            
             />
+             {/* <ButtonPagination
+            
+           
+            /> */}
         
-          </Grid>
+          </Box>
 
 
           <Grid>
@@ -103,7 +110,7 @@ export default function MistakeTable() {
             scoreType={scoreType}
             />
           </Grid>
-        </Stack>
+        </Box>
       </Box>
     </Card>
   );

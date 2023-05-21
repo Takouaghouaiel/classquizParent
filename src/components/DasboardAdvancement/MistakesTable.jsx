@@ -91,7 +91,7 @@ MistakesTable({scoreType}) {
 
 
   return (
-    <TableContainer component={Paper} sx={{ maxWidth: { xs: 350, md: 800 } }}>
+    <TableContainer component={Paper} sx={{ maxWidth: { xs: 450, md: 800 } }}>
       <Table ref={tableRef}>
         <TableHead sx={{color:'#3BC5CA'}}>
           <StyledFirstRow >
