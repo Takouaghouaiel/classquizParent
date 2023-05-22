@@ -8,7 +8,6 @@ import {
   DialogTitle,
   TextField,
   Button,
-  InputBase,
   MenuItem,
 } from '@mui/material';
 import Stack from '@mui/material/Stack';
@@ -19,7 +18,7 @@ import addchildimage from '../images/addchildimage.png'
 
 
 
-function UpdateparentForm() {
+function AddChildForm() {
 
 
   const [fullName, setfullName] = React.useState('');
@@ -373,4 +372,4 @@ sx={{
     </Box>
   );
 }
-export default UpdateparentForm;
+export default AddChildForm;

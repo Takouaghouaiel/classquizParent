@@ -60,7 +60,7 @@ MistakesTable({scoreType}) {
       for (let i = 0; i < tableRows.length; i++) {
         const row = tableRows[i];
         const nbMistakes = Number(row.cells[0].innerText);
-        console.log(nbMistakes);
+        // console.log(nbMistakes);
         if (nbMistakes !== 0) {
           row.style.opacity = '0';
           row.style.animation = `fadeInAnimation 0.5s ease-in-out forwards ${i * 0.5}s`;

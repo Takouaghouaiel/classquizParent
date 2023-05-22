@@ -32,6 +32,7 @@ function UpdateparentForm() {
   const [gender, setGender] = useState(null);
   const [selectedCity, setSelectedCity] = useState({ id: "", name: "" });
   // console.log(selectedCity)
+  const [showErrorPopup, setShowErrorPopup] = useState(false);
 
   useEffect(() => {
     setfullName(connectedUser?.fullName);
@@ -76,11 +77,17 @@ function UpdateparentForm() {
 
   const handleOpen = () => {
     setOpen(true);
+    setShowErrorPopup(false)
+   
   };
 
   const handleClose = () => {
     setOpen(false);
     navigate('/children/');
+  };
+  const handleCloseErrorPopup = () => {
+    setOpen(false);
+    setShowErrorPopup(prevState => !prevState)
   };
   const handleMaleClick = () => {
     setGender('1');
@@ -116,9 +123,8 @@ function UpdateparentForm() {
 
   const handleUpdateParent = async () => {
     const token = localStorage.getItem('token');
-
- 
-    try {
+  
+   
       const config = {
         method: 'post',
         maxBodyLength: Infinity,
@@ -131,21 +137,25 @@ function UpdateparentForm() {
           fullName: fullName,
           email: email,
           phone: phone,
-          stateId:selectedCity.id,
+          stateId: selectedCity.id,
           address: address,
           gender: gender,
         },
       };
+
+  
+      const response = await axios.request(config).then(response =>{
+        handleOpen();
+        refreshState(response.data.user)
+        console.log(JSON.stringify(response.data));
+      }).catch(error=>setShowErrorPopup(true))
+
+    };
+  
+  
+  
+  
     
-      const response = await axios.request(config);
-      console.log(JSON.stringify(response.data));
-     refreshState(response.data.user)
-
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <Box>
       <Button
@@ -348,6 +358,62 @@ function UpdateparentForm() {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <Dialog
+open={showErrorPopup}
+onClose={handleCloseErrorPopup}
+sx={{
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  '& .MuiDialogContent-root': {
+    textAlign: 'center',
+  },
+  '@media (max-width: 600px)': {
+    '& .MuiDialogTitle-root, & .MuiDialogActions-root': {
+      textAlign: 'center',
+    },
+  },
+}}
+>
+<DialogTitle>الرجاء التثبت من البريد الإلكتروني ورقم الهاتف</DialogTitle>
+<DialogContent>
+  <DialogContentText>يمكنك المحاولة ثانيةً</DialogContentText>
+</DialogContent>
+<DialogActions
+  sx={{
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    '& .MuiDialogContent-root': {
+      textAlign: 'center',
+    },
+    '@media (max-width: 600px)': {
+      '& .MuiDialogTitle-root, & .MuiDialogActions-root': {
+        textAlign: 'center',
+      },
+    },
+  }}
+>
+  <Button
+    type="submit"
+    sx={{
+      alignSelf: 'center',
+      background: 'linear-gradient(to bottom right, #1CC3CB, #67D5D7)',
+      width: '200px',
+      height: '35px',
+      borderRadius: '10px',
+      color: 'white',
+    }}
+    onClick={handleCloseErrorPopup}
+  >
+    أنا موافق
+  </Button>
+</DialogActions>
+</Dialog>
+
     </Box>
   );
 }

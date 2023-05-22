@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import {
@@ -33,6 +33,7 @@ function MyCustomLabel(props) {
 }
 
 function Login() {
+
   const [PasswordError, setPasswordError] = useState('');
   const [PasswordBorderColor, setPasswordBorderColor] = useState('#707070');
 
@@ -89,11 +90,13 @@ function Login() {
   const handleSubmit = async event => {
     event.preventDefault();
     const status = await login(usertel, password);
+   
     if (status === 200) {
       handleLogin();
     } else {
       setPasswordError('نسيت كلمة السّر');
       setPasswordBorderColor('red');
+    
     }
   };
 
@@ -199,14 +202,14 @@ function Login() {
             <MyCustomLabel htmlFor="password"> :كلمة السّر </MyCustomLabel>
             <TextField
               id="password"
-              name="password"
+             
               onChange={event => {
                 setPassword(event.target.value);
-                // console.log(event.target.value);
+           
                 setPasswordError('');
                 setPasswordBorderColor('#707070');
               }}
-              // value={password}
+           
               InputProps={{
                 sx: {
                   border: `2px solid ${PasswordBorderColor}`,
@@ -224,16 +227,21 @@ function Login() {
             {PasswordError && (
               <span
                 onClick={() => {
+                
                   setShowDialog(true);
                 }}
+                style={{ cursor: 'pointer' }}
               >
+           
                 <Typography
                   variant="body2"
                   color="error"
                   justifyContent="space-between"
+                 
                 >
                   {PasswordError}
                 </Typography>
+               
               </span>
             )}
 

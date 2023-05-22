@@ -42,11 +42,26 @@ export const options = {
 export default function SubjectChart(scoreType) {
   
 
-  const { StatesbySubjects,StatesbySubjectsANDChapiter,Subjects } = useAcheivement();
+  const { States,StatesbySubjects,StatesbySubjectsANDChapiter,Subjects } = useAcheivement();
 
-  const excellentResponses =[scoreType === 'subject' ? StatesbySubjects?.excellentResponses : StatesbySubjectsANDChapiter?.excellentResponses];
-  const goodResponses = [scoreType === 'subject' ? StatesbySubjects?.goodResponses : StatesbySubjectsANDChapiter?.goodResponses];
-  const badResponses = [scoreType === 'subject' ? StatesbySubjects?.badResponses : StatesbySubjectsANDChapiter?.badResponses];
+  const excellentResponses = [
+    scoreType === 'subject' ? StatesbySubjects?.excellentResponses : 
+    scoreType === 'semester' ? StatesbySubjectsANDChapiter?.excellentResponses :
+    States?.excellentResponses
+  ];
+  
+  const goodResponses = [
+    scoreType === 'subject' ? StatesbySubjects?.goodResponses :
+    scoreType === 'semester' ? StatesbySubjectsANDChapiter?.goodResponses :
+    States?.goodResponses
+  ];
+  
+  const badResponses = [
+    scoreType === 'subject' ? StatesbySubjects?.badResponses :
+    scoreType === 'semester' ? StatesbySubjectsANDChapiter?.badResponses :
+    States?.badResponses
+  ];
+  
 
   const [selectedSubjectIndex, setSelectedSubjectIndex] = useState(0);
   const selectedSubject = Subjects?.[selectedSubjectIndex];

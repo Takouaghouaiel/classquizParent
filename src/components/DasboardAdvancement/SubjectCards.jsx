@@ -35,7 +35,7 @@ function chunk(array, size) {
   }
   
 export default function SubjectCards(scoreType) {
-    const { StatesbySubjects,StatesbySubjectsANDChapiter } = useAcheivement();
+    const { StatesbySubjects,StatesbySubjectsANDChapiter ,States} = useAcheivement();
   
 
    
@@ -43,27 +43,36 @@ export default function SubjectCards(scoreType) {
     {
         id:1,
         title: '  الأسئلة المنجزة',
-        score: scoreType === 'subject' ? StatesbySubjects?.completedQuestions : StatesbySubjectsANDChapiter?.nbCompletedQuestions,
+        score: scoreType === 'subject' ? StatesbySubjects?.completedQuestions : 
+        scoreType === 'semester' ? StatesbySubjectsANDChapiter?.nbCompletedQuestions:
+        States?.nbCompletedQuestions,
+
         icon:<img src={Session} alt="Session" width={40}/>,
      
       },
       {
         id:2,
         title: '  الإجابات الضعيفة ',
-        score:scoreType==='subject'? StatesbySubjects?.badResponses :StatesbySubjectsANDChapiter?.badResponses ,
+        score:scoreType==='subject'? StatesbySubjects?.badResponses :
+        scoreType === 'semester' ? StatesbySubjectsANDChapiter?.badResponses :
+        States?.badResponses,
         icon:<img src={Exercice} alt="Session" width={45}/>,
         
       },
     {
       id:3,
       title: '    الأخطاء المرتكبة',
-      score:scoreType==='subject'? StatesbySubjects?.nbMistakes :StatesbySubjectsANDChapiter?.nbMistakes,
+      score:scoreType==='subject'? StatesbySubjects?.nbMistakes :
+      scoreType === 'semester' ? StatesbySubjectsANDChapiter?.nbMistakes:
+      States?.nbMistakes,
       icon:<img src={Mistake} alt="Session" width={50}/>,
     },
     {
       id:4,
       title:'  الإجابات الممتازة',
-      score:scoreType==='subject'? StatesbySubjects?.excellentResponses :StatesbySubjectsANDChapiter?.excellentResponses,
+      score:scoreType==='subject'? StatesbySubjects?.excellentResponses :
+      scoreType==='semester'? StatesbySubjectsANDChapiter?.excellentResponses:
+      States?.excellentResponses,
       icon:<img src={Progressicon} alt="Session" width={50}/>,
     
     },

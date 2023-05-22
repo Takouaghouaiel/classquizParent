@@ -217,7 +217,21 @@ const SmartQuiz = () => {
           ))}
       </div>
       {currentQuestion === questions.length && (
-        <Button onClick={() => handlegetQuizResult()}>resuuuult</Button>
+      <Button
+        variant="contained"
+        color="primary"
+        type="submit"
+        sx={{
+         
+          background:
+            'linear-gradient(to bottom right, #1CC3CB, #67D5D7)',
+          
+          borderRadius: '6px',
+        }}
+        onClick={() => handlegetQuizResult()}
+      >
+        تسجيل
+      </Button>
       )}
     </>
   </QuizContainer>
@@ -242,7 +256,8 @@ const SmartQuiz = () => {
           },
         }}
       >
-        <DialogTitle>لقد تم إنهاء الإختبار بنجاح</DialogTitle>
+        <DialogTitle sx={{  display: 'flex',
+            justifyContent: 'center',}} >لقد تم إنهاء الإختبار بنجاح</DialogTitle>
         <DialogContent>
           <DialogContentText>يمكنك الرجوع إلى قائمة الإختبارات لتلقي النتيجة </DialogContentText>
         </DialogContent>
