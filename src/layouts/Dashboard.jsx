@@ -12,6 +12,7 @@ function Dashboard() {
   
   const {getQuizo,getStates,getLastAchievement,getStudentDetails,getSubjects,getChapter,getProgress}= useAcheivement();
   const { studentId,startDate,endDate } = useParams();
+
   useEffect(() => {
     getStudentDetails(studentId);
     getLastAchievement(studentId);

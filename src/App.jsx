@@ -15,6 +15,7 @@ import DashboardAdvancement from './components/DasboardAdvancement/DashboardAdva
 import DashboardBehaviours from './components/DashboardBehaviour/DashboardBehaviours';
 import DashboardSubscription from './components/DashboardSubscription';
 import UpdateParent from './layouts/UpdateParent';
+import UpdateChild from './layouts/UpdateChild';
 import Addchild from './layouts/addchild';
 import GuestGuard from './Guards/GuestGuard';
 import SmartQuiz from './components/DashboardBehaviour/SmartQuiz';
@@ -40,6 +41,7 @@ function App() {
             />
 
             <Route path="UpdateParent" element={<UpdateParent />} />
+            <Route path="UpdateChild" element={<UpdateChild />} />
             <Route path="add-child" element={<Addchild />} />
 
             {/* Use AuthGuard to protect routes that require authentication */}

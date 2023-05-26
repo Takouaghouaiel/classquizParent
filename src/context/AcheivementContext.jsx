@@ -32,7 +32,7 @@ export default function AcheivementProvider({ children }) {
 
   const getStudentDetails = async studentId => {
     const token = localStorage.getItem('token');
-
+   
     axios
       .get(`https://api.omega.classquiz.tn/v2/students/${studentId}`, {
         headers: {
@@ -44,7 +44,9 @@ export default function AcheivementProvider({ children }) {
         setStudent({
           ...res.data,
         });
+        localStorage.setItem('child', JSON.stringify(data));
       })
+   
       .catch(err => {
         console.log(err);
       });
@@ -491,6 +493,36 @@ export default function AcheivementProvider({ children }) {
     }
   };
 
+  const DeleteChild = async (studentId,password) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.delete(
+        `https://api.omega.classquiz.tn/v2/students/${studentId}/delete`,{
+          method: 'DELETE',
+        
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            password: 3113,
+          }),
+        }
+      );
+      if (response.status === 200) {
+        const data = response.data;
+
+    
+      } else if (response.status === 401) {
+        throw new Error('Failure DeleteChild');
+      } else {
+        throw new Error(`Unexpected response status: ${response.status}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AcheivementContext.Provider
       value={{
@@ -533,6 +565,7 @@ export default function AcheivementProvider({ children }) {
         MistakesbySubjectsANDChapiter,
         Progress,
         getProgress,
+        DeleteChild,
       }}
     >
       {children}

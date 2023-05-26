@@ -3,11 +3,19 @@ import { Box } from '@mui/material';
 import Childheader from '../components/Childheader';
 import Childlist from '../components/Childlist';
 import background from '../images/background.png';
-import {AddChildIcon} from '.././components/icons/sidebaricons';
-import Star from '../images/star.png'
-export default function Children() {
+import { useAcheivement } from '../context/AcheivementContext';
+import { useParams } from 'react-router-dom';
 
- 
+export default function Children() {
+  const {getStudentDetails,DeleteChild}= useAcheivement();
+  const { studentId } = useParams();
+
+  useEffect(() => {
+    getStudentDetails(studentId);
+   DeleteChild(studentId);
+   
+  }, []);
+
   const [children, setChildren] = useState([]);
   useEffect(function () {
   

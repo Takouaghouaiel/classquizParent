@@ -45,6 +45,13 @@ const Header = ({ onToggleDrawer }) => {
     handleMenuClose();
   };
 
+  const handleChildupdate =()=>{
+    navigate('/UpdateChild/');
+
+    handleMenuClose();
+    
+  }
+
   return (
     <StyleAppBar position="static">
       <Toolbar
@@ -98,6 +105,7 @@ const Header = ({ onToggleDrawer }) => {
             onClose={handleMenuClose}
           >
             <MenuItem onClick={handleparentUpdate}>إعدادات الحساب</MenuItem>
+            <MenuItem onClick={handleChildupdate}>إعدادات حساب الطفل </MenuItem>
 
             <MenuItem onClick={handleLogout} sx={{ color: 'red' }}>
               تسجيل الخروج

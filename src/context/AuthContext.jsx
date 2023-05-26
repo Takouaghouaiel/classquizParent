@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { createContext, useState, useContext} from 'react';
 import { useNavigate } from 'react-router';
+import axios from 'axios';
 const AuthContext = createContext(null);
 
 
@@ -11,6 +12,7 @@ export default function AuthProvider({ children }) {
   const [message, setMessage] = useState(''); 
   const [user, setUser] = useState(null);
   const [loginData, setLoginData] = useState(null);
+  
   const navigateTo = useNavigate(); // initialize the navigate function
 
   const login = async (userTel, password) => {
@@ -79,10 +81,15 @@ export default function AuthProvider({ children }) {
   const refreshState = (updatedUser)=>{
     localStorage.setItem('user', JSON.stringify(updatedUser))
     setUser(updatedUser)
+  
   }
   React.useEffect(()=>{
     const connectedUser = JSON.parse(localStorage.getItem('user'))
     setUser(connectedUser) ; 
+    // console.log(connectedUser);
+
+
+
   },[])
 
   return (
