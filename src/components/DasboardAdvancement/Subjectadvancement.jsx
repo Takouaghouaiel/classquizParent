@@ -45,10 +45,10 @@ export default function Subjectadvancement() {
   };
 
   useEffect(() => {
-    getStatesbySubjects(studentId, selectedSubjectId)
-    getStatesbySubjectsANDChapiter(   studentId,
-      selectedSubjectId,
-      selectedChapterId)
+    // getStatesbySubjects(studentId, selectedSubjectId)
+    // getStatesbySubjectsANDChapiter(   studentId,
+    //   selectedSubjectId,
+    //   selectedChapterId)
   }, []);
 
 
@@ -94,7 +94,7 @@ export default function Subjectadvancement() {
           <ButtongroupSubject
             onSubjectButtonClick={handleSubjectButtonClick}
             handleChangeSubjectId={handleChangeSubjectId}
-            handleScoreTypeChange={()=>handleScoreTypeChange()}
+            handleScoreTypeChange={handleScoreTypeChange}
           />
         </Box>
         <Box

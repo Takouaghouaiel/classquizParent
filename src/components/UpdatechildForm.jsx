@@ -22,6 +22,7 @@ import { useParams } from 'react-router-dom';
 function UpdateChildForm() {
 // const {studentId}=useParams();
 
+const { child: currentChild ,refreshState} = useAcheivement();
  const {student,getStudentDetails } = useAcheivement();
  const studentId=student?.id
 // console.log(studentId);
@@ -30,15 +31,62 @@ function UpdateChildForm() {
     getStudentDetails(studentId);
 
   }, []);
+   
+  const [password, setPassword] = useState('');
 
-//  console.log(student);
+  const DeleteChild = async (studentId,password) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.delete(
+        `https://api.omega.classquiz.tn/v2/students/${studentId}/delete`,
+      {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          password: password,
+        },
+      }
+    );
+      if (response.status === 200) {
+        const data = response.data;
+
+    
+      } else if (response.status === 401) {
+        throw new Error('Failure DeleteChild');
+      } else {
+        throw new Error(`Unexpected response status: ${response.status}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const [fullName, setfullName] = React.useState('');
   const [school, setschool] = React.useState('');
   const [years, setYears] = React.useState([]);
   const [gender, setGender] = useState(null);
   const [selectedYear, setSelectedYear] = useState({ id: "", name: "" });
-
+  const [showDialogcode, setShowDialogcode] = useState(false);
   const [showErrorPopup, setShowErrorPopup] = useState(false);
+ 
+  useEffect(() => {
+    setfullName(currentChild?.fullName);
+    setschool(currentChild?.school);
+    setSelectedYear({ id: currentChild?.state?.id || undefined, name: currentChild?.state?.name || undefined });
+    setGender(currentChild?.gender);
+  }, [currentChild]);
+  
+  const handleshowpsswdverification = () => {
+    setShowDialogcode(true);
+  };
+  
+  const handleDeleteChild = async () => {
+    handleshowpsswdverification()
+  };
+
+  
   const handleYears = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -137,7 +185,7 @@ function UpdateChildForm() {
     
       const response = await axios.request(config).then(response =>{
         handleOpen();
-        refreshState(response.data.user);
+        refreshState(response.data.child);
       }).catch(error=>setShowErrorPopup(prevState => !prevState))
 
   };
@@ -270,7 +318,55 @@ function UpdateChildForm() {
             >
               سجل التحديثات
             </Button>
-
+          
+            {showDialogcode && (
+                  <Dialog
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                    onClose={() => setShowDialogcode(false)}
+                    open={showDialogcode}
+                  >
+                    <DialogTitle sx={{ alignSelf: 'center' }}>
+                      {' '}
+                      الرجاء كتابة الرقم السرّي
+                    </DialogTitle>
+                    <DialogContent sx={{ alignSelf: 'center' }}>
+                      <DialogContentText>
+                        <input
+                         value={password}
+                          type="number"
+                          placeholder="رقم السرّ"
+                          onChange={event =>{setPassword(event.target.value)}}
+                        
+                        />
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button
+                      onClick={() => {
+                        DeleteChild(studentId, password);
+                      }}
+                      
+                        type="submit"
+                        id="token"
+                        name="token"
+                        sx={{
+                          background:
+                            'linear-gradient(to bottom right, #FF0000,#FFFFFF )',
+                          width: '200px',
+                          height: '35px',
+                          borderRadius: '10px',
+                          color: 'white',
+                        }}
+                      >
+                        <span > تأكيد حذف الحساب </span>
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                )}
             <Button
               variant="contained"
               color="primary"
@@ -283,11 +379,14 @@ function UpdateChildForm() {
              
                 borderRadius: '10px',
               }}
+              onClick={() => {
+                handleDeleteChild();
+              }}
             
             >
-              حذف الحساب
+              حذف الحساب 
             </Button>
-
+ 
           </Stack>
         </Box>
       </form>
@@ -364,7 +463,7 @@ sx={{
   },
 }}
 >
-<DialogTitle>اسم الطفل و السنة الدراسية ضرورين لإضافة طفلك </DialogTitle>
+<DialogTitle>يوجد خطأ في تعديل المعطيات</DialogTitle>
 <DialogContent>
   <DialogContentText>يمكنك المحاولة ثانيةً</DialogContentText>
 </DialogContent>

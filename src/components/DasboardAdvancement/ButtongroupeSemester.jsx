@@ -21,14 +21,15 @@ export default function Buttongroup({buttonProps,handleChangeChapterId,onChapter
     const chapter2 = Chapter?.[1]?.name;
     const chapter3 = Chapter?.[2]?.name;
    
-    const options = [chapter1, chapter2, chapter3];
+    const options = ['كل الثلاثيات',chapter1, chapter2, chapter3];
 
     // retrive chapter id 
+    const AllChapiterId = '100';
     const chapter1Id = Chapter?.[0]?.id;
     const chapter2Id = Chapter?.[1]?.id;
     const chapter3Id = Chapter?.[2]?.id;
    
-    const ChapterId = [chapter1Id, chapter2Id, chapter3Id];
+    const ChapterId = [AllChapiterId,chapter1Id, chapter2Id, chapter3Id];
     
 
     const theme =useTheme();

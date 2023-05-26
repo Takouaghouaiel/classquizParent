@@ -23,6 +23,8 @@ const formatDate = (date) => {
   return formattedDate.substring(0, formattedDate.length - 4) + ' GMT';
 };
 
+
+
 const formattedStartDate = formatDate(previousWeek);
 const formattedEndDate = formatDate(currentDate);
 

@@ -20,15 +20,16 @@ export default function Buttongroup({ onSubjectButtonClick,handleChangeSubjectId
   const Math = Subjects?.[1]?.title;
   const Science = Subjects?.[2]?.title;
   const Frensh = Subjects?.[3]?.title;
-  const options = [Arabic, Math, Science, Frensh];
+  const options = ['كل المواد',Arabic, Math, Science, Frensh];
   
 // retrive subject's id
+const AllSubjectId = '100';
 const ArabicId = Subjects?.[0]?.id;
 const MathId = Subjects?.[1]?.id;
 const ScienceId = Subjects?.[2]?.id;
 const FrenshId = Subjects?.[3]?.id;
 
-const SubjectId = [ArabicId, MathId, ScienceId, FrenshId];
+const SubjectId = [AllSubjectId,ArabicId, MathId, ScienceId, FrenshId];
 // console.log(SubjectId);
  
 

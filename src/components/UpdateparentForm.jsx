@@ -147,7 +147,7 @@ function UpdateparentForm() {
       const response = await axios.request(config).then(response =>{
         handleOpen();
         refreshState(response.data.user)
-        console.log(JSON.stringify(response.data));
+        console.log(JSON.stringify(response.data.user));
       }).catch(error=>setShowErrorPopup(true))
 
     };

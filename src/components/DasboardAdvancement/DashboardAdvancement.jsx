@@ -11,11 +11,7 @@ import Progressicon from '../../images/Progressicon.png';
 import { useAcheivement } from '../../context/AcheivementContext';
 import { useParams } from 'react-router-dom';
 function DashboardAdvancement() {
-  const { studentId } = useParams();
-  const { student, QuizoData, AcheivementData,getMistakesbySubjects } = useAcheivement();
-// React.useEffect( ()=>{
-//   getMistakesbySubjects(studentId)
-// } )
+  const { student, QuizoData, AcheivementData } = useAcheivement();
 
   const items = [
     {
@@ -54,7 +50,7 @@ function DashboardAdvancement() {
       titlle: 'نسبة التميّز',
       iconn: <img src={Star} alt="star" width={50} />,
       progressvalue:
-        AcheivementData?.stars % (AcheivementData?.totalExercises * 3),
+        ((AcheivementData?.stars) % (AcheivementData?.totalExercises * 3))%100,
     },
     {
       id: 2,

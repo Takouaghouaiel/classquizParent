@@ -11,6 +11,7 @@ export default function AuthProvider({ children }) {
   const [PasswordBorderColor, setPasswordBorderColor] = useState('#707070');
   const [message, setMessage] = useState(''); 
   const [user, setUser] = useState(null);
+  const [Child, setChild] = useState(null);
   const [loginData, setLoginData] = useState(null);
   
   const navigateTo = useNavigate(); // initialize the navigate function
@@ -78,18 +79,19 @@ export default function AuthProvider({ children }) {
   };
   
 
-  const refreshState = (updatedUser)=>{
+  const refreshState = (updatedUser,updatedChild)=>{
     localStorage.setItem('user', JSON.stringify(updatedUser))
+    localStorage.setItem('child',JSON.stringify(updatedChild))
+    setChild(updatedChild)
     setUser(updatedUser)
   
   }
   React.useEffect(()=>{
     const connectedUser = JSON.parse(localStorage.getItem('user'))
     setUser(connectedUser) ; 
-    // console.log(connectedUser);
-
-
-
+    const currentChild = JSON.parse(localStorage.getItem('child'))
+    setUser(currentChild) ; 
+   
   },[])
 
   return (

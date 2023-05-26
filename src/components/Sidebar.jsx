@@ -177,7 +177,7 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                   />
                 </NavLink>
               </ListItem>
-              {/* <ListItem
+              <ListItem
                 button
                 sx={{
                   '&:hover': {
@@ -197,10 +197,10 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                   <ListItemText
                     sx={{ paddingLeft: '30%' }}
                     primaryTypographyProps={{ variant: 'h5' }}
-                    primary="العروض "
+                    primary="إعدادات  "
                   />
                 </NavLink>
-              </ListItem> */}
+              </ListItem>
 
               <ListItem
                 button

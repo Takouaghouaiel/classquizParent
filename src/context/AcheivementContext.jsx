@@ -505,7 +505,7 @@ export default function AcheivementProvider({ children }) {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            password: 3113,
+            password: password,
           }),
         }
       );

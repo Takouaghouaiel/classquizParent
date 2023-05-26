@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import GroupsIcon from '@mui/icons-material/Groups';
 import addicon from '../images/addicon.png';
 import {
@@ -9,45 +9,16 @@ import {
   Typography,
   Grid,
   ButtonBase,
-  ListItem,
-  List,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
 } from '@mui/material';
-import Button from '@mui/material/Button';
-import { useNavigate,useParams } from 'react-router-dom';
-import { useAcheivement } from '../context/AcheivementContext';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
 const Liste = ({ childrenList }) => {
 
-  const { DeleteChild } = useAcheivement();
-  const [showDialogcode, setShowDialogcode] = useState(false);
-  const [showContextMenu, setShowContextMenu] = useState(false);
-  const [password, setPassword] = useState('');
-  const handleContextMenu = event => {
-    event.preventDefault();
-    setShowContextMenu(true);
-  };
-  const { studentId } = useParams();
-  // console.log(studentId);
   const navigate = useNavigate();
 
-  const handleshowpsswdverification = () => {
-    setShowDialogcode(true);
-  };
-
-  const handleDeleteChild = async () => {
-    try {
-      await DeleteChild(studentId);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
 
   // Create an "Add child" card object
   const addChildCard = {
@@ -113,66 +84,6 @@ const Liste = ({ childrenList }) => {
                     {child.fullName}
                   </Typography>
                 </ButtonBase>
-                {showContextMenu && index < childrenList.length && (
-                  <Box sx={{ color: 'white' }} className="context-menu">
-                    <List>
-                      <ListItem
-                        onClick={() => {
-                          handleshowpsswdverification();
-                        }}
-                      >
-                        Delete
-                      </ListItem>
-                      <ListItem >Update</ListItem>
-                    </List>
-                  </Box>
-                )}
-                {showDialogcode && (
-                  <Dialog
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                    onClose={() => setShowDialogcode(false)}
-                    open={showDialogcode}
-                  >
-                    <DialogTitle sx={{ alignSelf: 'center' }}>
-                      {' '}
-                      الرجاء كتابة الرقم السرّي
-                    </DialogTitle>
-                    <DialogContent sx={{ alignSelf: 'center' }}>
-                      <DialogContentText>
-                        <input
-                          type="number"
-                          placeholder="رقم السرّ"
-                          onChange={event =>{setPassword(event.target.value)}}
-                        
-                        />
-                      </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button
-                        onClick={() => {
-                          handleDeleteChild();
-                        }}
-                        type="submit"
-                        id="token"
-                        name="token"
-                        sx={{
-                          background:
-                            'linear-gradient(to bottom right, #FF0000,#FFFFFF )',
-                          width: '200px',
-                          height: '35px',
-                          borderRadius: '10px',
-                          color: 'white',
-                        }}
-                      >
-                        <span>حذف الحساب </span>
-                      </Button>
-                    </DialogActions>
-                  </Dialog>
-                )}
               </CardContent>
             </Card>
           </Grid>
