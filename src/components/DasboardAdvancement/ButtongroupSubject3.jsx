@@ -11,53 +11,52 @@ import MenuList from '@mui/material/MenuList';
 import { useTheme } from '@mui/material/styles';
 import { useAcheivement } from '../../context/AcheivementContext';
 
+export default function Buttongroup({
+  onSubjectButtonClick,
+  handleScoreTypeChange,
+  handlegetMistakesbySubject,
+}) {
+  const { Subjects } = useAcheivement();
 
-export default function Buttongroup({buttonProps,handleChangeChapterId,onChapterButtonClick,handleScoreTypeChange}) {
+  // retrive subject titles
+  const Arabic = Subjects?.[0]?.title;
+  const Math = Subjects?.[1]?.title;
+  const Science = Subjects?.[2]?.title;
+  const Frensh = Subjects?.[3]?.title;
+  const options = [Arabic, Math, Science, Frensh];
 
-  const { Chapter} = useAcheivement();
+  // retrive subject's id
+  const ArabicId = Subjects?.[0]?.id;
+  const MathId = Subjects?.[1]?.id;
+  const ScienceId = Subjects?.[2]?.id;
+  const FrenshId = Subjects?.[3]?.id;
 
-  // retrive chapter titles 
-    const chapter1 = Chapter?.[0]?.name;
-    const chapter2 = Chapter?.[1]?.name;
-    const chapter3 = Chapter?.[2]?.name;
-   
-    const options = [chapter1, chapter2, chapter3];
+  const SubjectId = [ArabicId, MathId, ScienceId, FrenshId];
 
-    // retrive chapter id 
-  
-    const chapter1Id = Chapter?.[0]?.id;
-    const chapter2Id = Chapter?.[1]?.id;
-    const chapter3Id = Chapter?.[2]?.id;
-   
-    const ChapterId = [chapter1Id, chapter2Id, chapter3Id];
-    
+  const handleClick = () => {
+    console.info(`You clicked ${options[selectedIndex]}`);
+    onSubjectButtonClick();
+    handleScoreTypeChange('subject');
+  };
 
-    const theme =useTheme();
-
+  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
-  const handleClick = () => {
-    console.info(`You clicked ${options[selectedIndex]}`);
-    onChapterButtonClick();
-    handleScoreTypeChange('semester');
-  };
-
-  const handleMenuItemClick = (chapterId) => {
-    setSelectedIndex(chapterId);
+  const handleMenuItemClick = (event, index) => {
+    setSelectedIndex(index);
     setOpen(false);
-    onChapterButtonClick();
-    handleChangeChapterId(ChapterId[chapterId]);
-    handleScoreTypeChange('semester');
+    onSubjectButtonClick();
+    handlegetMistakesbySubject(SubjectId[index]);
+    handleScoreTypeChange('subject');
   };
 
   const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-
+    setOpen(prevOpen => !prevOpen);
   };
 
-  const handleClose = (event) => {
+  const handleClose = event => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
@@ -67,23 +66,29 @@ export default function Buttongroup({buttonProps,handleChangeChapterId,onChapter
 
   return (
     <React.Fragment>
-      <ButtonGroup variant="string" sx={{backgroundColor: theme.palette.secondary.myblue,color:theme.palette.secondary.white}} ref={anchorRef} aria-label="split button" >
-        <Button sx={{color: theme.palette.secondary.white}}onClick={handleClick}>{options[selectedIndex]}</Button>
+      <ButtonGroup
+        variant="string"
+        sx={{
+          backgroundColor: theme.palette.secondary.myblue,
+          color: theme.palette.secondary.white,
+        }}
+        ref={anchorRef}
+        aria-label="split button"
+      >
+        <Button onClick={handleClick}>{options[selectedIndex]}</Button>
         <Button
           size="small"
           aria-controls={open ? 'split-button-menu' : undefined}
           aria-expanded={open ? 'true' : undefined}
           aria-label="قائمة المواد"
           aria-haspopup="menu"
-          {...buttonProps} 
           onClick={handleToggle}
         >
           <ArrowDropDownIcon />
         </Button>
       </ButtonGroup>
       <Popper
-        sx={{zIndex: 1,
-        }}
+        sx={{ zIndex: 1 }}
         open={open}
         anchorEl={anchorRef.current}
         role={undefined}
@@ -104,9 +109,8 @@ export default function Buttongroup({buttonProps,handleChangeChapterId,onChapter
                   {options.map((option, index) => (
                     <MenuItem
                       key={option}
-                    
                       selected={index === selectedIndex}
-                      onClick={() => handleMenuItemClick(index)}
+                      onClick={event => handleMenuItemClick(event, index)}
                     >
                       {option}
                     </MenuItem>

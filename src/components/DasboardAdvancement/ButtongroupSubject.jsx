@@ -11,35 +11,34 @@ import MenuList from '@mui/material/MenuList';
 import { useTheme } from '@mui/material/styles';
 import { useAcheivement } from '../../context/AcheivementContext';
 
-export default function Buttongroup({ onSubjectButtonClick,handleChangeSubjectId },handleScoreTypeChange) {
+export default function Buttongroup({
+  onSubjectButtonClick,
+  handleScoreTypeChange,
+  handleChangeSubjectId,
+}) {
+  const { Subjects } = useAcheivement();
 
-  const { Subjects} = useAcheivement();
-
-// retrive subject titles 
+  // retrive subject titles
   const Arabic = Subjects?.[0]?.title;
   const Math = Subjects?.[1]?.title;
   const Science = Subjects?.[2]?.title;
   const Frensh = Subjects?.[3]?.title;
-  const options = ['كل المواد',Arabic, Math, Science, Frensh];
-  
-// retrive subject's id
-const AllSubjectId = '100';
-const ArabicId = Subjects?.[0]?.id;
-const MathId = Subjects?.[1]?.id;
-const ScienceId = Subjects?.[2]?.id;
-const FrenshId = Subjects?.[3]?.id;
+  const options = [Arabic, Math, Science, Frensh];
 
-const SubjectId = [AllSubjectId,ArabicId, MathId, ScienceId, FrenshId];
-// console.log(SubjectId);
- 
+  // retrive subject's id
+
+  const ArabicId = Subjects?.[0]?.id;
+  const MathId = Subjects?.[1]?.id;
+  const ScienceId = Subjects?.[2]?.id;
+  const FrenshId = Subjects?.[3]?.id;
+
+  const SubjectId = [ArabicId, MathId, ScienceId, FrenshId];
 
   const handleClick = () => {
     console.info(`You clicked ${options[selectedIndex]}`);
     onSubjectButtonClick();
-     handleScoreTypeChange('subject');
-  
+    handleScoreTypeChange('subject');
   };
-
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -47,7 +46,6 @@ const SubjectId = [AllSubjectId,ArabicId, MathId, ScienceId, FrenshId];
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const handleMenuItemClick = (event, index) => {
-
     setSelectedIndex(index);
     setOpen(false);
     onSubjectButtonClick();
@@ -57,7 +55,6 @@ const SubjectId = [AllSubjectId,ArabicId, MathId, ScienceId, FrenshId];
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
-    
   };
 
   const handleClose = event => {
@@ -81,15 +78,15 @@ const SubjectId = [AllSubjectId,ArabicId, MathId, ScienceId, FrenshId];
       >
         <Button onClick={handleClick}>{options[selectedIndex]}</Button>
         <Button
-  size="small"
-  aria-controls={open ? 'split-button-menu' : undefined}
-  aria-expanded={open ? 'true' : undefined}
-  aria-label="قائمة المواد"
-  aria-haspopup="menu"
-  onClick={handleToggle}
->
-   <ArrowDropDownIcon />
-</Button>
+          size="small"
+          aria-controls={open ? 'split-button-menu' : undefined}
+          aria-expanded={open ? 'true' : undefined}
+          aria-label="قائمة المواد"
+          aria-haspopup="menu"
+          onClick={handleToggle}
+        >
+          <ArrowDropDownIcon />
+        </Button>
       </ButtonGroup>
       <Popper
         sx={{ zIndex: 1 }}

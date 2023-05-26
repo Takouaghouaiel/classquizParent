@@ -34,7 +34,7 @@ function chunk(array, size) {
     }, []);
   }
   
-export default function SubjectCards(scoreType) {
+export default function SubjectCards({scoreType}) {
     const { StatesbySubjects,StatesbySubjectsANDChapiter ,States} = useAcheivement();
   
 

@@ -1,11 +1,14 @@
 import React, { useState ,useEffect} from 'react';
 import { Box, Card, CardHeader, Typography, Grid, Stack,Button } from '@mui/material';
-import ButtongroupSubject2 from './ButtongroupSubject2.jsx';
-import ButtongroupSemester2 from './ButtongroupeSemester.jsx';
+import ButtongroupSubject3 from './ButtongroupSubject3.jsx';
+import ButtongroupSemester3 from './ButtongroupeSemester3.jsx';
 import ButtonPagination from './ButtonPagination.jsx';
 import MistakesTable from './MistakesTable.jsx';
 import { useAcheivement } from '../../context/AcheivementContext.jsx';
 import { useParams } from 'react-router-dom';
+
+
+
 export default function MistakeTable() {
   let { studentId } = useParams();
   const { getMistakesbySubjects ,getMistakesbySubjectsANDChapiter,getMistakes} = useAcheivement();
@@ -49,6 +52,9 @@ export default function MistakeTable() {
    
   }, []);
 
+
+  
+
   return (
     <Card
       sx={{
@@ -83,14 +89,14 @@ export default function MistakeTable() {
               marginLeft: '10%',
             }}
           >
-            <ButtongroupSemester2 
+            <ButtongroupSemester3
      
             buttonProps={{ disabled: isButtonDisabled }}
             onChapterButtonClick={handleChapterButtonClick}
             handleChangeChapterId={handleChangeChapterId}
             handleScoreTypeChange={handleScoreTypeChange}
             />
-            <ButtongroupSubject2
+            <ButtongroupSubject3
        
               onSubjectButtonClick={handleSubjectButtonClick}
               handlegetMistakesbySubject={handlegetMistakesbySubject}

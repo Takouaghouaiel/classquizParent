@@ -2,19 +2,20 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Box, Card, CardHeader, Typography } from '@mui/material';
 import ButtongroupSubject from './ButtongroupSubject.jsx';
-import ButtongroupSemester from './ButtongroupeSemester.jsx';
+import ButtongroupeSemester from './ButtongroupeSemester.jsx';
 import SubjectChart from './SubjectChart.jsx';
 import SubjectCards from './SubjectCards.jsx';
 import { useParams } from 'react-router-dom';
 import { useAcheivement } from '../../context/AcheivementContext.jsx';
+
+
 export default function Subjectadvancement() {
   let { studentId } = useParams();
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [selectedSubjectId, setSelectedSubjectId] = useState(null);
   const [selectedChapterId, setselectedchapterid] = useState(1);
 
-  let { getStatesbySubjects, getStatesbySubjectsANDChapiter } =
-    useAcheivement();
+  const { getStatesbySubjects, getStatesbySubjectsANDChapiter,getStates } =useAcheivement();
 
   const [scoreType, setScoreType] = useState('');
   const handleScoreTypeChange = newScoreType => {
@@ -45,12 +46,9 @@ export default function Subjectadvancement() {
   };
 
   useEffect(() => {
-    // getStatesbySubjects(studentId, selectedSubjectId)
-    // getStatesbySubjectsANDChapiter(   studentId,
-    //   selectedSubjectId,
-    //   selectedChapterId)
+    getStates(studentId)
+   
   }, []);
-
 
   return (
     <Card
@@ -85,7 +83,7 @@ export default function Subjectadvancement() {
             marginLeft: '20%',
           }}
         >
-          <ButtongroupSemester
+          <ButtongroupeSemester
             buttonProps={{ disabled: isButtonDisabled }}
             onChapterButtonClick={handleChapterButtonClick}
             handleChangeChapterId={handleChangeChapterId}
