@@ -12,7 +12,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import faker from 'faker';
+
 
 ChartJS.register(
   CategoryScale,
@@ -56,8 +56,6 @@ const Exercices = scoreType === 'subject'
   : Progress ? Object.values(Progress).map(item => item.details?.nbrQuestions) : [];
 
 
-// console.log(Mistakes);
-
   const date =
   scoreType === 'subject'
     ? ProgressbySubjects ? Object.values(ProgressbySubjects).map(item => item.date) : []
@@ -92,7 +90,7 @@ const Exercices = scoreType === 'subject'
 
   return (
   <Box sx={{  border: '2px solid #3BC5CA', borderRadius: 2, width: '60%', margin: 'auto' }}>
-  <Line  options={options} data={data} />;
+  <Line  options={options} data={data} />
   </Box>
   )
 }

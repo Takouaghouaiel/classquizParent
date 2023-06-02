@@ -13,7 +13,7 @@ import DashboardAchievement from './components/DashboardAchievement';
 import DashboardSupport from './components/DashboardSupport';
 import DashboardAdvancement from './components/DasboardAdvancement/DashboardAdvancement';
 import DashboardBehaviours from './components/DashboardBehaviour/DashboardBehaviours';
-import DashboardSubscription from './components/DashboardSubscription';
+import DashboardUpdateChild from './components/DashboardUpdateChild';
 import UpdateParent from './layouts/UpdateParent';
 import UpdateChild from './layouts/UpdateChild';
 import Addchild from './layouts/addchild';
@@ -62,6 +62,7 @@ function App() {
               <Route path="support" index element={<DashboardSupport />} />
 
               <Route path="behaviours" element={<DashboardBehaviours />} />
+              <Route path="UpdateChild" element={<DashboardUpdateChild />} />
             </Route>
             <Route
               path="/dashboard/:studentId/behaviours/quiz1"

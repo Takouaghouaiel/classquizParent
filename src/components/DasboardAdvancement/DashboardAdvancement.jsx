@@ -36,9 +36,10 @@ function DashboardAdvancement() {
       id: 3,
       title: ' Quizo : ' + (student?.quizoId ?? ''),
       icon: (
-        <Avatar
+        <img
           alt="User Quizo"
-          sx={{ width: 100, height: 100 }}
+          width='30%'
+          // sx={{ width: 100, height: 100 }}
           src={QuizoData?.imgUrl}
         />
       ),

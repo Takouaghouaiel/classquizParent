@@ -34,7 +34,7 @@ const SecondCardContent = ({
     >
       <Stack>
         {icon}
-        <Typography sx={{ color: '#3BC5CA' }}>{title}</Typography>
+        <Typography sx={{ color: '#3BC5CA'}}>{title}</Typography>
         {index === 0 && (
           <>
             <Typography sx={{ color: 'gray' }}>

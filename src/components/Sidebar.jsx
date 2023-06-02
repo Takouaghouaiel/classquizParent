@@ -191,7 +191,7 @@ function Sidebar({ handleLogout, isSideBarOpen }) {
                   <Subscription />
                 </ListItemIcon>
                 <NavLink
-                  to={`/dashboard/${studentId}/subscription`}
+                  to={`/dashboard/${studentId}/UpdateChild`}
                   style={{ textDecoration: 'none', color: 'inherit' }}
                 >
                   <ListItemText

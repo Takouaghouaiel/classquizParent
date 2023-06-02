@@ -22,10 +22,10 @@ import { useParams } from 'react-router-dom';
 function UpdateChildForm() {
 // const {studentId}=useParams();
 
-const { child: currentChild ,refreshState} = useAcheivement();
+const { child: currentChild } = useAcheivement();
  const {student,getStudentDetails } = useAcheivement();
  const studentId=student?.id
-// console.log(studentId);
+// console.log(student);
 
  useEffect(() => {
     getStudentDetails(studentId);
@@ -34,34 +34,33 @@ const { child: currentChild ,refreshState} = useAcheivement();
    
   const [password, setPassword] = useState('');
 
-  const DeleteChild = async (studentId,password) => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.delete(
-        `https://api.omega.classquiz.tn/v2/students/${studentId}/delete`,
-      {
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        data: {
-          password: password,
-        },
-      }
-    );
-      if (response.status === 200) {
-        const data = response.data;
 
-    
-      } else if (response.status === 401) {
-        throw new Error('Failure DeleteChild');
-      } else {
-        throw new Error(`Unexpected response status: ${response.status}`);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  
+    const DeleteChild = async (studentId,password) => {
+      const token = localStorage.getItem('token');
+  
+        const config = {
+          method: 'Delete',
+          maxBodyLength: Infinity,
+          url: `https://api.omega.classquiz.tn/v2/students/${studentId}/delete`,
+          headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token,
+          },
+          data: {
+           password:password
+           
+          },
+        };
+      
+        try {
+          await axios.request(config);
+          handleSuccessDeleteOpen(); // Trigger success popup
+        } catch (error) {
+          setShowErrorPopup(true); // Trigger error popup
+        }
+      };
+
 
   const [fullName, setfullName] = React.useState('');
   const [school, setschool] = React.useState('');
@@ -71,12 +70,12 @@ const { child: currentChild ,refreshState} = useAcheivement();
   const [showDialogcode, setShowDialogcode] = useState(false);
   const [showErrorPopup, setShowErrorPopup] = useState(false);
  
-  useEffect(() => {
-    setfullName(currentChild?.fullName);
-    setschool(currentChild?.school);
-    setSelectedYear({ id: currentChild?.state?.id || undefined, name: currentChild?.state?.name || undefined });
-    setGender(currentChild?.gender);
-  }, [currentChild]);
+  // useEffect(() => {
+  //   setfullName(student?.fullName);
+  //   setschool(student?.school);
+  //   setSelectedYear({ id: student?.state?.id || undefined, name: student?.state?.name || undefined });
+  //   setGender(student?.gender);
+  // }, [student]);
   
   const handleshowpsswdverification = () => {
     setShowDialogcode(true);
@@ -117,18 +116,28 @@ const { child: currentChild ,refreshState} = useAcheivement();
 
   // popup
   const [open, setOpen] = useState(false);
+  const [opensuccessdelete,setopensuccessdelete]= useState(false);
 
 
   const handleOpen = () => {
     setOpen(true);
-    setShowErrorPopup(prevState => !prevState)
+    setShowErrorPopup(false)
  
   };
 
+  const handleSuccessDeleteOpen=()=>{
+    setopensuccessdelete(true);
+  }
+  
+  const handleCloseDelete=()=>{
+     setopensuccessdelete(false);
+     navigate('/children/');
+
+  }
   const handleClose = () => {
     setOpen(false);
   
-    navigate('/dashboard/'+studentId +'/advancement');
+    navigate('/dashboard/'+studentId +'/UpdateChild');
   };
 
   const handleCloseErrorPopup = () => {
@@ -154,9 +163,7 @@ const { child: currentChild ,refreshState} = useAcheivement();
 
   let navigate = useNavigate();
 
-  const handleBack = () => {
-    navigate(-1);
-  };
+
 
 
   const handleSubmit = event => {
@@ -183,22 +190,17 @@ const { child: currentChild ,refreshState} = useAcheivement();
         },
       };
     
-      const response = await axios.request(config).then(response =>{
-        handleOpen();
-        refreshState(response.data.child);
-      }).catch(error=>setShowErrorPopup(prevState => !prevState))
-
-  };
+      try {
+        await axios.request(config);
+        handleOpen(); // Trigger success popup
+      } catch (error) {
+        setShowErrorPopup(true); // Trigger error popup
+      }
+    };
 
   return (
     <Box>
-      <Button
-        sx={{ color: 'grey' }}
-        startIcon={<ArrowBack />}
-        onClick={handleBack}
-      >
-        رجوع
-      </Button>
+   
 
       <form onSubmit={handleSubmit}>
         <Box
@@ -410,9 +412,7 @@ const { child: currentChild ,refreshState} = useAcheivement();
         }}
       >
         <DialogTitle>لقد تم تعديل المعطيات بنجاح</DialogTitle>
-        <DialogContent>
-          <DialogContentText>يمكنك الرجوع إلى ملف طفلك </DialogContentText>
-        </DialogContent>
+      
         <DialogActions
           sx={{
             display: 'flex',
@@ -441,7 +441,7 @@ const { child: currentChild ,refreshState} = useAcheivement();
             }}
             onClick={handleClose}
           >
-            أنا موافق
+            حسنا
           </Button>
         </DialogActions>
       </Dialog>
@@ -499,6 +499,61 @@ sx={{
   </Button>
 </DialogActions>
 </Dialog>
+
+<Dialog
+        open={opensuccessdelete}
+        onClose={handleCloseDelete}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          '& .MuiDialogContent-root': {
+            textAlign: 'center',
+          },
+          '@media (max-width: 600px)': {
+            '& .MuiDialogTitle-root, & .MuiDialogActions-root': {
+              textAlign: 'center',
+            },
+          },
+        }}
+      >
+        <DialogTitle>لقد تم حذف الحساب بنجاح</DialogTitle>
+        <DialogContent> يمكنك الرجوع إلى قائمة الأطفال</DialogContent>
+      
+        <DialogActions
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            '& .MuiDialogContent-root': {
+              textAlign: 'center',
+            },
+            '@media (max-width: 600px)': {
+              '& .MuiDialogTitle-root, & .MuiDialogActions-root': {
+                textAlign: 'center',
+              },
+            },
+          }}
+        >
+          <Button
+            type="submit"
+            sx={{
+              alignSelf: 'center',
+              background: 'linear-gradient(to bottom right, #1CC3CB, #67D5D7)',
+              width: '200px',
+              height: '35px',
+              borderRadius: '10px',
+              color: 'white',
+            }}
+            onClick={handleCloseDelete}
+          >
+            حسنا
+          </Button>
+        </DialogActions>
+      </Dialog>
+      
     </Box>
   );
 }
