@@ -10,26 +10,7 @@ import { useParams } from 'react-router-dom';
 function Dashboard() {
   
   
-const currentDate = new Date();
-// const previousWeek = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
-const previousWeek = getDateBefore(365);
 
-const formatDate = (date) => {
-  const formattedDate = date.toUTCString();
-  return formattedDate.substring(0, formattedDate.length - 4) + ' GMT';
-};
-
-function getDateBefore(numOfDays) {
-  const today = new Date(); // Get the current date
-  const previousDate = new Date(today); // Create a new date object with the current date
-
-  previousDate.setDate(today.getDate() - numOfDays); // Subtract numOfDays from the current date
-
-  return previousDate;
-}
-
-const formattedStartDate = formatDate(previousWeek);
-const formattedEndDate = formatDate(currentDate);
   const {getQuizo,getStates,getLastAchievement,getStudentDetails,getSubjects,getChapter,getProgress}= useAcheivement();
   const { studentId,startDate,endDate } = useParams();
 
@@ -39,9 +20,7 @@ const formattedEndDate = formatDate(currentDate);
     getQuizo(studentId);
     getStates(studentId);
     getSubjects(studentId);
-    getChapter();
-   getProgress(studentId,formattedStartDate,formattedEndDate);
-   
+    getChapter();   
   }, []);
 
   const [isDrawerOpen, toggleDrawer] = useState(false);

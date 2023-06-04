@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Card, CardHeader, Typography, Grid, Stack } from '@mui/material';
 import ButtongroupSubject from './ButtongroupSubject.jsx';
 import ButtongroupSemester from './ButtongroupeSemester.jsx';
@@ -15,22 +15,10 @@ export default function TrackingCharts() {
   const [selectedChapterId, setselectedchapterid] = useState(1);
 
 
-const currentDate = new Date();
-const previousWeek = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
-
-const formatDate = (date) => {
-  const formattedDate = date.toUTCString();
-  return formattedDate.substring(0, formattedDate.length - 4) + ' GMT';
-};
 
 
-
-const formattedStartDate = formatDate(previousWeek);
-const formattedEndDate = formatDate(currentDate);
-
-const [startDate, setStartDate] = useState(formattedStartDate);
-const [endDate, setEndDate] = useState(formattedEndDate);
-
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   let { getProgress, getProgressbySubjects, getProgressbySubjectsANDChapiter } =
     useAcheivement();
@@ -82,6 +70,31 @@ const [endDate, setEndDate] = useState(formattedEndDate);
     }
   };
 
+  const formatDate = date => {
+    const formattedDate = date.toUTCString();
+    return formattedDate.substring(0, formattedDate.length - 4) + ' GMT';
+  };
+
+  function getDateBefore(numOfDays) {
+    const today = new Date(); // Get the current date
+    const previousDate = new Date(today); // Create a new date object with the current date
+
+    previousDate.setDate(today.getDate() - numOfDays); // Subtract numOfDays from the current date
+
+    return previousDate;
+  }
+  useEffect(() => {
+  
+    const currentDate = new Date();
+    const previousWeek = getDateBefore(30);
+
+    const formattedStartDate = formatDate(previousWeek);
+    const formattedEndDate = formatDate(currentDate);
+    setStartDate(formattedStartDate);
+    setEndDate(formattedEndDate);
+
+    getProgress(studentId, formattedStartDate, formattedEndDate);
+  }, []);
   return (
     <Card
       sx={{
