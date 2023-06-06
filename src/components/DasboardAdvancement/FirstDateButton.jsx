@@ -3,13 +3,13 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import dayjs from 'dayjs';
 
-
-export default function FirstDateButton({ handleChangeStartDate }, startDate,endDate) {
-  const handleDate = (startDate,endDate) => {
-    handleChangeStartDate(startDate,endDate);
-    console.log(startDate,endDate);
+export default function FirstDateButton({ handleChangeStartDate, startDate,endDate }) {
+  const handleDate = (value) => {
+    handleChangeStartDate(value);
   };
+
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -24,12 +24,11 @@ export default function FirstDateButton({ handleChangeStartDate }, startDate,end
               border: '2px solid #3BC5CA',
             },
           }}
-          value={startDate}
+          defaultValue={dayjs(startDate)}
           onChange={handleDate}
         />
       </DemoContainer>
     </LocalizationProvider>
   );
 }
-
 

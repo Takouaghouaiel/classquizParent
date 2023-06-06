@@ -17,7 +17,7 @@ export default function DashboardBehaviours() {
   const { studentId } = useParams();
   let navigate = useNavigate();
   const [QuizType, setQuizType] = useState(null);
-  // const [ResultisVisible, setResultIsVisible] = useState(false);
+
 
   useEffect(() => {
     const fetchQuizType = async () => {
@@ -145,7 +145,7 @@ export default function DashboardBehaviours() {
         </Card>
       </Grid>
       <Grid>
-{/* {ResultisVisible && <QuizResult />} */}
+
 <QuizResult/>
 </Grid>
     </Stack>

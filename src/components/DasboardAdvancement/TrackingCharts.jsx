@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Box, Card, CardHeader, Typography, Grid, Stack } from '@mui/material';
 import ButtongroupSubject from './ButtongroupSubject.jsx';
 import ButtongroupSemester from './ButtongroupeSemester.jsx';
@@ -13,9 +13,6 @@ export default function TrackingCharts() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [selectedSubjectId, setSelectedSubjectId] = useState(null);
   const [selectedChapterId, setselectedchapterid] = useState(1);
-
-
-
 
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -56,23 +53,11 @@ export default function TrackingCharts() {
   };
 
   const handleChangeStartDate = date => {
-    setStartDate();
-
-    if (startDate && endDate) {
-      handleChangedate();
-    }
+    setStartDate(dateFormater(date), handleChangedate);
   };
 
   const handleChangeEndDate = date => {
-    setEndDate(date);
-    if (startDate && endDate) {
-      handleChangedate();
-    }
-  };
-
-  const formatDate = date => {
-    const formattedDate = date.toUTCString();
-    return formattedDate.substring(0, formattedDate.length - 4) + ' GMT';
+    setEndDate(dateFormater(date),handleChangedate);
   };
 
   function getDateBefore(numOfDays) {
@@ -84,17 +69,22 @@ export default function TrackingCharts() {
     return previousDate;
   }
   useEffect(() => {
-  
     const currentDate = new Date();
     const previousWeek = getDateBefore(30);
 
-    const formattedStartDate = formatDate(previousWeek);
-    const formattedEndDate = formatDate(currentDate);
+    const formattedStartDate = dateFormater(previousWeek);
+
+    const formattedEndDate = dateFormater(currentDate);
+
     setStartDate(formattedStartDate);
     setEndDate(formattedEndDate);
 
     getProgress(studentId, formattedStartDate, formattedEndDate);
   }, []);
+
+  useMemo(() =>{
+     getProgress(studentId,startDate,endDate)
+  }, [startDate,endDate])
   return (
     <Card
       sx={{
@@ -127,15 +117,15 @@ export default function TrackingCharts() {
             <Grid item>
               <SecondDateButton
                 handleChangeEndDate={handleChangeEndDate}
-                endDate
-                startDate
+                endDate={startDate}
+                startDate={endDate}
               />
             </Grid>
             <Grid item>
               <FirstDateButton
                 handleChangeStartDate={handleChangeStartDate}
-                startDate
-                endDate
+                startDate={startDate}
+                endDate={endDate}
               />
             </Grid>
             <Grid item>
@@ -173,3 +163,9 @@ export default function TrackingCharts() {
     </Card>
   );
 }
+const dateFormater = date => {
+  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  const formatter = new Intl.DateTimeFormat('en-US', options);
+  const formattedDate = formatter.format(date);
+  return formattedDate; // Output: '06/04/2023'
+};

@@ -62,7 +62,7 @@ const SmartQuiz = () => {
   const [questionId, setquestionId] = useState(0);
   const [responses, setresponses] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  // const [quizCompleted, setQuizCompleted] = useState(true);
+
  
   let navigate = useNavigate();
   // popup

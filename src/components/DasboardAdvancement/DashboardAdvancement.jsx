@@ -24,24 +24,39 @@ function DashboardAdvancement() {
     {
       id: 2,
       title: ' Avatar : ' + (student?.id ?? ''),
+
       icon: (
-        <Avatar
-          alt="User Avatar"
-          sx={{ width: 100, height: 100 }}
-          src={student?.avatar?.urlPath}
-        />
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%',
+        }}>
+          <img
+             alt="User Avatar"
+            width='30%'
+            src={student?.avatar?.urlPath}
+          />
+        </div>
       ),
+
     },
     {
       id: 3,
       title: ' Quizo : ' + (student?.quizoId ?? ''),
       icon: (
-        <img
-          alt="User Quizo"
-          width='30%'
-          // sx={{ width: 100, height: 100 }}
-          src={QuizoData?.imgUrl}
-        />
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%',
+        }}>
+          <img
+            alt="User Quizo"
+            width='30%'
+            src={QuizoData?.imgUrl}
+          />
+        </div>
       ),
     },
   ];

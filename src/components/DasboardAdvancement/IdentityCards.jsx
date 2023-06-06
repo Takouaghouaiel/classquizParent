@@ -8,7 +8,7 @@ import { styled } from '@mui/material/styles';
 import LinearProgress, {
   linearProgressClasses,
 } from '@mui/material/LinearProgress';
-import { motion } from "framer-motion"
+
 const SecondCardContent = ({
   icon,
   iconn,
@@ -30,6 +30,7 @@ const SecondCardContent = ({
         flexDirection: 'row',
         textAlign: 'center',
         color: 'white',
+      
       }}
     >
       <Stack>
@@ -139,7 +140,7 @@ const CardList = ({ items, scoreitems }) => {
                     {scoreitem.iconn}
                     {scoreitem.titlle}
                     <Box sx={styles.progressValue}>
-                      <Typography sx={{fontWeight: 'bold',}}> {scoreitem.progressvalue}</Typography>
+                      <Typography sx={{fontWeight: 'bold'}}> {scoreitem.progressvalue}</Typography>
                     </Box>
                   </Stack>
 
